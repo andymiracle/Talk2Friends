@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_friend.xml" value="0.1" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_login.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_meeting.xml" value="0.1" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_signup.xml" value="0.17447916666666666" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_user.xml" value="0.1" />
       </map>
     </option>
   </component>
