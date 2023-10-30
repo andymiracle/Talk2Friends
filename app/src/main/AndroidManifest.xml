@@ -16,6 +16,12 @@
         android:theme="@style/Theme.Talk2Friends"
         tools:targetApi="31">
         <activity
+            android:name=".InviteFriendsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddFriendsActivity"
+            android:exported="false" />
+        <activity
             android:name=".JoinMeetingActivity"
             android:exported="false" />
         <activity
