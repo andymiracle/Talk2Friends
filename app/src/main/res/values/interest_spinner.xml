@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="interest_array">
+        <item>anime</item>
+        <item>manga</item>
+        <item>kpop</item>
+        <item>jpop</item>
+        <item>hiking</item>
+        <item>dancing</item>
+        <item>cooking</item>
+        <item>sports</item>
+        <item>fitness</item>
+        <item>animals</item>
+    </string-array>
+</resources>

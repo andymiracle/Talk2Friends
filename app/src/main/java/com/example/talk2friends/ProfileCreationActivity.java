@@ -38,13 +38,33 @@ public class ProfileCreationActivity extends AppCompatActivity {
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
 
+        spinner = (Spinner) findViewById(R.id.interest_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout.
+        adapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.affliation_array,
+                android.R.layout.simple_spinner_item
+        );
+        // Specify the layout to use when the list of choices appears.
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner.
+        spinner.setAdapter(adapter);
+
         TextView v = (TextView) findViewById(R.id.submit); // submit
         v.setOnClickListener(this::onClickSubmit);
-
     }
 
     public void onClickSubmit(View view){
-        Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);
-        startActivity(intent);
+
+        Boolean valid = false;
+
+        if (valid) {
+            Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);
+            startActivity(intent);
+        } else {
+            TextView error_tv = (TextView) findViewById(R.id.error);
+            error_tv.setText("One or more fields are empty");
+        }
+
     }
 }
