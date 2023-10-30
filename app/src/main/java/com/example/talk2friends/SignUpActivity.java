@@ -25,6 +25,8 @@ public class SignUpActivity extends AppCompatActivity {
     TextView code_tv;
     TextView error_tv;
 
+    String new_email = "";
+    String new_password = "";
     String random_code = "INVALID";
 
     int code_length = 6;
