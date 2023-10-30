@@ -16,14 +16,10 @@
         android:theme="@style/Theme.Talk2Friends"
         tools:targetApi="31">
         <activity
-<<<<<<< HEAD
             android:name=".MainMeetingActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfleCreationActivity"
-=======
             android:name=".ProfileCreationActivity"
->>>>>>> 44450d3e45d89e65a3238bcbe6650f976938cda7
             android:exported="false" />
         <activity
             android:name=".CreateMeetingActivity"
