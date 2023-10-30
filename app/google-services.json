@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1059476678594",
+    "firebase_url": "https://talk2friends-1af9a-default-rtdb.firebaseio.com",
+    "project_id": "talk2friends-1af9a",
+    "storage_bucket": "talk2friends-1af9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059476678594:android:923257dca985699e88185b",
+        "android_client_info": {
+          "package_name": "com.example.talk2friends"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKhKIVRHmzeXhzERMJs0cgGhQrbeWU9s4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
