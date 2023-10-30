@@ -58,7 +58,7 @@
         android:id="@+id/affiliation"
         android:layout_width="129dp"
         android:layout_height="16dp"
-        android:text="affiliation:"
+        android:text="Affiliation:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.12"

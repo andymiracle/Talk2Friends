@@ -29,9 +29,6 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ReceiveMessageActivity"
-            android:exported="false" />
-        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
