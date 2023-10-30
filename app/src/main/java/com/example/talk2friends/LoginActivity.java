@@ -38,5 +38,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // BW - Testing
+        //DatabaseUtil util = new DatabaseUtil();
+        //util.saveUser(new User());
     }
 }
