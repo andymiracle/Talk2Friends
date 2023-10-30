@@ -1,6 +1,8 @@
 package com.example.talk2friends;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -21,6 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     TextView email_tv;
     TextView password_tv;
     TextView code_tv;
+    TextView error_tv;
 
     String random_code = "INVALID";
 
@@ -31,12 +34,15 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        error_tv = (TextView) findViewById(R.id.error);
+
         email_tv = (TextView) findViewById(R.id.email);
         TextView code_bt = (TextView) findViewById(R.id.send_code);
         code_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
+                    random_code = "";
                     recipient_email = email_tv.getText().toString();
 
                     Properties properties = System.getProperties();
@@ -97,17 +103,13 @@ public class SignUpActivity extends AppCompatActivity {
                     valid = true;
                 }
 
-                /*add some code more codes to go to the next page (Profile Creation Page)
-
                 if (valid) {
                    valid = false;
-                   Intent intent = new Intent(SignUpActivity.this, ?.class);
-                   startActivity(?);
+                   Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
+                   startActivity(intent);
                 } else {
-                   keep being in the page (maybe showing some error message)
+                    error_tv.setText("Invalid verification code");
                 }
-
-                */
             }
         });
     }

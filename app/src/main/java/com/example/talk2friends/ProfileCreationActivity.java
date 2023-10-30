@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ProfleCreationActivity extends AppCompatActivity {
+public class ProfileCreationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
