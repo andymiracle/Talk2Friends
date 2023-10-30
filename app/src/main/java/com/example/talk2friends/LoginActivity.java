@@ -28,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
                 password = password_tv.getText().toString();
                 System.out.println("Email is: " + email + "\n");
                 System.out.println("Password is: " + password + "\n");
+                Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
+                startActivity(intent);
             }
         });
         signup.setOnClickListener(new View.OnClickListener() {
