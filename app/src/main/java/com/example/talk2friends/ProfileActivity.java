@@ -26,8 +26,8 @@ public class ProfileActivity extends AppCompatActivity {
         ageView.setText(ageText);
         affiliationView.setText(affiliationText);
 
-        // TextView v = (TextView) findViewById(R.id.button);
-        // v.setOnClickListener(this::toProfileCreation);
+        TextView v = (TextView) findViewById(R.id.edit);
+        v.setOnClickListener(this::toProfileCreation);
     }
 
     public void toProfileCreation(View view) {
