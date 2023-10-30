@@ -32,10 +32,10 @@
         app:layout_constraintVertical_bias="0.064" />
 
     <Button
-        android:id="@+id/profile"
-        android:layout_width="121dp"
-        android:layout_height="41dp"
-        android:text="Profile"
+        android:id="@+id/your_meetings"
+        android:layout_width="188dp"
+        android:layout_height="40dp"
+        android:text="Your Meetings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.468"
@@ -44,10 +44,10 @@
         app:layout_constraintVertical_bias="0.181" />
 
     <Button
-        android:id="@+id/friends"
-        android:layout_width="121dp"
-        android:layout_height="41dp"
-        android:text="Friends"
+        android:id="@+id/create_meeting"
+        android:layout_width="188dp"
+        android:layout_height="40dp"
+        android:text="Create Meeting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.468"
@@ -56,10 +56,10 @@
         app:layout_constraintVertical_bias="0.304" />
 
     <Button
-        android:id="@+id/manage_meetings"
+        android:id="@+id/join_meeting"
         android:layout_width="188dp"
         android:layout_height="40dp"
-        android:text="Manage Meetings"
+        android:text="Join Meeting"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.443"
