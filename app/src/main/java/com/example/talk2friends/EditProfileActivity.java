@@ -9,21 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-public class ProfileCreationActivity extends AppCompatActivity {
-    String name = "";
-    String age = "";
-    String affiliation = "";
-
-    TextView name_tv;
-    TextView age_tv;
+public class EditProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_creation);
-
-        name_tv = (TextView) findViewById(R.id.name_text);
-        age_tv = (TextView) findViewById(R.id.age_text);
+        setContentView(R.layout.activity_edit_profile);
 
         // https://developer.android.com/develop/ui/views/components/spinner#java
         Spinner spinner = (Spinner) findViewById(R.id.affiliation_spinner);
@@ -50,16 +41,33 @@ public class ProfileCreationActivity extends AppCompatActivity {
         // Apply the adapter to the spinner.
         spinner2.setAdapter(adapter);
 
+        // prepopulate boxes and dropdowns with database values
+        String nameText = ""; // get from database?
+        String ageText = "";
+        String affiliationText = "native";
+        String interestText = "";
+
+        TextView nameView = (TextView) findViewById(R.id.name_text);
+        TextView ageView = (TextView) findViewById(R.id.age_text);
+        Spinner affiliationView = (Spinner) findViewById(R.id.affiliation_spinner);
+        Spinner interestView = (Spinner) findViewById(R.id.interest_spinner);
+
+        nameView.setText(nameText);
+        ageView.setText(ageText);
+        // https://stackoverflow.com/questions/11072576/set-selected-item-of-spinner-programmatically
+        // affiliationView.setSelection(adaptor.getPosition(affiliationText));
+
         TextView v = (TextView) findViewById(R.id.submit); // submit
         v.setOnClickListener(this::onClickSubmit);
+
     }
 
-    public void onClickSubmit(View view){
+    public void onClickSubmit(View view) {
 
         Boolean valid = false;
 
         if (valid) {
-            Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);
+            Intent intent = new Intent(this, MainPageActivity.class);
             startActivity(intent);
         } else {
             TextView error_tv = (TextView) findViewById(R.id.error);

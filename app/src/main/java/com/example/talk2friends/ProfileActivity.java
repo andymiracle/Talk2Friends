@@ -27,11 +27,11 @@ public class ProfileActivity extends AppCompatActivity {
         affiliationView.setText(affiliationText);
 
         TextView v = (TextView) findViewById(R.id.edit);
-        v.setOnClickListener(this::toProfileCreation);
+        v.setOnClickListener(this::toEditProfile);
     }
 
-    public void toProfileCreation(View view) {
-        Intent intent = new Intent(this, ProfileActivity.class);
+    public void toEditProfile(View view) {
+        Intent intent = new Intent(this, EditProfileActivity.class);
         startActivity(intent);
     }
 }
