@@ -5,25 +5,29 @@ import java.util.ArrayList;
 public class User {
 
     private String username;
-    private String email;
     private String password;
-    private Boolean isVerified;
+    private int age;
+    private String affiliation;
+    private String likes;
+
     private ArrayList<String> friends;
 
 
     public User() {
         this.username = "";
-        this.email = "";
-        this.password = password;
-        this.isVerified = false;
+        this.password = "";
+        this.age = 0;
+        this.affiliation = "";
+        this.likes = "";
         this.friends = new ArrayList<String>();
     }
 
-    public User(String username, String email, String password, Boolean isVerified, ArrayList<String> friends) {
+    public User(String username, String password, int age, String affiliation, String likes, ArrayList<String> friends) {
         this.username = username;
-        this.email = email;
         this.password = password;
-        this.isVerified = isVerified;
+        this.age = age;
+        this.affiliation = affiliation;
+        this.likes = likes;
         this.friends = friends;
     }
 
@@ -35,29 +39,37 @@ public class User {
         this.username = username;
     }
 
-    public String getEmail(){
-        return this.username;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
-        return this.email;
+        return this.password;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public Boolean getIsVerified() {
-        return this.isVerified;
+    public int getAge() {
+        return this.age;
     }
 
-    public void setIsVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAffiliation() {
+        return this.affiliation;
+    }
+
+    public void setAffiliation(String affiliation) {
+        this.affiliation = affiliation;
+    }
+
+    public void printClass() {
+        System.out.println("Username: " + this.username);
+        System.out.println("Password: " + this.password);
+        System.out.println("Age: " + this.age);
+        System.out.println("Affiliation: " + this.affiliation);
     }
 
 
 }
+

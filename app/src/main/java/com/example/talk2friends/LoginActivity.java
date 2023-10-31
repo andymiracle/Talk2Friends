@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class LoginActivity extends AppCompatActivity {
     TextView email_tv;
     TextView password_tv;
@@ -41,7 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // BW - Testing
-        //DatabaseUtil util = new DatabaseUtil();
-        //util.saveUser(new User());
+        DatabaseUtil util = new DatabaseUtil();
+        //    public User(String username, String password, int age, String affiliation, String likes, ArrayList<String> friends) {
+        User temp = new User("bwiencko", "123", 22, "Native", "Coffee", new ArrayList<String>());
+        temp.printClass();
+        util.saveUser(temp);
+        util.dbPrintUser(temp.getUsername());
+        //u.printClass();
+
+
+        //System.out.println(u.getEmail());
     }
 }

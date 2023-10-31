@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 public class DatabaseUtil {
     FirebaseDatabase root;
     DatabaseReference ref;
+    Object snapObj;
 
     public DatabaseUtil() {
         root = FirebaseDatabase.getInstance();
@@ -19,50 +20,30 @@ public class DatabaseUtil {
     }
 
     public void saveUser(User u) {
-        ref.child("Users").child(encodeEmail(u.getEmail())).setValue(u);
+        ref.child("Users").child(u.getUsername()).setValue(u);
     }
 
-    public User getUser(String email) {
-        DatabaseReference userRef = root.getReference("Users").child(encodeEmail(email));
+    public void dbPrintUser(String username) {
 
-        userRef.addValueEventListener(new ValueEventListener () {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
+        DatabaseReference userRef = root.getReference("Users").child(username);
 
-           }
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class);
+                u.printClass();
+            }
 
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("NO DATA");
+            }
 
 
         });
-        return new User();
-       // ref.child("Users").child(email);
-    }
-    /*
-    public void doStuff(){
-        FirebaseDatabase root1;
-        DatabaseReference ref1;
-        root1 = FirebaseDatabase.getInstance();
-        //ref1 = root1.getReference("testKey");
-        //ref1.setValue("ThisIsATestKey");
-    ref1 =root1.getReference();
-    User u = new User();
-        u.setEmail("test@gmail.com");
-        u.setPassword("123");
-        u.setUsername("testguy");
-        ref1.setValue(u);
-    }*/
 
-    public static String encodeEmail(String email) {
-        return email.replace('.', '!');
+
     }
 
-    public static String decodeEmail(String email) {
-        return email.replace('!', '.');
-    }
 
 }
