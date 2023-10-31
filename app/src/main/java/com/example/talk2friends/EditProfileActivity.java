@@ -85,6 +85,15 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (valid) {
+            User u = new User();
+            u.setUsername(Singleton.getInstance().getUsername());
+            u.setDisplayName(name);
+            u.setPassword(Singleton.getInstance().getPassword());
+            u.setAge(Integer.parseInt(age));
+            u.setAffiliation(affiliation);
+            u.setInterest(interest);
+            DatabaseUtil.saveUser(u);
+
             Intent intent = new Intent(this, MainPageActivity.class);
             startActivity(intent);
         } else {

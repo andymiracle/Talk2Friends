@@ -7,7 +7,7 @@ android:layout_height="match_parent"
 tools:context=".LoginActivity">
 
     <TextView
-        android:id="@+id/email_text"
+        android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email:"
@@ -55,7 +55,7 @@ tools:context=".LoginActivity">
         app:layout_constraintVertical_bias="0.285" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/username"
         android:layout_width="200dp"
         android:layout_height="38dp"
         android:ems="30"

@@ -104,16 +104,25 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (new_email.equals("")) {
                     error_tv.setText("Invalid email address");
-                } else if (new_password.equals("")) {
-                    error_tv.setText("Invalid password");
-                } else {
-                    if (code.equals(random_code)) {
-                        Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
-                        startActivity(intent);
-                    } else {
-                        error_tv.setText("Invalid verification code");
-                    }
                 }
+                else if (new_password.equals("")) {
+                    error_tv.setText("Invalid password");
+                }
+                else if (!code.equals(random_code)) {
+                    error_tv.setText("Invalid verification code");
+                }
+                else {
+                    User u = new User();
+                    u.setUsername(new_email.substring(0, new_email.indexOf('@')));
+                    u.setPassword(new_password);
+                    Singleton.getInstance().setUsername(new_email.substring(0, new_email.indexOf('@')));
+                    Singleton.getInstance().setPassword(new_password);
+                    DatabaseUtil.saveUser(u);
+
+                    Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
     }

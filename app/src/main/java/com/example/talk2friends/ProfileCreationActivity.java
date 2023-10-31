@@ -68,13 +68,25 @@ public class ProfileCreationActivity extends AppCompatActivity {
             valid = false;
         }
 
-        if (valid) {
-            Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);
-            startActivity(intent);
-        } else {
+        if (!valid) {
             TextView error_tv = (TextView) findViewById(R.id.error);
             error_tv.setText("One or more fields are empty");
+            return;
         }
+
+        User u = new User();
+        u.setUsername(Singleton.getInstance().getUsername());
+        u.setDisplayName(name);
+        u.setPassword(Singleton.getInstance().getPassword());
+        u.setAge(Integer.parseInt(age));
+        u.setAffiliation(affiliation);
+        u.setInterest(interest);
+        DatabaseUtil.saveUser(u);
+
+        Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);
+        startActivity(intent);
+
+
 
     }
 }

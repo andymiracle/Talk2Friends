@@ -20,6 +20,7 @@ public class MainPageActivity extends AppCompatActivity {
         profile_tv = (TextView) findViewById(R.id.profile);
         friends_tv = (TextView) findViewById(R.id.friends);
         meetings_tv = (TextView) findViewById(R.id.manage_meetings);
+        ((TextView) findViewById(R.id.home_page)).setText("Welcome " + Singleton.getInstance().getUsername() + "!");
 
         profile_tv.setOnClickListener(new View.OnClickListener() {
             @Override

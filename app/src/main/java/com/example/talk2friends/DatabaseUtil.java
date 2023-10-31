@@ -19,13 +19,14 @@ public class DatabaseUtil {
         ref = root.getReference();
     }
 
-    public void saveUser(User u) {
-        ref.child("Users").child(u.getUsername()).setValue(u);
+    public static void saveUser(User u) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference();
+        userRef.child("users").child(u.getUsername()).setValue(u);
     }
 
     public void dbPrintUser(String username) {
 
-        DatabaseReference userRef = root.getReference("Users").child(username);
+        DatabaseReference userRef = root.getReference("users").child(username);
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
