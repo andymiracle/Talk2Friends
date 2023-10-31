@@ -49,7 +49,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
             startActivity(intent);
         } else {
             TextView error_tv = (TextView) findViewById(R.id.error);
-            error_tv.setText("One or more fields are empty");
+            error_tv.setText(R.string.error);
         }
 
     }
