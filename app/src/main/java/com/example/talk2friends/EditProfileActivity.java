@@ -11,6 +11,16 @@ import android.widget.TextView;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    String name;
+    String age;
+    String affiliation;
+    String interest;
+
+    TextView nameView;
+    TextView ageView;
+    Spinner affiliationView;
+    Spinner interestView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,32 +49,34 @@ public class EditProfileActivity extends AppCompatActivity {
         // Specify the layout to use when the list of choices appears.
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner.
-        spinner2.setAdapter(adapter);
+        spinner2.setAdapter(adapter2);
 
         // prepopulate boxes and dropdowns with database values
-        String nameText = ""; // get from database?
-        String ageText = "";
-        String affiliationText = "native";
-        String interestText = "";
+        name = ""; // get from database?
+        age = "";
+        affiliation = "";
+        interest = "";
 
-        TextView nameView = (TextView) findViewById(R.id.name_text);
-        TextView ageView = (TextView) findViewById(R.id.age_text);
-        Spinner affiliationView = (Spinner) findViewById(R.id.affiliation_spinner);
-        Spinner interestView = (Spinner) findViewById(R.id.interest_spinner);
+        nameView = (TextView) findViewById(R.id.name_text);
+        ageView = (TextView) findViewById(R.id.age_text);
+        affiliationView = (Spinner) findViewById(R.id.affiliation_spinner);
+        interestView = (Spinner) findViewById(R.id.interest_spinner);
 
-        nameView.setText(nameText);
-        ageView.setText(ageText);
+        nameView.setText(name);
+        ageView.setText(age);
         // https://stackoverflow.com/questions/11072576/set-selected-item-of-spinner-programmatically
-        // affiliationView.setSelection(adaptor.getPosition(affiliationText));
+        affiliationView.setSelection(adapter.getPosition(affiliation));
+        interestView.setSelection(adapter2.getPosition(interest));
 
         TextView v = (TextView) findViewById(R.id.submit); // submit
         v.setOnClickListener(this::onClickSubmit);
-
     }
 
     public void onClickSubmit(View view) {
 
         Boolean valid = false;
+
+        valid = true;
 
         if (valid) {
             Intent intent = new Intent(this, MainPageActivity.class);
