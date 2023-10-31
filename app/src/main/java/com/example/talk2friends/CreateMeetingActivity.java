@@ -23,7 +23,11 @@ public class CreateMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
 
-        TextView v = (TextView) findViewById(R.id.create); // submit
+        conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
+        timeView = (TextView) findViewById(R.id.time_text);
+        locationView = (TextView) findViewById(R.id.location_text);
+
+        TextView v = (TextView) findViewById(R.id.create); // create
         v.setOnClickListener(this::onClickCreate);
     }
 
