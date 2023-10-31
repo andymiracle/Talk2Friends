@@ -18,8 +18,6 @@ public class SignUpActivity extends AppCompatActivity {
     String recipient_email = "";
     String host = "smtp.gmail.com";
 
-    Boolean valid = false;
-
     TextView email_tv;
     TextView password_tv;
     TextView code_tv;
@@ -100,17 +98,21 @@ public class SignUpActivity extends AppCompatActivity {
         signup_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new_email = email_tv.getText().toString();
+                new_password = password_tv.getText().toString();
                 String code = code_tv.getText().toString();
-                if (code.equals(random_code)) {
-                    valid = true;
-                }
 
-                if (valid) {
-                   valid = false;
-                   Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
-                   startActivity(intent);
+                if (new_email.equals("")) {
+                    error_tv.setText("Invalid email address");
+                } else if (new_password.equals("")) {
+                    error_tv.setText("Invalid password");
                 } else {
-                    error_tv.setText("Invalid verification code");
+                    if (code.equals(random_code)) {
+                        Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
+                        startActivity(intent);
+                    } else {
+                        error_tv.setText("Invalid verification code");
+                    }
                 }
             }
         });

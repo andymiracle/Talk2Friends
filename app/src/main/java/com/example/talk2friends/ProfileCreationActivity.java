@@ -13,9 +13,12 @@ public class ProfileCreationActivity extends AppCompatActivity {
     String name = "";
     String age = "";
     String affiliation = "";
+    String interest = "";
 
     TextView name_tv;
     TextView age_tv;
+    Spinner spinner;
+    Spinner spinner2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         age_tv = (TextView) findViewById(R.id.age_text);
 
         // https://developer.android.com/develop/ui/views/components/spinner#java
-        Spinner spinner = (Spinner) findViewById(R.id.affiliation_spinner);
+        spinner = (Spinner) findViewById(R.id.affiliation_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this,
@@ -38,7 +41,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
         // Apply the adapter to the spinner.
         spinner.setAdapter(adapter);
 
-        Spinner spinner2 = (Spinner) findViewById(R.id.interest_spinner);
+        spinner2 = (Spinner) findViewById(R.id.interest_spinner);
         // Create an ArrayAdapter using the string array and a default spinner layout.
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                 this,
@@ -55,8 +58,15 @@ public class ProfileCreationActivity extends AppCompatActivity {
     }
 
     public void onClickSubmit(View view){
+        Boolean valid = true;
+        name = name_tv.getText().toString();
+        age = age_tv.getText().toString();
+        affiliation = spinner.getSelectedItem().toString();
+        interest = spinner2.getSelectedItem().toString();
 
-        Boolean valid = false;
+        if (name.equals("") || age.equals("") || affiliation.equals("") || interest.equals("")) {
+            valid = false;
+        }
 
         if (valid) {
             Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);
