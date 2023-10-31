@@ -29,9 +29,14 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
     public void onClickCreate(View view){
 
-        Boolean valid = false;
+        Boolean valid = true;
+        conversationTopic = conversationTopicView.getText().toString();
+        time = timeView.getText().toString();
+        location = locationView.getText().toString();
 
-        valid = true;
+        if (conversationTopic.equals("") || time.equals("") || location.equals("")) {
+            valid = false;
+        }
 
         if (valid) {
             // add meeting to database

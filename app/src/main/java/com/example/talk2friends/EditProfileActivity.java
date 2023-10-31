@@ -74,9 +74,15 @@ public class EditProfileActivity extends AppCompatActivity {
 
     public void onClickSubmit(View view) {
 
-        Boolean valid = false;
+        Boolean valid = true;
+        name = nameView.getText().toString();
+        age = ageView.getText().toString();
+        affiliation = affiliationView.getSelectedItem().toString();
+        interest = interestView.getSelectedItem().toString();
 
-        valid = true;
+        if (name.equals("") || age.equals("") || affiliation.equals("") || interest.equals("")) {
+            valid = false;
+        }
 
         if (valid) {
             Intent intent = new Intent(this, MainPageActivity.class);
