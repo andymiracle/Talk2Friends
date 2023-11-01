@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Talk2Friends</string>
     <string name="send_code">Send Code</string>
-    <string name="error">One or more fields are empty</string>
 </resources>

@@ -111,13 +111,17 @@ public class ProfileCreationActivity extends AppCompatActivity {
         interest9 = interest9Spinner.getSelectedItem().toString();
         interest10 = interest10Spinner.getSelectedItem().toString();
 
+        TextView error_tv = (TextView) findViewById(R.id.error);
+
         if (name.equals("") || age.equals("") || affiliation.equals("") || interest1.equals("") || interest2.equals("") || interest3.equals("") || interest4.equals("") || interest5.equals("") || interest6.equals("") || interest7.equals("") || interest8.equals("") || interest9.equals("") || interest10.equals("")) {
             valid = false;
         }
+        else {
+            error_tv.setText("");
+        }
 
         if (!valid) {
-            TextView error_tv = (TextView) findViewById(R.id.error);
-            error_tv.setText(R.string.error);
+            error_tv.setText("One or more fields are empty");
             return;
         }
 

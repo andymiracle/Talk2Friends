@@ -129,12 +129,12 @@
 
     <Spinner
         android:id="@+id/interest2Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.613" />
@@ -153,7 +153,7 @@
 
     <Spinner
         android:id="@+id/interest1Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -177,12 +177,12 @@
 
     <Spinner
         android:id="@+id/interest10Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.858" />
@@ -201,7 +201,7 @@
 
     <Spinner
         android:id="@+id/interest9Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -225,15 +225,15 @@
 
     <Spinner
         android:id="@+id/interest8Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.801" />
+        app:layout_constraintVertical_bias="0.802" />
 
     <TextView
         android:id="@+id/interest8"
@@ -249,7 +249,7 @@
 
     <Spinner
         android:id="@+id/interest7Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -273,12 +273,12 @@
 
     <Spinner
         android:id="@+id/interest6Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.953"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.742" />
@@ -297,7 +297,7 @@
 
     <Spinner
         android:id="@+id/interest5Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -322,12 +322,12 @@
 
     <Spinner
         android:id="@+id/interest4Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.675" />
@@ -346,7 +346,7 @@
 
     <Spinner
         android:id="@+id/interest3Spinner"
-        android:layout_width="75dp"
+        android:layout_width="90dp"
         android:layout_height="32dp"
         android:ems="30"
         app:layout_constraintBottom_toBottomOf="parent"
