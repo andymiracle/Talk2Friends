@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.ArrayList;
+
 public class FriendsActivity extends AppCompatActivity {
     TextView add_tv;
     TextView invite_tv;

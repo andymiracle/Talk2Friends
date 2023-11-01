@@ -13,6 +13,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import java.util.ArrayList;
+import java.util.UUID;
+
+
 public class CreateMeetingActivity extends AppCompatActivity {
 
     String conversationTopic;
@@ -72,6 +76,19 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
 
         if (valid) {
+            Meeting m = new Meeting();
+            m.setCreator(Singleton.getInstance().getUsername());
+            m.setTime(time);
+            m.setMeetingID(UUID.randomUUID().toString());
+            m.setTopic(conversationTopic);
+            m.setLocation(location);
+
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(Singleton.getInstance().getUsername());
+            m.setAttendees(temp);
+
+            DatabaseUtil.saveMeeting(m);
+
             // add meeting to database
             // go back to main meetings page
             if(validTimeFormat==true) {

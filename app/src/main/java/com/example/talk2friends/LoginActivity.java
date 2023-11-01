@@ -99,10 +99,10 @@ public class LoginActivity extends AppCompatActivity {
         // BW - Testing
         DatabaseUtil util = new DatabaseUtil();
         //User temp = new User("bwiencko", "benji", "123", 22, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
-        //User temp1 = new User("Default", "DefaultName", "Default", 20, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
+        User temp1 = new User("Garbo", "DefaultName", "Garbo", 20, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
         //temp.printClass();
         //util.saveUser(temp);
-        //util.saveUser(temp1);
+        util.saveUser(temp1);
         //util.dbPrintUser(temp.getUsername());
         //u.printClass();
 

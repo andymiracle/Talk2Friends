@@ -7,6 +7,7 @@ public class Meeting {
     private String time;
     private String location;
     private String topic;
+    private String creator;
     private ArrayList<String> attendees;
 
     public Meeting() {
@@ -14,14 +15,16 @@ public class Meeting {
         this.time = "";
         this.location = "";
         this.topic = "";
+        this.creator = "";
         this.attendees = new ArrayList<String>();
     }
 
-    public Meeting(String meetingID, String time, String location, String topic, ArrayList<String> attendees) {
+    public Meeting(String meetingID, String time, String location, String topic, String creator, ArrayList<String> attendees) {
         this.meetingID = meetingID;
         this.time = time;
         this.location = location;
         this.topic = topic;
+        this.creator = creator;
         this.attendees = attendees;
     }
 
@@ -55,6 +58,14 @@ public class Meeting {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getCreator() {
+        return this.creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public ArrayList<String> getAttendees() {

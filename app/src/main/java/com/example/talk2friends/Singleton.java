@@ -1,8 +1,11 @@
 package com.example.talk2friends;
 
+import java.util.HashMap;
+
 public class Singleton {
     private String username;
     private String password;
+    private HashMap<String, Boolean> interests;
 
     private static Singleton instance;
 
@@ -29,6 +32,14 @@ public class Singleton {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public HashMap<String, Boolean> getInterests() {
+        return this.interests;
+    }
+
+    public void setInterests(HashMap<String, Boolean> interests) {
+        this.interests = interests;
     }
 
 

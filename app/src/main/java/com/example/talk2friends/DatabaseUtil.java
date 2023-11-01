@@ -24,6 +24,11 @@ public class DatabaseUtil {
         userRef.child("users").child(u.getUsername()).setValue(u);
     }
 
+    public static void saveMeeting(Meeting m) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference();
+        userRef.child("meetings").child(m.getMeetingID()).setValue(m);
+    }
+
     public void dbPrintUser(String username) {
 
         DatabaseReference userRef = root.getReference("users").child(username);
