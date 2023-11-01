@@ -1,16 +1,25 @@
 package com.example.talk2friends;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 import java.util.Random;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class SignUpActivity extends AppCompatActivity {
     String sender_email = "talk2friendssender@gmail.com";
@@ -21,7 +30,7 @@ public class SignUpActivity extends AppCompatActivity {
     TextView email_tv;
     TextView password_tv;
     TextView code_tv;
-    TextView error_tv;
+    //TextView error_tv;
 
     String new_email = "";
     String new_password = "";
@@ -34,61 +43,110 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        error_tv = (TextView) findViewById(R.id.error);
+        //error_tv = (TextView) findViewById(R.id.error);
 
         email_tv = (TextView) findViewById(R.id.email);
         TextView code_bt = (TextView) findViewById(R.id.send_code);
         code_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    random_code = "";
-                    recipient_email = email_tv.getText().toString();
+                Boolean valid = true;
+                recipient_email = email_tv.getText().toString();
+                int index = recipient_email.indexOf('@');
+                String check = recipient_email.substring(index + 1, recipient_email.length());
+                //System.out.println("Dude..");
+                String username = "";
+                //System.out.println("the index is " + index);
+                if (index == -1) {
+                    valid = false;
+                } else {
+                    //System.out.println("You get " + check);
+                    username = recipient_email.substring(0, index);
 
-                    Properties properties = System.getProperties();
-                    properties.put("mail.smtp.host", host);
-                    properties.put("mail.smtp.port", "465");
-                    properties.put("mail.smtp.ssl.enable", "true");
-                    properties.put("mail.smtp.auth", "true");
+                    if (!check.equals("usc.edu") && !check.equals("gmail.com")) {
+                        valid = false;
+                        //System.out.println("wow");
+                    }
+                }
 
-                    javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                //Maybe we need to do some more checks like: account that has the same username in the database
+
+                if (valid) {
+                    final Boolean[] duplicate = {false};
+                    System.out.println("Username is " + username);
+
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
+
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(sender_email, sender_password);
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            User u = snapshot.getValue(User.class);
+                            if (u == null) {
+                                try {
+                                    random_code = "";
+                                    Properties properties = System.getProperties();
+                                    properties.put("mail.smtp.host", host);
+                                    properties.put("mail.smtp.port", "465");
+                                    properties.put("mail.smtp.ssl.enable", "true");
+                                    properties.put("mail.smtp.auth", "true");
+
+                                    javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                                        @Override
+                                        protected PasswordAuthentication getPasswordAuthentication() {
+                                            return new PasswordAuthentication(sender_email, sender_password);
+                                        }
+                                    });
+
+                                    MimeMessage mimeMessage = new MimeMessage(session);
+                                    mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_email));
+
+                                    mimeMessage.setSubject("Talk2Friends Verification Code");
+
+                                    Random rand = new Random();
+                                    for (int i = 0; i < code_length; ++i) {
+                                        int rand_num = rand.nextInt(10);
+                                        random_code += Integer.toString(rand_num);
+                                    }
+
+                                    mimeMessage.setText("Below is the verification code.\n" + random_code);
+
+                                    Thread thread = new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                Transport.send(mimeMessage);
+                                            } catch (MessagingException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                    thread.start();
+                                } catch (AddressException e) {
+                                    e.printStackTrace();
+                                } catch (MessagingException e) {
+                                    e.printStackTrace();
+                                }
+                                Toast toast = Toast.makeText(getApplicationContext(), "Code successfully sent!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                            } else {
+                                Toast toast = Toast.makeText(getApplicationContext(), "User name already taken!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            System.out.println("Error");
                         }
                     });
 
-                    MimeMessage mimeMessage = new MimeMessage(session);
-                    mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_email));
-
-                    mimeMessage.setSubject("Talk2Friends Verification Code");
-
-                    Random rand = new Random();
-                    for (int i = 0; i < code_length; ++i) {
-                        int rand_num = rand.nextInt(10);
-                        random_code += Integer.toString(rand_num);
-                    }
-
-                    mimeMessage.setText("Below is the verification code.\n" + random_code);
-
-                    Thread thread = new Thread(new Runnable() {
-                       @Override
-                       public void run() {
-                           try {
-                               Transport.send(mimeMessage);
-                           } catch (MessagingException e) {
-                               e.printStackTrace();
-                           }
-                       }
-                    });
-                    thread.start();
-                } catch (AddressException e) {
-                    e.printStackTrace();
-                } catch (MessagingException e) {
-                    e.printStackTrace();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
-                System.out.println(recipient_email + "\n");
-                System.out.println("Code Button clicked");
             }
         });
 
@@ -98,20 +156,22 @@ public class SignUpActivity extends AppCompatActivity {
         signup_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Boolean valid = true;
                 new_email = email_tv.getText().toString();
                 new_password = password_tv.getText().toString();
                 String code = code_tv.getText().toString();
 
-                if (new_email.equals("")) {
-                    error_tv.setText("Invalid email address");
+                String error_message = "";
+
+                if (new_email.equals("") || new_password.equals("")) {
+                    error_message = "One or more fields are empty";
+                    valid = false;
+                } else if (!code.equals(random_code)) {
+                    error_message = "Incorrect verification code";
+                    valid = false;
                 }
-                else if (new_password.equals("")) {
-                    error_tv.setText("Invalid password");
-                }
-                else if (!code.equals(random_code)) {
-                    error_tv.setText("Invalid verification code");
-                }
-                else {
+
+                if (valid) {
                     User u = new User();
                     u.setUsername(new_email.substring(0, new_email.indexOf('@')));
                     u.setPassword(new_password);
@@ -121,8 +181,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
                     startActivity(intent);
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                 }
-
             }
         });
     }
