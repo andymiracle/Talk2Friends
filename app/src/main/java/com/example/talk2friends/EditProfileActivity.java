@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class EditProfileActivity extends AppCompatActivity {
 
     String name;
@@ -132,17 +134,28 @@ public class EditProfileActivity extends AppCompatActivity {
         name = nameView.getText().toString();
         age = ageView.getText().toString();
         affiliation = affiliationSpinner.getSelectedItem().toString();
+        HashMap<String, Boolean> interestMap = new HashMap<>();
 
         interest1 = interest1Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest1)).getText().toString(), interest1.equals("yes"));
         interest2 = interest2Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest2)).getText().toString(), interest2.equals("yes"));
         interest3 = interest3Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest3)).getText().toString(), interest3.equals("yes"));
         interest4 = interest4Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest4)).getText().toString(), interest4.equals("yes"));
         interest5 = interest5Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest5)).getText().toString(), interest5.equals("yes"));
         interest6 = interest6Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest6)).getText().toString(), interest6.equals("yes"));
         interest7 = interest7Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest7)).getText().toString(), interest7.equals("yes"));
         interest8 = interest8Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest8)).getText().toString(), interest8.equals("yes"));
         interest9 = interest9Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest9)).getText().toString(), interest9.equals("yes"));
         interest10 = interest10Spinner.getSelectedItem().toString();
+        interestMap.put(((TextView) findViewById(R.id.interest10)).getText().toString(), interest10.equals("yes"));
 
         TextView error_tv = (TextView) findViewById(R.id.error);
 
@@ -160,7 +173,10 @@ public class EditProfileActivity extends AppCompatActivity {
             u.setPassword(Singleton.getInstance().getPassword());
             u.setAge(Integer.parseInt(age));
             u.setAffiliation(affiliation);
-            u.setInterest("default interest"); // need to support multiple interests
+            u.setInterests(interestMap);
+            for (String likes : interestMap.keySet()) {
+                System.out.println(likes + " " + interestMap.get(likes));
+            }
             DatabaseUtil.saveUser(u);
 
             Intent intent = new Intent(this, MainPageActivity.class);

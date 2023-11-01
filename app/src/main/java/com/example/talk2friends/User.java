@@ -1,6 +1,7 @@
 package com.example.talk2friends;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class User {
 
@@ -9,7 +10,7 @@ public class User {
     private String password;
     private int age;
     private String affiliation;
-    private String interest;
+    private HashMap<String, Boolean> interests;
 
     private ArrayList<String> friends;
 
@@ -20,17 +21,17 @@ public class User {
         this.password = "";
         this.age = 0;
         this.affiliation = "";
-        this.interest = "";
+        this.interests = new HashMap<String, Boolean>();
         this.friends = new ArrayList<String>();
     }
 
-    public User(String username, String displayName, String password, int age, String affiliation, String interest, ArrayList<String> friends) {
+    public User(String username, String displayName, String password, int age, String affiliation, HashMap<String, Boolean> interests, ArrayList<String> friends) {
         this.username = username;
         this.displayName = displayName;
         this.password = password;
         this.age = age;
         this.affiliation = affiliation;
-        this.interest = interest;
+        this.interests = interests;
         this.friends = friends;
     }
 
@@ -74,12 +75,12 @@ public class User {
         this.affiliation = affiliation;
     }
 
-    public String getInterest() {
-        return this.interest;
+    public HashMap<String, Boolean> getInterests() {
+        return this.interests;
     }
 
-    public void setInterest(String interest) {
-        this.interest = interest;
+    public void setInterests(HashMap<String, Boolean> interests) {
+        this.interests = interests;
     }
 
     public void printClass() {
@@ -87,7 +88,7 @@ public class User {
         System.out.println("Password: " + this.password);
         System.out.println("Age: " + this.age);
         System.out.println("Affiliation: " + this.affiliation);
-        System.out.println("Interest: " + this.interest);
+        //System.out.println("Interest: " + this.interest);
     }
 
 

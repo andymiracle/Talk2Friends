@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.view.Gravity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     TextView username_tv;
@@ -55,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
 
-                ref.addValueEventListener(new ValueEventListener() {
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -97,12 +98,12 @@ public class LoginActivity extends AppCompatActivity {
 
         // BW - Testing
         DatabaseUtil util = new DatabaseUtil();
-        User temp = new User("bwiencko", "benji", "123", 22, "Native", "Coffee", new ArrayList<String>());
-        User temp1 = new User("Default", "DefaultName", "Default", 20, "Native", "Coffee", new ArrayList<String>());
-        temp.printClass();
-        util.saveUser(temp);
-        util.saveUser(temp1);
-        util.dbPrintUser(temp.getUsername());
+        //User temp = new User("bwiencko", "benji", "123", 22, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
+        //User temp1 = new User("Default", "DefaultName", "Default", 20, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
+        //temp.printClass();
+        //util.saveUser(temp);
+        //util.saveUser(temp1);
+        //util.dbPrintUser(temp.getUsername());
         //u.printClass();
 
 

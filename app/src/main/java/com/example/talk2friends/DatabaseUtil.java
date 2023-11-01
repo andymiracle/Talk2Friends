@@ -28,7 +28,7 @@ public class DatabaseUtil {
 
         DatabaseReference userRef = root.getReference("users").child(username);
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User u = snapshot.getValue(User.class);

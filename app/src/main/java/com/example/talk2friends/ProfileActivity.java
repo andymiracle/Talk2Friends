@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nameView = (TextView)findViewById(R.id.name_text);
         TextView ageView = (TextView)findViewById(R.id.age_text);
         TextView affiliationView = (TextView)findViewById(R.id.affiliation_text);
+        TextView interestsView = (TextView)findViewById(R.id.interests_text);
 
         ((TextView)findViewById(R.id.profile)).setText(Singleton.getInstance().getUsername() + "'s Profile");
 
@@ -34,13 +35,23 @@ public class ProfileActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User u = snapshot.getValue(User.class);
                 nameView.setText(u.getDisplayName());
                 ageView.setText(Integer.toString(u.getAge()));
                 affiliationView.setText(u.getAffiliation());
+                String output = "";
+                for (String likes : u.getInterests().keySet()) {
+                    if (u.getInterests().get(likes)) {
+                        output += likes + ", ";
+                    }
+                }
+                if (!output.equals("")) {
+                    output = output.substring(0, output.length()-2);
+                }
+                interestsView.setText(output);
 
             }
 
