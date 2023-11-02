@@ -3,7 +3,14 @@ package com.example.talk2friends;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,6 +28,7 @@ import java.util.Collections;
 
 public class JoinMeetingActivity extends AppCompatActivity {
 
+    ArrayList<Meeting> displayedMeetings = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +59,14 @@ public class JoinMeetingActivity extends AppCompatActivity {
                     System.out.println(meetingList.get(i).getMeetingID());
                 }
 
+                for (int i = 0; i < meetingList.size(); i++) {
+                    if(i==15)
+                    {
+                        break;
+                    }
+
+                    displayedMeetings.add(meetingList.get(i));
+                }
 
 
             }
@@ -63,6 +79,34 @@ public class JoinMeetingActivity extends AppCompatActivity {
 
         });
 
+        // display only up to 15 meetings
+        // displayedMeetings.size()
+        for (int i = 1; i <= displayedMeetings.size(); i++) {
+
+            // https://stackoverflow.com/questions/4730100/android-and-getting-a-view-with-id-cast-as-a-string
+            int meeting_text = getResources().getIdentifier("meeting_id" + String.valueOf(i),  "id", getPackageName());
+            int host_text = getResources().getIdentifier("host"+ String.valueOf(i),  "id", getPackageName());
+            int details_text = getResources().getIdentifier("meeting_info" + String.valueOf(i),  "id", getPackageName());
+
+            // System.out.println(R.id.meeting_id1);
+            // System.out.println(meeting_text);
+
+            TextView meetingIDView = (TextView)findViewById(meeting_text);
+            meetingIDView.setText(displayedMeetings.get(i).getMeetingID());
+
+            TextView hostView = (TextView)findViewById(host_text);
+            hostView.setText(displayedMeetings.get(i).getCreator());
+
+            Button detailsView = (Button)findViewById(details_text);
+            detailsView.setVisibility(View.VISIBLE);
+            detailsView.setOnClickListener(this::toMeetingInfo); // see meeting info
+        }
+
+    }
+
+    public void toMeetingInfo(View view) {
+        Intent intent = new Intent(this, MeetingInfoActivity.class);
+        startActivity(intent);
     }
 }
 
