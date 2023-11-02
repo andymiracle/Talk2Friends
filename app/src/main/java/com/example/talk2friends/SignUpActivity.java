@@ -61,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     username = recipient_email.substring(0, index);
 
-                    if (!check.equals("usc.edu") && !check.equals("gmail.com")) {
+                    if (!check.equals("usc.edu")) {
                         valid = false;
                     }
                 }
@@ -148,25 +148,6 @@ public class SignUpActivity extends AppCompatActivity {
         password_tv = (TextView) findViewById(R.id.password);
         code_tv = (TextView) findViewById(R.id.code);
 
-        final Boolean[] correct_code = {false};
-        TextView verify_bt = (TextView) findViewById(R.id.verify);
-        verify_bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String code = code_tv.getText().toString();
-                if (code.equals(random_code)) {
-                    correct_code[0] = true;
-                    Toast toast = Toast.makeText(getApplicationContext(), "Correct verification code", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Incorrect verification code", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                    toast.show();
-                }
-            }
-        });
-
         TextView signup_bt = (TextView) findViewById(R.id.sign_up);
         signup_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,9 +160,6 @@ public class SignUpActivity extends AppCompatActivity {
 
                 if (new_email.equals("") || new_password.equals("")) {
                     error_message = "One or more fields are empty";
-                    valid = false;
-                } else if (correct_code[0] == false) {
-                    error_message = "Verification not checked";
                     valid = false;
                 } else if (!new_email.equals(valid_email)) {
                     error_message = "Unverified email";
