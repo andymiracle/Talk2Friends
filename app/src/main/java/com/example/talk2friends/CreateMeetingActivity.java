@@ -34,7 +34,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
-        
+
 
         conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
         timeView = (TextView) findViewById(R.id.time_text);
@@ -74,8 +74,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
             try {
                 Date date = dateFormat.parse(time);
                 if (date.before(new Date())) {
-
-                    isDateAfterToday = false;
+                    // new Date() is unreliable, commenting out below until a more reliable check is found
+                    //isDateAfterToday = false;
                 }
             } catch (ParseException e) {
                 time_tv.setText("Incorrect time format");
