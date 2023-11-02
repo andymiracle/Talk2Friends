@@ -22,6 +22,9 @@
             android:name=".EditProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".ViewFriendsActivity"
+            android:exported="false" />
+        <activity
             android:name=".InviteFriendsActivity"
             android:exported="false" />
         <activity

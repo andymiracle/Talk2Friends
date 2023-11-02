@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class FriendsActivity extends AppCompatActivity {
     TextView add_tv;
     TextView invite_tv;
+    TextView view_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class FriendsActivity extends AppCompatActivity {
 
         add_tv = (TextView) findViewById(R.id.add_friends);
         invite_tv = (TextView) findViewById(R.id.invite_friends);
+        view_tv = (TextView) findViewById(R.id.view_friends);
 
         add_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +37,14 @@ public class FriendsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FriendsActivity.this, InviteFriendsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        view_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FriendsActivity.this, ViewFriendsActivity.class);
                 startActivity(intent);
             }
         });

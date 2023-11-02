@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -27,6 +28,8 @@ public class SignUpActivity extends AppCompatActivity {
     String recipient_email = "";
     String host = "smtp.gmail.com";
 
+    String valid_email = "";
+
     TextView email_tv;
     TextView password_tv;
     TextView code_tv;
@@ -43,8 +46,6 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        //error_tv = (TextView) findViewById(R.id.error);
-
         email_tv = (TextView) findViewById(R.id.email);
         TextView code_bt = (TextView) findViewById(R.id.send_code);
         code_bt.setOnClickListener(new View.OnClickListener() {
@@ -54,25 +55,18 @@ public class SignUpActivity extends AppCompatActivity {
                 recipient_email = email_tv.getText().toString();
                 int index = recipient_email.indexOf('@');
                 String check = recipient_email.substring(index + 1, recipient_email.length());
-                //System.out.println("Dude..");
                 String username = "";
-                //System.out.println("the index is " + index);
                 if (index == -1) {
                     valid = false;
                 } else {
-                    //System.out.println("You get " + check);
                     username = recipient_email.substring(0, index);
 
                     if (!check.equals("usc.edu") && !check.equals("gmail.com")) {
                         valid = false;
-                        //System.out.println("wow");
                     }
                 }
 
-                //Maybe we need to do some more checks like: account that has the same username in the database
-
                 if (valid) {
-                    final Boolean[] duplicate = {false};
                     System.out.println("Username is " + username);
 
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
@@ -126,6 +120,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 } catch (MessagingException e) {
                                     e.printStackTrace();
                                 }
+                                valid_email = email_tv.getText().toString();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Code successfully sent!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                                 toast.show();
@@ -152,6 +147,26 @@ public class SignUpActivity extends AppCompatActivity {
 
         password_tv = (TextView) findViewById(R.id.password);
         code_tv = (TextView) findViewById(R.id.code);
+
+        final Boolean[] correct_code = {false};
+        TextView verify_bt = (TextView) findViewById(R.id.verify);
+        verify_bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String code = code_tv.getText().toString();
+                if (code.equals(random_code)) {
+                    correct_code[0] = true;
+                    Toast toast = Toast.makeText(getApplicationContext(), "Correct verification code", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Incorrect verification code", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                }
+            }
+        });
+
         TextView signup_bt = (TextView) findViewById(R.id.sign_up);
         signup_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,15 +174,17 @@ public class SignUpActivity extends AppCompatActivity {
                 Boolean valid = true;
                 new_email = email_tv.getText().toString();
                 new_password = password_tv.getText().toString();
-                String code = code_tv.getText().toString();
 
                 String error_message = "";
 
                 if (new_email.equals("") || new_password.equals("")) {
                     error_message = "One or more fields are empty";
                     valid = false;
-                } else if (!code.equals(random_code)) {
-                    error_message = "Incorrect verification code";
+                } else if (correct_code[0] == false) {
+                    error_message = "Verification not checked";
+                    valid = false;
+                } else if (!new_email.equals(valid_email)) {
+                    error_message = "Unverified email";
                     valid = false;
                 }
 
