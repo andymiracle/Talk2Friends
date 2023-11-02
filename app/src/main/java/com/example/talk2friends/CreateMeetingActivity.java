@@ -22,10 +22,12 @@ public class CreateMeetingActivity extends AppCompatActivity {
     String conversationTopic;
     String time;
     String location;
+    String meetingName;
 
     TextView conversationTopicView;
     TextView timeView;
     TextView locationView;
+    TextView meetingNameView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
         timeView = (TextView) findViewById(R.id.time_text);
         locationView = (TextView) findViewById(R.id.location_text);
+        meetingNameView = (TextView) findViewById(R.id.meeting_name_text);
 
         TextView v = (TextView) findViewById(R.id.create); // create
         v.setOnClickListener(this::onClickCreate);
@@ -47,10 +50,11 @@ public class CreateMeetingActivity extends AppCompatActivity {
         conversationTopic = conversationTopicView.getText().toString();
         time = timeView.getText().toString();
         location = locationView.getText().toString();
+        meetingName = meetingNameView.getText().toString();
 
         TextView error_tv = (TextView) findViewById(R.id.error);
 
-        if (conversationTopic.equals("") || time.equals("") || location.equals("")) {
+        if (conversationTopic.equals("") || time.equals("") || location.equals("") || meetingName.equals("")) {
             valid = false;
         }
         else {

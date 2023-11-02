@@ -3,6 +3,7 @@ package com.example.talk2friends;
 import java.util.ArrayList;
 
 public class Meeting {
+    private String name;
     private String meetingID;
     private String time;
     private String location;
@@ -11,6 +12,7 @@ public class Meeting {
     private ArrayList<String> attendees;
 
     public Meeting() {
+        this.name = "";
         this.meetingID = "";
         this.time = "";
         this.location = "";
@@ -19,13 +21,22 @@ public class Meeting {
         this.attendees = new ArrayList<String>();
     }
 
-    public Meeting(String meetingID, String time, String location, String topic, String creator, ArrayList<String> attendees) {
+    public Meeting(String name, String meetingID, String time, String location, String topic, String creator, ArrayList<String> attendees) {
+        this.name = name;
         this.meetingID = meetingID;
         this.time = time;
         this.location = location;
         this.topic = topic;
         this.creator = creator;
         this.attendees = attendees;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getMeetingID() {

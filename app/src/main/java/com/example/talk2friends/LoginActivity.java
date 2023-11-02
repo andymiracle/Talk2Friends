@@ -18,6 +18,7 @@ import android.view.Gravity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class LoginActivity extends AppCompatActivity {
     TextView username_tv;
@@ -105,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         util.saveUser(temp1);
         //util.dbPrintUser(temp.getUsername());
         //u.printClass();
+        //    public Meeting(String name, String meetingID, String time, String location, String topic, String creator, ArrayList<String> attendees) {
+        //Meeting meet = new Meeting("First", UUID.randomUUID().toString(), "12/12/2023 12:12 am", "THH", "English", );
 
 
         //System.out.println(u.getEmail());

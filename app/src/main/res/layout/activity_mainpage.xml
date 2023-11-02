@@ -40,8 +40,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.181" />
+        app:layout_constraintTop_toBottomOf="@+id/home_page"
+        app:layout_constraintVertical_bias="0.076" />
 
     <Button
         android:id="@+id/friends"
@@ -52,8 +52,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
+        app:layout_constraintTop_toBottomOf="@+id/profile"
+        app:layout_constraintVertical_bias="0.069" />
 
     <Button
         android:id="@+id/manage_meetings"
@@ -62,9 +62,9 @@
         android:text="Manage Meetings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.432" />
+        app:layout_constraintTop_toBottomOf="@+id/friends"
+        app:layout_constraintVertical_bias="0.069" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
