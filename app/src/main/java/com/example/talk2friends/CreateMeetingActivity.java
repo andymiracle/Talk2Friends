@@ -15,6 +15,7 @@ import java.util.Date;
 
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Calendar;
 
 
 public class CreateMeetingActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
+        
 
         conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
         timeView = (TextView) findViewById(R.id.time_text);
@@ -52,6 +54,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         location = locationView.getText().toString();
         meetingName = meetingNameView.getText().toString();
 
+
         TextView error_tv = (TextView) findViewById(R.id.error);
 
         if (conversationTopic.equals("") || time.equals("") || location.equals("") || meetingName.equals("")) {
@@ -62,6 +65,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
 
         Boolean validTimeFormat = true;
+        Boolean isDateAfterToday = true;
         TextView time_tv = (TextView) findViewById(R.id.incorrect_time_format);
 
         if(!time.equals("")) {
@@ -69,26 +73,34 @@ public class CreateMeetingActivity extends AppCompatActivity {
             dateFormat.setLenient(false);
             try {
                 Date date = dateFormat.parse(time);
+                if (date.before(new Date())) {
+
+                    isDateAfterToday = false;
+                }
             } catch (ParseException e) {
-                time_tv.setText("incorrect time format");
+                time_tv.setText("Incorrect time format");
                 validTimeFormat = false;
             }
         }
 
-        if(validTimeFormat == true) {
+        if(validTimeFormat && isDateAfterToday) {
             time_tv.setText("");
+        }
+        else if (!isDateAfterToday) {
+            time_tv.setText("Time cannot be before today");
         }
 
         if (valid) {
             // add meeting to database
             // go back to main meetings page
-            if(validTimeFormat==true) {
+            if(validTimeFormat && isDateAfterToday) {
                 Meeting m = new Meeting();
                 m.setCreator(Singleton.getInstance().getUsername());
                 m.setTime(time);
                 m.setMeetingID(UUID.randomUUID().toString());
                 m.setTopic(conversationTopic);
                 m.setLocation(location);
+                m.setName(meetingName);
 
                 ArrayList<String> temp = new ArrayList<>();
                 temp.add(Singleton.getInstance().getUsername());

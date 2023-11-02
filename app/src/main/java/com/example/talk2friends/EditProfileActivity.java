@@ -1,5 +1,6 @@
 package com.example.talk2friends;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +9,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
@@ -138,6 +145,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         interest1 = interest1Spinner.getSelectedItem().toString();
         interestMap.put(((TextView) findViewById(R.id.interest1)).getText().toString(), interest1.equals("yes"));
+        System.out.println(((TextView) findViewById(R.id.interest1)).getText().toString() + " Equals " + interest1);
+        System.out.println(interestMap.get("Anime"));
         interest2 = interest2Spinner.getSelectedItem().toString();
         interestMap.put(((TextView) findViewById(R.id.interest2)).getText().toString(), interest2.equals("yes"));
         interest3 = interest3Spinner.getSelectedItem().toString();
@@ -167,20 +176,38 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (valid) {
-            User u = new User();
-            u.setUsername(Singleton.getInstance().getUsername());
-            u.setDisplayName(name);
-            u.setPassword(Singleton.getInstance().getPassword());
-            u.setAge(Integer.parseInt(age));
-            u.setAffiliation(affiliation);
-            u.setInterests(interestMap);
-            for (String likes : interestMap.keySet()) {
-                System.out.println(likes + " " + interestMap.get(likes));
-            }
-            DatabaseUtil.saveUser(u);
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
+
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    User u = snapshot.getValue(User.class);
+
+                    User u2 = new User();
+
+                    u2.setUsername(u.getUsername());
+                    u2.setDisplayName(name);
+                    u2.setPassword(u.getPassword());
+                    u2.setAge(Integer.parseInt(age));
+                    u2.setAffiliation(affiliation);
+                    u2.setInterests(interestMap);
+                    u2.setFriends(u.getFriends());
+
+                    DatabaseUtil.saveUser(u2);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    System.out.println("Error");
+                }
+
+
+            });
 
             Intent intent = new Intent(this, MainPageActivity.class);
             startActivity(intent);
+
         } else {
             error_tv.setText("One or more fields are empty");
         }

@@ -1,5 +1,6 @@
 package com.example.talk2friends;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -82,6 +83,16 @@ public class User {
     public void setInterests(HashMap<String, Boolean> interests) {
         this.interests = interests;
     }
+
+    public ArrayList<String> getFriends() {
+        return this.friends;
+    }
+
+    public void setFriends(ArrayList<String> friends) {
+        this.friends = friends;
+    }
+
+
 
     public void printClass() {
         System.out.println("Username: " + this.username);

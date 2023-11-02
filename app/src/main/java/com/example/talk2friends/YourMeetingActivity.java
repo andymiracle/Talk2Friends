@@ -35,7 +35,6 @@ public class YourMeetingActivity extends AppCompatActivity {
                         meetingList.add(m);
                     }
 
-                    // meetingList now contains all meetings that the current user has created
                 }
                 /*for (int i = 0; i < meetingList.size(); i++) {
                     System.out.println(meetingList.get(i).getMeetingID());

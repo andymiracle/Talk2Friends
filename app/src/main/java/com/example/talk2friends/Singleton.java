@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Singleton {
     private String username;
     private String password;
+    private String friendCode = "";
     private HashMap<String, Boolean> interests;
 
     private static Singleton instance;
@@ -33,6 +34,15 @@ public class Singleton {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getFriendCode() {
+        return this.friendCode;
+    }
+
+    public void setFriendCode(String friendCode) {
+        this.friendCode = friendCode;
+    }
+
 
     public HashMap<String, Boolean> getInterests() {
         return this.interests;

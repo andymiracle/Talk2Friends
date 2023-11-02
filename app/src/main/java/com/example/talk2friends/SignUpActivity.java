@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 public class SignUpActivity extends AppCompatActivity {
     String sender_email = "talk2friendssender@gmail.com";
     String sender_password = "vcrpuobwoeguntnf";
@@ -167,6 +168,17 @@ public class SignUpActivity extends AppCompatActivity {
                 }
 
                 if (valid) {
+
+                    Uri data = getIntent().getData();
+                    // If app was opened from a link, data will contain the link
+                    if (data != null) {
+                        //String host = data.getHost(); // "www.talk2friends.com"
+                        String friendCode = data.getPath(); // "/signup/username"
+                        // Isolate the username
+                        friendCode = friendCode.substring(friendCode.lastIndexOf('/')+1, friendCode.length());
+                        Singleton.getInstance().setFriendCode(friendCode);
+                    }
+
                     User u = new User();
                     u.setUsername(new_email.substring(0, new_email.indexOf('@')));
                     u.setPassword(new_password);

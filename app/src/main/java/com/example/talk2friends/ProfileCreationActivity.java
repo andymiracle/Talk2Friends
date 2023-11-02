@@ -1,5 +1,6 @@
 package com.example.talk2friends;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +10,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class ProfileCreationActivity extends AppCompatActivity {
     String name;
@@ -146,7 +154,17 @@ public class ProfileCreationActivity extends AppCompatActivity {
         u.setAge(Integer.parseInt(age));
         u.setAffiliation(affiliation);
         u.setInterests(interestMap);
-        //u.setInterest("default interest"); // need to support multiple interests
+
+        if (!Singleton.getInstance().getFriendCode().equals("")) {
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(Singleton.getInstance().getFriendCode());
+            // Update current user's friends list to reflect new friend
+            u.setFriends(temp);
+
+            // Update friend's friend list to reflect current user
+            FriendsActivity.friendCurrentUser(Singleton.getInstance().getFriendCode());
+
+        }
         DatabaseUtil.saveUser(u);
 
         Intent intent = new Intent(ProfileCreationActivity.this, MainPageActivity.class);

@@ -43,6 +43,6 @@ public class InviteFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_invitefriends);
 
-
+        // The email should contain this link: "http://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername()
     }
 }

@@ -44,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
                 affiliationView.setText(u.getAffiliation());
                 String output = "";
                 for (String likes : u.getInterests().keySet()) {
+                    System.out.println(likes);
                     if (u.getInterests().get(likes)) {
                         output += likes + ", ";
                     }

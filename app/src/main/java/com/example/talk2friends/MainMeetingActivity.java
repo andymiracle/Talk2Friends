@@ -14,6 +14,8 @@ public class MainMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_meeting);
 
+        JoinMeetingActivity.deleteExpiredMeetings();
+
         TextView v = (TextView) findViewById(R.id.your_meetings);
         v.setOnClickListener(this::toYourMeetings);
 

@@ -54,9 +54,24 @@
         <activity
             android:name=".ProfileActivity"
             android:exported="false" />
+        //https://developer.android.com/training/app-links
         <activity
             android:name=".SignUpActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.talk2friends.com"/>
+                <data
+                    android:scheme="http" />
+                <data
+                    android:scheme="https" />
+                <data
+                    android:pathPrefix="/signup" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="true">

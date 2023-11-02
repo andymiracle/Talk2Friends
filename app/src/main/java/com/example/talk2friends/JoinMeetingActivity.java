@@ -48,18 +48,11 @@ public class JoinMeetingActivity extends AppCompatActivity {
                     meetingList.add(m);
                 }
 
-                System.out.println("BEFORE");
-                for (int i = 0; i < meetingList.size(); i++) {
-                    System.out.println(meetingList.get(i).getMeetingID());
-                }
 
 
-                System.out.println("AFTER");
                 Collections.sort(meetingList, new MeetingComparator());
                 // meetingList now contains all meetings sorted from first occurring to last occurring.
-                for (int i = 0; i < meetingList.size(); i++) {
-                    System.out.println(meetingList.get(i).getMeetingID());
-                }
+
 
                 for (int i = 0; i < meetingList.size(); i++) {
                     if(i==15)
@@ -81,7 +74,7 @@ public class JoinMeetingActivity extends AppCompatActivity {
                     //System.out.println(meeting_text);
 
                     TextView meetingIDView = (TextView)findViewById(meeting_text);
-                    meetingIDView.setText(displayedMeetings.get(i - 1).getMeetingID());
+                    meetingIDView.setText(displayedMeetings.get(i - 1).getName());
 
                     TextView hostView = (TextView)findViewById(host_text);
                     hostView.setText(displayedMeetings.get(i - 1).getCreator());
@@ -91,7 +84,21 @@ public class JoinMeetingActivity extends AppCompatActivity {
                     detailsView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
+                            int ID = view.getId();
+                            // Get the name of the view we just clicked
+                            String viewName = getResources().getResourceEntryName(ID);
+                            int underscoreIndex = viewName.indexOf('_');
+                            underscoreIndex += 1 + 4;
+
+                            // Grab the index of the button we pressed meeting_info1->1
+                            viewName = viewName.substring(underscoreIndex, viewName.length());
+                            int index = Integer.parseInt(viewName);
+
+                            System.out.println(viewName);
+
                             Intent intent = new Intent(JoinMeetingActivity.this, MeetingInfoActivity.class);
+                            intent.putExtra("ID", displayedMeetings.get(index-1).getMeetingID());
+
                             startActivity(intent);
                         }
                     }); // see meeting info
@@ -137,6 +144,56 @@ public class JoinMeetingActivity extends AppCompatActivity {
         startActivity(intent);
     }
     */
+
+    public static void deleteExpiredMeetings() {
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings");
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Meeting> meetingList = new ArrayList<>();
+
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    Meeting m = snap.getValue(Meeting.class);
+                    meetingList.add(m);
+                }
+                Date current = new Date();
+                Date yesterdayDate = new Date(current.getTime() - 24 * 60 * 60 * 1000);
+
+                DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+                dateFormat.setLenient(false);
+                Date date = null;
+
+                for (int i = 0; i < meetingList.size(); i++) {
+                    try {
+                        date = dateFormat.parse(meetingList.get(i).getTime());
+
+                        if (date.before(yesterdayDate)) {
+                            DatabaseReference remove = FirebaseDatabase.getInstance().getReference("meetings").child(meetingList.get(i).getMeetingID());
+                            remove.removeValue();
+                        }
+                    } catch (ParseException e) {
+                        System.out.println("Error parsing date");
+                    }
+                }
+
+
+
+
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Error");
+            }
+
+
+        });
+    }
 }
 
 class MeetingComparator implements Comparator<Meeting> {
