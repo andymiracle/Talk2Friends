@@ -36,6 +36,8 @@ public class JoinMeetingActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings");
 
+        //System.out.println("Yoo-hoo");
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -68,7 +70,32 @@ public class JoinMeetingActivity extends AppCompatActivity {
                     displayedMeetings.add(meetingList.get(i));
                 }
 
+                System.out.println("DisplayedMeeting size is " + displayedMeetings.size());
+                for (int i = 1; i <= displayedMeetings.size(); i++) {
+                    // https://stackoverflow.com/questions/4730100/android-and-getting-a-view-with-id-cast-as-a-string
+                    int meeting_text = getResources().getIdentifier("meeting_id" + String.valueOf(i),  "id", getPackageName());
+                    int host_text = getResources().getIdentifier("host"+ String.valueOf(i),  "id", getPackageName());
+                    int details_text = getResources().getIdentifier("meeting_info" + String.valueOf(i),  "id", getPackageName());
 
+                    //System.out.println(R.id.meeting_id1);
+                    //System.out.println(meeting_text);
+
+                    TextView meetingIDView = (TextView)findViewById(meeting_text);
+                    meetingIDView.setText(displayedMeetings.get(i - 1).getMeetingID());
+
+                    TextView hostView = (TextView)findViewById(host_text);
+                    hostView.setText(displayedMeetings.get(i - 1).getCreator());
+
+                    Button detailsView = (Button)findViewById(details_text);
+                    detailsView.setVisibility(View.VISIBLE);
+                    detailsView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(JoinMeetingActivity.this, MeetingInfoActivity.class);
+                            startActivity(intent);
+                        }
+                    }); // see meeting info
+                }
             }
 
             @Override
@@ -79,35 +106,37 @@ public class JoinMeetingActivity extends AppCompatActivity {
 
         });
 
+        /*
         // display only up to 15 meetings
         // displayedMeetings.size()
         for (int i = 1; i <= displayedMeetings.size(); i++) {
-
             // https://stackoverflow.com/questions/4730100/android-and-getting-a-view-with-id-cast-as-a-string
             int meeting_text = getResources().getIdentifier("meeting_id" + String.valueOf(i),  "id", getPackageName());
             int host_text = getResources().getIdentifier("host"+ String.valueOf(i),  "id", getPackageName());
             int details_text = getResources().getIdentifier("meeting_info" + String.valueOf(i),  "id", getPackageName());
 
-            // System.out.println(R.id.meeting_id1);
-            // System.out.println(meeting_text);
+            //System.out.println(R.id.meeting_id1);
+            //System.out.println(meeting_text);
 
             TextView meetingIDView = (TextView)findViewById(meeting_text);
-            meetingIDView.setText(displayedMeetings.get(i).getMeetingID());
+            meetingIDView.setText(displayedMeetings.get(i - 1).getMeetingID());
 
             TextView hostView = (TextView)findViewById(host_text);
-            hostView.setText(displayedMeetings.get(i).getCreator());
+            hostView.setText(displayedMeetings.get(i - 1).getCreator());
 
             Button detailsView = (Button)findViewById(details_text);
             detailsView.setVisibility(View.VISIBLE);
             detailsView.setOnClickListener(this::toMeetingInfo); // see meeting info
         }
-
+        */
     }
 
+    /*
     public void toMeetingInfo(View view) {
         Intent intent = new Intent(this, MeetingInfoActivity.class);
         startActivity(intent);
     }
+    */
 }
 
 class MeetingComparator implements Comparator<Meeting> {
