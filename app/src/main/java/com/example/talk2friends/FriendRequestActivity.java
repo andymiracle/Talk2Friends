@@ -26,25 +26,39 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class FriendRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addfriends);
+        setContentView(R.layout.activity_friendrequest);
 
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        // NOTE THIS IS NOT A SINGLE VALUE LISTENER!!!!! THIS WILL KEEP RUNNING UNTIL YOU STOP IT MANUALLY
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User u = snapshot.getValue(User.class);
+                ArrayList<String> incomingRequests = new ArrayList<>();
 
-                ArrayList<String> incomingRequests = u.getIncomingRequests();
-                if (incomingRequests == null) {
-                    incomingRequests = new ArrayList<>();
+                for (DataSnapshot snap : snapshot.getChildren()) {
+                    User u = snap.getValue(User.class);
+
+                    HashMap<String, String> userToDisplay = new HashMap<>();
+                    userToDisplay.put(u.getUsername(), u.getDisplayName());
+
+                    if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                        if (u.getIncomingRequests() != null) {
+                            incomingRequests = u.getIncomingRequests();
+                        }
+                    }
+
                 }
 
-                // Now have incoming requests erray
+                // userToDisplay maps username to display name
+                // incomingRequests holds all pending incoming friend requests
+                // Display requests (up to 10?)
+
 
             }
 
