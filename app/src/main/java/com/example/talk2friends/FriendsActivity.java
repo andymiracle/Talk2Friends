@@ -68,7 +68,16 @@ public class FriendsActivity extends AppCompatActivity {
                 if (friends == null) {
                     friends = new ArrayList<>();
                 }
-                friends.add(Singleton.getInstance().getUsername());
+
+                Boolean isNotFriend = true;
+                for (int i = 0; i < friends.size(); i++) {
+                    if (friends.get(i).equals(Singleton.getInstance().getUsername())) {
+                        isNotFriend = false;
+                    }
+                }
+                if (isNotFriend) {
+                    friends.add(Singleton.getInstance().getUsername());
+                }
 
                 ArrayList<String> incomingRequests = u.getIncomingRequests();
                 if (incomingRequests == null) {
@@ -95,5 +104,32 @@ public class FriendsActivity extends AppCompatActivity {
 
         });
 
+    }
+
+    public static void andysFunction() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class);
+
+                ArrayList<String> incomingRequests = u.getIncomingRequests();
+                if (incomingRequests == null) {
+                    incomingRequests = new ArrayList<>();
+                }
+                
+                u.setIncomingRequests(incomingRequests);
+                DatabaseUtil.saveUser(u);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Error");
+            }
+
+
+        });
     }
 }
