@@ -22,6 +22,7 @@ public class FriendsActivity extends AppCompatActivity {
     TextView add_tv;
     TextView invite_tv;
     TextView view_tv;
+    TextView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
