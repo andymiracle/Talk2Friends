@@ -37,6 +37,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
 
         conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
+        // need to limit to max 16 characters
+
         timeView = (TextView) findViewById(R.id.time_text);
         locationView = (TextView) findViewById(R.id.location_text);
         meetingNameView = (TextView) findViewById(R.id.meeting_name_text);
@@ -54,6 +56,19 @@ public class CreateMeetingActivity extends AppCompatActivity {
         location = locationView.getText().toString();
         meetingName = meetingNameView.getText().toString();
 
+        TextView meetingNameSize_tv = (TextView) findViewById(R.id.meeting_name_too_long);
+
+        Boolean textRightSize = true;
+
+        if(meetingName.length()>16)
+        {
+            meetingNameSize_tv.setText("Meeting name should be no more than 16 characters");
+            textRightSize = false;
+        }
+
+        if(textRightSize) {
+            meetingNameSize_tv.setText("");
+        }
 
         TextView error_tv = (TextView) findViewById(R.id.error);
 
@@ -93,7 +108,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         if (valid) {
             // add meeting to database
             // go back to main meetings page
-            if(validTimeFormat && isDateAfterToday) {
+            if(validTimeFormat && isDateAfterToday && textRightSize) {
                 Meeting m = new Meeting();
                 m.setCreator(Singleton.getInstance().getUsername());
                 m.setTime(time);

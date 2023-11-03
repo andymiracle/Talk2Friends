@@ -91,6 +91,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333" />
 
+
+    <TextView
+        android:id="@+id/invalid_age"
+        android:layout_width="163dp"
+        android:layout_height="23dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.337" />
+
     <Spinner
         android:id="@+id/affiliation_spinner"
         android:layout_width="200dp"

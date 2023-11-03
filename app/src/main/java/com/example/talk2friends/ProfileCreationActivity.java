@@ -135,6 +135,20 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
         TextView error_tv = (TextView) findViewById(R.id.error);
 
+        Boolean validInteger = true;
+        TextView invalidAge = (TextView) findViewById(R.id.invalid_age);
+
+        try {
+            int ageInteger = Integer.parseInt(age);
+        } catch(NumberFormatException e) {
+            invalidAge.setText("age should be an integer");
+            validInteger = false;
+        }
+
+        if(validInteger) {
+            invalidAge.setText("");
+        }
+
         if (name.equals("") || age.equals("") || affiliation.equals("") || interest1.equals("") || interest2.equals("") || interest3.equals("") || interest4.equals("") || interest5.equals("") || interest6.equals("") || interest7.equals("") || interest8.equals("") || interest9.equals("") || interest10.equals("")) {
             valid = false;
         }
@@ -144,6 +158,10 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
         if (!valid) {
             error_tv.setText("One or more fields are empty");
+            return;
+        }
+
+        if(!validInteger) {
             return;
         }
 

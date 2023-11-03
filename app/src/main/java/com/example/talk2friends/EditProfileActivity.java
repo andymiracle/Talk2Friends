@@ -112,7 +112,7 @@ public class EditProfileActivity extends AppCompatActivity {
         interest6 = "";
         interest7 = "";
         interest8 = "";
-        interest9 = "";
+        interest9 = ""
         interest10 = "";
 
         nameView.setText(name);
@@ -168,6 +168,21 @@ public class EditProfileActivity extends AppCompatActivity {
 
         TextView error_tv = (TextView) findViewById(R.id.error);
 
+        Boolean validInteger = true;
+        TextView invalidAge = (TextView) findViewById(R.id.invalid_age);
+
+        try {
+            int ageInteger = Integer.parseInt(age);
+        } catch(NumberFormatException e) {
+            invalidAge.setText("age should be an integer");
+            validInteger = false;
+        }
+
+        if(validInteger) {
+            invalidAge.setText("");
+        }
+
+
         if (name.equals("") || age.equals("") || affiliation.equals("") || interest1.equals("") || interest2.equals("") || interest3.equals("") || interest4.equals("") || interest5.equals("") || interest6.equals("") || interest7.equals("") || interest8.equals("") || interest9.equals("") || interest10.equals("")) {
             valid = false;
         }
@@ -176,37 +191,40 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (valid) {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
 
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    User u = snapshot.getValue(User.class);
+            if(validInteger) {
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
 
-                    User u2 = new User();
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        User u = snapshot.getValue(User.class);
 
-                    u2.setUsername(u.getUsername());
-                    u2.setDisplayName(name);
-                    u2.setPassword(u.getPassword());
-                    u2.setAge(Integer.parseInt(age));
-                    u2.setAffiliation(affiliation);
-                    u2.setInterests(interestMap);
-                    u2.setFriends(u.getFriends());
+                        User u2 = new User();
 
-                    DatabaseUtil.saveUser(u2);
+                        u2.setUsername(u.getUsername());
+                        u2.setDisplayName(name);
+                        u2.setPassword(u.getPassword());
+                        u2.setAge(Integer.parseInt(age));
+                        u2.setAffiliation(affiliation);
+                        u2.setInterests(interestMap);
+                        u2.setFriends(u.getFriends());
 
-                }
+                        DatabaseUtil.saveUser(u2);
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    System.out.println("Error");
-                }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        System.out.println("Error");
+                    }
 
 
-            });
+                });
 
-            Intent intent = new Intent(this, MainPageActivity.class);
-            startActivity(intent);
+                Intent intent = new Intent(this, MainPageActivity.class);
+                startActivity(intent);
+            }
 
         } else {
             error_tv.setText("One or more fields are empty");

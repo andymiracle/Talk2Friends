@@ -39,10 +39,10 @@
         android:text="Conversation Topic:"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintVertical_bias="0.15" />
 
     <TextView
         android:id="@+id/time"
@@ -70,12 +70,12 @@
 
     <TextView
         android:id="@+id/meeting_name"
-        android:layout_width="129dp"
-        android:layout_height="16dp"
-        android:text="Meeting Name:"
+        android:layout_width="320dp"
+        android:layout_height="17dp"
+        android:text="Meeting Name: (no more than 16 characters)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintHorizontal_bias="0.373"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.556" />
@@ -103,6 +103,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333" />
+
+    <TextView
+        android:id="@+id/meeting_name_too_long"
+        android:layout_width="143dp"
+        android:layout_height="61dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.628" />
 
     <TextView
         android:id="@+id/incorrect_time_format"
