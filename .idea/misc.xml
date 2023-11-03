@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_addfriends.xml" value="0.22" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_addfriends.xml" value="0.1" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_create_meeting.xml" value="0.11231884057971014" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_friend.xml" value="0.1" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_friendprofile.xml" value="0.1" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_friends.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_friendsprofile.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_invitefriends.xml" value="0.11231884057971014" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_join_meeting.xml" value="0.1" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_login.xml" value="0.14666666666666667" />
@@ -22,7 +24,7 @@
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_user.xml" value="0.1" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_viewfriend.xml" value="0.12454710144927536" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_viewfriends.xml" value="0.16666666666666666" />
-        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/list_items.xml" value="0.22" />
+        <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/list_items.xml" value="0.20527859237536658" />
       </map>
     </option>
   </component>

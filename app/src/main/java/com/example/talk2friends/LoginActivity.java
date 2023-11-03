@@ -31,6 +31,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        /*
+        Intent intent = new Intent(this, FriendsProfileActivity.class);
+        startActivity(intent);
+         */
+
         username_tv = (TextView) findViewById(R.id.username);
         password_tv = (TextView) findViewById(R.id.password);
         TextView login = (TextView) findViewById(R.id.login);
