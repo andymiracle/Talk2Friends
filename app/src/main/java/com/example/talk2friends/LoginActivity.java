@@ -39,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
          */
         //https://www.baeldung.com/sha-256-hashing-java
-        //System.out.println(hashPassword());
 
 
         username_tv = (TextView) findViewById(R.id.username);
@@ -56,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 password = password_tv.getText().toString();
-
+                password = hashPassword(password);
                 System.out.println("Username is: " + username + "\n");
                 System.out.println("Password is: " + password + "\n");
 
                 // Accepts empty username for debugging purposes. DELETE IN FINAL RELEASE
                 if (username.equals("")) {
                     username = "Default";
-                    password = "Default";
+                    password = hashPassword("Default");
                 }
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
@@ -73,6 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                         User u = snapshot.getValue(User.class);
+                        /*if (u != null && u.getPassword().length() < 20) {
+                            u.setPassword(hashPassword(u.getPassword()));
+                            DatabaseUtil.saveUser(u);
+                        }*/
 
                         if (u != null && u.getPassword().equals(password)) {
                             u.printClass();

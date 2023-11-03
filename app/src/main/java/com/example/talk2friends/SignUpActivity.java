@@ -157,6 +157,7 @@ public class SignUpActivity extends AppCompatActivity {
                 new_email = email_tv.getText().toString();
                 new_password = password_tv.getText().toString();
 
+
                 String error_message = "";
 
                 if (new_email.equals("") || new_password.equals("")) {
@@ -166,6 +167,7 @@ public class SignUpActivity extends AppCompatActivity {
                     error_message = "Unverified email";
                     valid = false;
                 }
+                new_password = LoginActivity.hashPassword(new_password);
 
                 if (valid) {
 
