@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -100,39 +101,132 @@ public class EditProfileActivity extends AppCompatActivity {
         interest9Spinner.setAdapter(adapter2);
         interest10Spinner.setAdapter(adapter2);
 
-        // prepopulate boxes and dropdowns with database values
-        name = ""; // get from database?
-        age = "";
-        affiliation = "";
-        interest1 = "";
-        interest2 = "";
-        interest3 = "";
-        interest4 = "";
-        interest5 = "";
-        interest6 = "";
-        interest7 = "";
-        interest8 = "";
-        interest9 = ""
-        interest10 = "";
-
-        nameView.setText(name);
-        ageView.setText(age);
-        // https://stackoverflow.com/questions/11072576/set-selected-item-of-spinner-programmatically
-        affiliationSpinner.setSelection(adapter.getPosition(affiliation));
-
-        interest1Spinner.setSelection(adapter2.getPosition(interest1));
-        interest2Spinner.setSelection(adapter2.getPosition(interest2));
-        interest3Spinner.setSelection(adapter2.getPosition(interest3));
-        interest4Spinner.setSelection(adapter2.getPosition(interest4));
-        interest5Spinner.setSelection(adapter2.getPosition(interest5));
-        interest6Spinner.setSelection(adapter2.getPosition(interest6));
-        interest7Spinner.setSelection(adapter2.getPosition(interest7));
-        interest8Spinner.setSelection(adapter2.getPosition(interest8));
-        interest9Spinner.setSelection(adapter2.getPosition(interest9));
-        interest10Spinner.setSelection(adapter2.getPosition(interest10));
-
         TextView v = (TextView) findViewById(R.id.submit); // submit
         v.setOnClickListener(this::onClickSubmit);
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class);
+
+                // prepopulate interests dropdowns with database values
+                name = u.getDisplayName();
+                age = String.valueOf(u.getAge());
+                affiliation = u.getAffiliation();
+                HashMap<String, Boolean> interests = u.getInterests();
+
+                // https://www.geeksforgeeks.org/traverse-through-a-hashmap-in-java/
+                for(Map.Entry<String, Boolean> m : interests.entrySet()) {
+
+                    String key = m.getKey();
+
+                    if(key.equals("Anime")) {
+                        if(m.getValue()) {
+                            interest1 = "yes";
+                        }
+                        else {
+                            interest1 = "no";
+                        }
+                    }
+                    else if(key.equals("Traveling")) {
+                        if(m.getValue()) {
+                            interest2 = "yes";
+                        }
+                        else {
+                            interest2 = "no";
+                        }
+                    }
+                    else if(key.equals("Art")) {
+                        if(m.getValue()) {
+                            interest3 = "yes";
+                        }
+                        else {
+                            interest3 = "no";
+                        }
+                    }
+                    else if(key.equals("Music")) {
+                        if(m.getValue()) {
+                            interest4 = "yes";
+                        }
+                        else {
+                            interest4 = "no";
+                        }
+                    }
+                    else if(key.equals("Hiking")) {
+                        if(m.getValue()) {
+                            interest5 = "yes";
+                        }
+                        else {
+                            interest5 = "no";
+                        }
+                    }
+                    else if(key.equals("Dancing")) {
+                        if(m.getValue()) {
+                            interest6 = "yes";
+                        }
+                        else {
+                            interest6 = "no";
+                        }
+                    }
+                    else if(key.equals("Cooking")) {
+                        if(m.getValue()) {
+                            interest7 = "yes";
+                        }
+                        else {
+                            interest7 = "no";
+                        }
+                    }
+                    else if(key.equals("Sports")) {
+                        if(m.getValue()) {
+                            interest8 = "yes";
+                        }
+                        else {
+                            interest8 = "no";
+                        }
+                    }
+                    else if(key.equals("Video Games")) {
+                        if(m.getValue()) {
+                            interest9 = "yes";
+                        }
+                        else {
+                            interest9 = "no";
+                        }
+                    }
+                    else if(key.equals("Animals")) {
+                        if(m.getValue()) {
+                            interest10 = "yes";
+                        }
+                        else {
+                            interest10 = "no";
+                        }
+                    }
+                }
+
+                nameView.setText(name);
+                ageView.setText(age);
+                // https://stackoverflow.com/questions/11072576/set-selected-item-of-spinner-programmatically
+                affiliationSpinner.setSelection(adapter.getPosition(affiliation));
+
+                interest1Spinner.setSelection(adapter2.getPosition(interest1));
+                interest2Spinner.setSelection(adapter2.getPosition(interest2));
+                interest3Spinner.setSelection(adapter2.getPosition(interest3));
+                interest4Spinner.setSelection(adapter2.getPosition(interest4));
+                interest5Spinner.setSelection(adapter2.getPosition(interest5));
+                interest6Spinner.setSelection(adapter2.getPosition(interest6));
+                interest7Spinner.setSelection(adapter2.getPosition(interest7));
+                interest8Spinner.setSelection(adapter2.getPosition(interest8));
+                interest9Spinner.setSelection(adapter2.getPosition(interest9));
+                interest10Spinner.setSelection(adapter2.getPosition(interest10));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("Error");
+            }
+
+        });
     }
 
     public void onClickSubmit(View view) {

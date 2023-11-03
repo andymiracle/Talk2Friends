@@ -61,11 +61,7 @@ public class ProfileActivity extends AppCompatActivity {
                 System.out.println("Error");
             }
 
-
         });
-
-
-
     }
 
     public void toEditProfile(View view) {
