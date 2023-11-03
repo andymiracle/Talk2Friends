@@ -19,6 +19,9 @@ import android.view.Gravity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.nio.charset.StandardCharsets;
 
 public class LoginActivity extends AppCompatActivity {
     TextView username_tv;
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FriendsProfileActivity.class);
         startActivity(intent);
          */
+        //https://www.baeldung.com/sha-256-hashing-java
+        //System.out.println(hashPassword());
+
 
         username_tv = (TextView) findViewById(R.id.username);
         password_tv = (TextView) findViewById(R.id.password);
@@ -116,5 +122,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
         //System.out.println(u.getEmail());
+    }
+
+    public static String hashPassword(String password) {
+
+        byte[] byteHash = {};
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byteHash = md.digest(password.getBytes(StandardCharsets.UTF_8));
+        }
+        catch (NoSuchAlgorithmException e) {
+            System.out.println(e.getMessage());
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (byte b : byteHash) {
+            sb.append(String.format("%02X", b));
+        }
+
+        return sb.toString();
     }
 }
