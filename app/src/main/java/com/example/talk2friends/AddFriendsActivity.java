@@ -2,10 +2,15 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +28,23 @@ import java.util.Date;
 import java.util.Collections;
 
 public class AddFriendsActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    TextView button_tv;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addfriends);
+
+        recyclerView = findViewById(R.id.recycler_view);
+
+        button_tv = findViewById(R.id.btnAddToDo);
+        button_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddFriendsActivity.this, FriendsProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
@@ -45,19 +64,36 @@ public class AddFriendsActivity extends AppCompatActivity {
                     }
 
                 }
-                /*System.out.println("BEFORE");
+
+                /*
+                System.out.println("BEFORE");
                 for (int i = 0; i < userList.size(); i++) {
                     System.out.println(userList.get(i).getUsername());
-                }*/
+                }
+                 */
 
                 Collections.sort(userList, new UserComparator());
 
                 // userList now contains friends ordered by the most matching likes and dislikes
 
-                /*System.out.println("AFTER");
+                /*
+                System.out.println("AFTER");
                 for (int i = 0; i < userList.size(); i++) {
                     System.out.println(userList.get(i).getUsername());
-                }*/
+                }
+                */
+
+
+                recyclerAdapter adapter = new recyclerAdapter(userList, AddFriendsActivity.this);
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                recyclerView.setLayoutManager(layoutManager);
+
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                recyclerView.setAdapter(adapter);
+
 
             }
 
@@ -98,7 +134,7 @@ class UserComparator implements Comparator<User> {
                 score++;
             }
         }
-        System.out.println(u.getUsername() + " has score of " + score);
+        //System.out.println(u.getUsername() + " has score of " + score);
         return score;
     }
 }
