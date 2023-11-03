@@ -22,7 +22,6 @@ public class FriendsActivity extends AppCompatActivity {
     TextView add_tv;
     TextView invite_tv;
     TextView view_tv;
-    TextView
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +98,7 @@ public class FriendsActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Error");
+                System.out.println(error.getMessage());
             }
 
 
@@ -108,29 +107,6 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     public static void andysFunction() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User u = snapshot.getValue(User.class);
-
-                ArrayList<String> incomingRequests = u.getIncomingRequests();
-                if (incomingRequests == null) {
-                    incomingRequests = new ArrayList<>();
-                }
-                
-                u.setIncomingRequests(incomingRequests);
-                DatabaseUtil.saveUser(u);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Error");
-            }
-
-
-        });
     }
 }

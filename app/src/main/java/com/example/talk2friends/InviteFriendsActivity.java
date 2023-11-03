@@ -124,7 +124,7 @@ public class InviteFriendsActivity extends AppCompatActivity {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-                            System.out.println("Error");
+                            System.out.println(error.getMessage());
                         }
                     });
 

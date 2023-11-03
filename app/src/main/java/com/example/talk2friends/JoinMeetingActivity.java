@@ -107,7 +107,7 @@ public class JoinMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Error");
+                System.out.println(error.getMessage());
             }
 
 
@@ -188,7 +188,7 @@ public class JoinMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("Error");
+                System.out.println(error.getMessage());
             }
 
 
