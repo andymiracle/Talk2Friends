@@ -182,11 +182,11 @@ public class SignUpActivity extends AppCompatActivity {
                     }
 
                     User u = new User();
-                    u.setUsername(new_email.substring(0, new_email.indexOf('@')));
-                    u.setPassword(new_password);
+                    //u.setUsername(new_email.substring(0, new_email.indexOf('@')));
+                    //u.setPassword(new_password);
                     Singleton.getInstance().setUsername(new_email.substring(0, new_email.indexOf('@')));
                     Singleton.getInstance().setPassword(new_password);
-                    DatabaseUtil.saveUser(u);
+                    //DatabaseUtil.saveUser(u);
 
                     Intent intent = new Intent(SignUpActivity.this, ProfileCreationActivity.class);
                     startActivity(intent);

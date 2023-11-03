@@ -38,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FriendsProfileActivity.class);
         startActivity(intent);
          */
-        //https://www.baeldung.com/sha-256-hashing-java
 
 
         username_tv = (TextView) findViewById(R.id.username);

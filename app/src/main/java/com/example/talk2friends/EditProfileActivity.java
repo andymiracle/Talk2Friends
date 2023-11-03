@@ -303,6 +303,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         u2.setAffiliation(affiliation);
                         u2.setInterests(interestMap);
                         u2.setFriends(u.getFriends());
+                        u2.setIncomingRequests(u.getIncomingRequests());
 
                         DatabaseUtil.saveUser(u2);
 

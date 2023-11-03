@@ -14,6 +14,7 @@ public class User {
     private HashMap<String, Boolean> interests;
 
     private ArrayList<String> friends;
+    private ArrayList<String> incomingRequests;
 
 
     public User() {
@@ -90,6 +91,14 @@ public class User {
 
     public void setFriends(ArrayList<String> friends) {
         this.friends = friends;
+    }
+
+    public ArrayList<String> getIncomingRequests() {
+        return this.incomingRequests;
+    }
+
+    public void setIncomingRequests (ArrayList<String> incomingRequests) {
+        this.incomingRequests = incomingRequests;
     }
 
 

@@ -69,7 +69,20 @@ public class FriendsActivity extends AppCompatActivity {
                     friends = new ArrayList<>();
                 }
                 friends.add(Singleton.getInstance().getUsername());
+
+                ArrayList<String> incomingRequests = u.getIncomingRequests();
+                if (incomingRequests == null) {
+                    incomingRequests = new ArrayList<>();
+                }
+                for (int i = 0; i < incomingRequests.size(); i++) {
+                    if (incomingRequests.get(i).equals(Singleton.getInstance().getUsername())) {
+                        incomingRequests.remove(i);
+                        break;
+                    }
+                }
+
                 u.setFriends(friends);
+                u.setIncomingRequests(incomingRequests);
                 DatabaseUtil.saveUser(u);
 
             }
