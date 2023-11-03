@@ -35,7 +35,7 @@
         android:id="@+id/send_code"
         android:layout_width="121dp"
         android:layout_height="41dp"
-        android:text="@string/send_code"
+        android:text="Invite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.817"

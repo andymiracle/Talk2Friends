@@ -52,5 +52,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.172" />
 
+    <Button
+        android:id="@+id/view_friend_request"
+        android:layout_width="180dp"
+        android:layout_height="41dp"
+        android:text="Friend Requests"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.52" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

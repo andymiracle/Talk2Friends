@@ -19,7 +19,7 @@
         android:id="@+id/etTodo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="New Todo"
+        android:hint="Type in Username"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAddToDo"
         app:layout_constraintStart_toStartOf="parent" />
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Add"/>
+        android:text="Request"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
