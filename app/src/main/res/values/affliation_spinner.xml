@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="affliation_array">
-        <item>international</item>
-        <item>native</item>
+        <item>International</item>
+        <item>Native</item>
     </string-array>
 </resources>
