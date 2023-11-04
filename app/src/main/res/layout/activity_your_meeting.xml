@@ -22,7 +22,7 @@
         android:id="@+id/your_meeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Meetings"
+        android:text="My Joined Meetings"
         android:textSize="32sp"
 
         app:layout_constraintBottom_toTopOf="@+id/recycler_view"

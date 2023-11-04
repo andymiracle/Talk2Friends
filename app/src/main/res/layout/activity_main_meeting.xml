@@ -32,10 +32,10 @@
         app:layout_constraintVertical_bias="0.064" />
 
     <Button
-        android:id="@+id/your_meetings"
-        android:layout_width="188dp"
+        android:id="@+id/my_joined_meetings"
+        android:layout_width="200dp"
         android:layout_height="40dp"
-        android:text="Your Meetings"
+        android:text="My Joined Meetings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.468"
@@ -68,10 +68,10 @@
         app:layout_constraintVertical_bias="0.425" />
 
     <Button
-        android:id="@+id/created_meetings"
-        android:layout_width="188dp"
+        android:id="@+id/my_created_meetings"
+        android:layout_width="220dp"
         android:layout_height="40dp"
-        android:text="Created Meetings"
+        android:text="My Created Meetings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"

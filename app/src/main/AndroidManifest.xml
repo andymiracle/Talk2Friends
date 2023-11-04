@@ -16,7 +16,7 @@
         android:theme="@style/Theme.Talk2Friends"
         tools:targetApi="31">
         <activity
-            android:name=".CreatedMeetingActivity"
+            android:name=".MyCreatedMeetingActivity"
             android:exported="true" />
         <activity
             android:name=".MyMeetingDetailActivity"

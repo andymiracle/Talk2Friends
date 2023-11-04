@@ -30,19 +30,20 @@ public class YourMeetingActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings");
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<Meeting> meetingList = new ArrayList<>();
 
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     Meeting m = snap.getValue(Meeting.class);
-                    if (m.getCreator().equals(Singleton.getInstance().getUsername())) {
+
+                    if (m.getAttendees().contains(Singleton.getInstance().getUsername())) { //find the meeting that has me as one of attendees
                         meetingList.add(m);
                     }
                 }
 
-                AdapterForViewingMeeting adapter = new AdapterForViewingMeeting(meetingList, YourMeetingActivity.this, Singleton.getInstance().getUsername());
+                AdapterForMyJoinedMeetings adapter = new AdapterForMyJoinedMeetings(meetingList, YourMeetingActivity.this, Singleton.getInstance().getUsername());
 
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 

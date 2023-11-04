@@ -2,33 +2,28 @@ package com.example.talk2friends;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class AdapterForViewingMeeting extends RecyclerView.Adapter<AdapterForViewingMeeting.MyViewHolder> {
+public class AdapterForMyCreatedMeeting extends RecyclerView.Adapter<AdapterForMyCreatedMeeting.MyViewHolder> {
     private ArrayList<Meeting> meetingsList;
     private Context context;
     private String username;
     private HashMap<String, String> hashmap;
 
-    public AdapterForViewingMeeting(ArrayList<Meeting> meetingsList, Context context, String username) {
+    public AdapterForMyCreatedMeeting(ArrayList<Meeting> meetingsList, Context context, String username) {
         this.meetingsList = meetingsList;
         this.context = context;
         this.username = username;
@@ -36,17 +31,17 @@ public class AdapterForViewingMeeting extends RecyclerView.Adapter<AdapterForVie
 
     @NonNull
     @Override
-    public AdapterForViewingMeeting.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterForMyCreatedMeeting.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_items3, parent, false);
-        return new AdapterForViewingMeeting.MyViewHolder(view);
+        return new AdapterForMyCreatedMeeting.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterForViewingMeeting.MyViewHolder holder, int position) {
-        String name = meetingsList.get(position).getName();
+    public void onBindViewHolder(@NonNull AdapterForMyCreatedMeeting.MyViewHolder holder, int position) {
+        String meetingName = meetingsList.get(position).getName();
         String meetingID = meetingsList.get(position).getMeetingID();
 
-        holder.nameTxt.setText(name);
+        holder.nameTxt.setText(meetingName);
 
         holder.details_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,8 +56,11 @@ public class AdapterForViewingMeeting extends RecyclerView.Adapter<AdapterForVie
         holder.remove_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //delete meeting from database
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings").child(meetingID);
+                ref.removeValue();
 
-                System.out.println("I want to remove this meeting");
+                //System.out.println("I want to remove this meeting I created");
             }
         });
     }
