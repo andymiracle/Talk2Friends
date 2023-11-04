@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,7 +39,7 @@ public class MeetingInfoActivity extends AppCompatActivity {
         //System.out.println(meetingID);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings").child(meetingID);
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Meeting m = snapshot.getValue(Meeting.class);
@@ -91,6 +93,9 @@ public class MeetingInfoActivity extends AppCompatActivity {
 
                 // If meeting was not found (deleted)
                 if (m == null) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Meeting was deleted", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
                     return;
                 }
 
@@ -102,6 +107,9 @@ public class MeetingInfoActivity extends AppCompatActivity {
                 for (int i = 0; i < participants.size(); i++) {
                     // If we are already a member
                     if (participants.get(i).equals(Singleton.getInstance().getUsername())) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Already joined meeting", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                         return;
                     }
                 }
@@ -109,6 +117,10 @@ public class MeetingInfoActivity extends AppCompatActivity {
                 participants.add(Singleton.getInstance().getUsername());
                 m.setAttendees(participants);
                 DatabaseUtil.saveMeeting(m);
+
+                Toast toast = Toast.makeText(getApplicationContext(), "Joined meeting!", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
             }
 
             @Override
@@ -122,8 +134,8 @@ public class MeetingInfoActivity extends AppCompatActivity {
 
 
         // go back to main meetings page
-        Intent intent = new Intent(this, MainMeetingActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, MainMeetingActivity.class);
+        //startActivity(intent);
     }
 
 }
