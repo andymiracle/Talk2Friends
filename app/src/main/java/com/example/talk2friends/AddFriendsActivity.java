@@ -8,10 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -49,7 +51,7 @@ public class AddFriendsActivity extends AppCompatActivity {
                 ArrayList<String> friendsList = new ArrayList<>();
                 User current_user = new User();
 
-                //andy's testing code
+                //andy's testing code (making sure that we only see the users that are not in the friend's list)
                 for (DataSnapshot snap: snapshot.getChildren()) {
                     User u = snap.getValue(User.class);
                     if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
@@ -73,8 +75,6 @@ public class AddFriendsActivity extends AppCompatActivity {
                         if (!friendsList.contains(u.getUsername())) {
                             userList.add(u);
                             //System.out.println("Hah");
-                        } else {
-                            //System.out.println("Get out!");
                         }
                     }
                 }
@@ -136,6 +136,73 @@ public class AddFriendsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String username = username_tv.getText().toString();
+
+                if (username.equals(Singleton.getInstance().getUsername())) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Cannot send it to yourself", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                } else {
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
+
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            ArrayList<String> friendsList = new ArrayList<>();
+                            ArrayList<String> incoming = new ArrayList<>();
+                            User current_user = new User();
+                            User target_user = null;
+
+                            for (DataSnapshot snap : snapshot.getChildren()) {
+                                User u = snap.getValue(User.class);
+
+                                if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                                    current_user = u;
+                                } else if (u.getUsername().equals(username)) {
+                                    target_user = u;
+                                }
+                            }
+
+                            friendsList = current_user.getFriends();
+
+                            if (target_user == null) {
+                                Toast toast = Toast.makeText(getApplicationContext(), "Username doesn't exist", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
+                            } else {
+                                incoming = target_user.getIncomingRequests(); //target user's incoming friend requests
+
+                                if (incoming == null) {
+                                    incoming = new ArrayList<>();
+                                }
+
+                                if (friendsList.contains(username)) {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Already added as a friend", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                } else if (incoming.contains(current_user.getUsername())) {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Request already sent", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                } else {
+                                    incoming.add(Singleton.getInstance().getUsername());
+                                    target_user.setIncomingRequests(incoming);
+                                    DatabaseUtil.saveUser(target_user);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Request successfully sent!", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
+
+
 
             }
         });

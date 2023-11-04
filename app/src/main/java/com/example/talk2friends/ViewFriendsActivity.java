@@ -40,45 +40,27 @@ public class ViewFriendsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<String> friendsList = new ArrayList<>();
+                HashMap<String, String> userToDisplay = new HashMap<>();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     User u = snap.getValue(User.class);
-
-                    HashMap<String, String> userToDisplay = new HashMap<>();
                     userToDisplay.put(u.getUsername(), u.getDisplayName());
 
                     if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
                         if (u.getFriends() != null) {
                             friendsList = u.getFriends();
-
-                            /*
-                            for (int i = 0; i < incomingRequests.size(); ++i) {
-                                System.out.println("Incoming request still has " + incomingRequests.get(i));
-                            }
-                             */
-
-                            AdapterForViewing adapter = new AdapterForViewing(friendsList, ViewFriendsActivity.this, u.getUsername());
-
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-                            recyclerView.setLayoutManager(layoutManager);
-
-                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                            recyclerView.setAdapter(adapter);
-                        } else {
-                            System.out.println("You have no friends..?");
-                            AdapterForViewing adapter = new AdapterForViewing(friendsList, ViewFriendsActivity.this, u.getUsername());
-
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-                            recyclerView.setLayoutManager(layoutManager);
-
-                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                            recyclerView.setAdapter(adapter);
                         }
                     }
                 }
+
+                AdapterForViewing adapter = new AdapterForViewing(userToDisplay, friendsList, ViewFriendsActivity.this, Singleton.getInstance().getUsername());
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                recyclerView.setLayoutManager(layoutManager);
+
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                recyclerView.setAdapter(adapter);
 
                 /*
                 if (friends.size() > 0) {

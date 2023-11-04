@@ -20,13 +20,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AdapterForViewing extends RecyclerView.Adapter<AdapterForViewing.MyViewHolder> {
     private ArrayList<String> friendslist;
     private Context context;
     private String current_user;
+    private HashMap<String, String> userToDisplay;
 
-    public AdapterForViewing(ArrayList<String> friendslist, Context context, String current_user) {
+    public AdapterForViewing(HashMap<String, String> userToDisplay, ArrayList<String> friendslist, Context context, String current_user) {
+        this.userToDisplay = userToDisplay;
         this.friendslist = friendslist;
         this.context = context;
         this.current_user = current_user;
@@ -42,7 +45,9 @@ public class AdapterForViewing extends RecyclerView.Adapter<AdapterForViewing.My
     @Override
     public void onBindViewHolder(@NonNull AdapterForViewing.MyViewHolder holder, int position) {
         String name = friendslist.get(position);
-        holder.nameTxt.setText(name);
+        String displayName = userToDisplay.get(name);
+
+        holder.nameTxt.setText(displayName + " (" + name + ")");
 
         holder.details_bt.setOnClickListener(new View.OnClickListener() {
             @Override

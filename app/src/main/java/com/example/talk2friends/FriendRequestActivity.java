@@ -44,45 +44,29 @@ public class FriendRequestActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //System.out.println("Triggered");
                 ArrayList<String> incomingRequests = new ArrayList<>();
+                HashMap<String, String> userToDisplay = new HashMap<>();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     User u = snap.getValue(User.class);
 
-                    HashMap<String, String> userToDisplay = new HashMap<>();
                     userToDisplay.put(u.getUsername(), u.getDisplayName());
+                    System.out.println(userToDisplay.get("Default"));
 
                     if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
                         if (u.getIncomingRequests() != null) {
                             incomingRequests = u.getIncomingRequests();
-
-                            /*
-                            for (int i = 0; i < incomingRequests.size(); ++i) {
-                                System.out.println("Incoming request still has " + incomingRequests.get(i));
-                            }
-                             */
-
-                            AdapterForRequest adapter = new AdapterForRequest(incomingRequests, FriendRequestActivity.this, Singleton.getInstance().getUsername());
-
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-                            recyclerView.setLayoutManager(layoutManager);
-
-                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                            recyclerView.setAdapter(adapter);
-                        } else {
-                            System.out.println("You have no friends..?");
-                            AdapterForRequest adapter = new AdapterForRequest(incomingRequests, FriendRequestActivity.this, Singleton.getInstance().getUsername());
-
-                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-
-                            recyclerView.setLayoutManager(layoutManager);
-
-                            recyclerView.setItemAnimator(new DefaultItemAnimator());
-
-                            recyclerView.setAdapter(adapter);
                         }
                     }
                 }
+
+                AdapterForRequest adapter = new AdapterForRequest(userToDisplay, incomingRequests, FriendRequestActivity.this, Singleton.getInstance().getUsername());
+
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                recyclerView.setLayoutManager(layoutManager);
+
+                recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                recyclerView.setAdapter(adapter);
 
 
 

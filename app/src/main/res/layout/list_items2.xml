@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="213dp"
-        android:layout_height="51dp"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
 
 
         android:text="Name"
@@ -22,12 +22,13 @@
         android:id="@+id/accept"
         android:layout_width="80dp"
         android:layout_height="34dp"
+        android:layout_marginEnd="16dp"
         android:text="Accept"
+
         android:textSize="10sp"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reject"
 
+        app:layout_constraintEnd_toStartOf="@+id/reject"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button

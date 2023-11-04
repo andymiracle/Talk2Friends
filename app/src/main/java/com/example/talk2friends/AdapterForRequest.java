@@ -20,16 +20,19 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.MyViewHolder> {
     private ArrayList<String> request;
     private Context context;
     private String username;
+    private HashMap<String, String> userToDisplay;
 
-    public AdapterForRequest(ArrayList<String> request, Context context, String username) {
+    public AdapterForRequest(HashMap<String, String> userToDisplay, ArrayList<String> request, Context context, String username) {
         this.request = request;
         this.context = context;
         this.username = username;
+        this.userToDisplay = userToDisplay;
     }
 
     @NonNull
@@ -45,7 +48,8 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
         // assigning values to the views we created in the recycler view row layout file
         // based on the position of the recycler view
         String name = request.get(position);
-        holder.nameTxt.setText(name);
+
+        holder.nameTxt.setText(userToDisplay.get(name) + " (" + name + ")");
 
         holder.accept_bt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +118,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                 });
             }
 
+            // there are 2 versions of this function (1 is static and the other is one here, both code is identical)
             public void friendCurrentUser(String username) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {

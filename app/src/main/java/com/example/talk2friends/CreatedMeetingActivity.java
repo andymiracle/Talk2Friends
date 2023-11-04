@@ -16,13 +16,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class YourMeetingActivity extends AppCompatActivity {
+public class CreatedMeetingActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_meeting);
+        setContentView(R.layout.activity_createdmeeting);
 
         recyclerView = findViewById(R.id.recycler_view);
 
@@ -42,7 +42,7 @@ public class YourMeetingActivity extends AppCompatActivity {
                     }
                 }
 
-                AdapterForViewingMeeting adapter = new AdapterForViewingMeeting(meetingList, YourMeetingActivity.this, Singleton.getInstance().getUsername());
+                AdapterForViewingMeeting adapter = new AdapterForViewingMeeting(meetingList, CreatedMeetingActivity.this, Singleton.getInstance().getUsername());
 
                 RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
