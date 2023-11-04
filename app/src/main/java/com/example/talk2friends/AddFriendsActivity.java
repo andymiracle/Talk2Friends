@@ -29,22 +29,16 @@ import java.util.Collections;
 
 public class AddFriendsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    TextView button_tv;
+    TextView request_tv;
+    TextView username_tv;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addfriends);
 
         recyclerView = findViewById(R.id.recycler_view);
-
-        button_tv = findViewById(R.id.btnAddToDo);
-        button_tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddFriendsActivity.this, FriendsProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+        username_tv = findViewById(R.id.username);
+        request_tv = findViewById(R.id.request);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
@@ -93,8 +87,6 @@ public class AddFriendsActivity extends AppCompatActivity {
                 recyclerView.setItemAnimator(new DefaultItemAnimator());
 
                 recyclerView.setAdapter(adapter);
-
-
             }
 
             @Override
@@ -103,6 +95,14 @@ public class AddFriendsActivity extends AppCompatActivity {
             }
 
 
+        });
+
+        request_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String username = username_tv.getText().toString();
+
+            }
         });
     }
 }

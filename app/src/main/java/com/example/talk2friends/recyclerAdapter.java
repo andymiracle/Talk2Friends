@@ -49,17 +49,19 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.MyView
         holder.view_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Button is clicked ouch! " + name);
+                //System.out.println("Button is clicked ouch! " + name);
 
                 Intent intent = new Intent(context, FriendsProfileActivity.class);
 
                 intent.putExtra("username", name);
 
+                /*
                 if (context == null) {
                     System.out.println("What happened?");
                 } else {
                     System.out.println(context);
                 }
+                 */
 
                 context.startActivity(intent);
             }

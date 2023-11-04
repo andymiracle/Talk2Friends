@@ -22,6 +22,7 @@ public class FriendsActivity extends AppCompatActivity {
     TextView add_tv;
     TextView invite_tv;
     TextView view_tv;
+    TextView request_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class FriendsActivity extends AppCompatActivity {
         add_tv = (TextView) findViewById(R.id.add_friends);
         invite_tv = (TextView) findViewById(R.id.invite_friends);
         view_tv = (TextView) findViewById(R.id.view_friends);
+        request_tv = (TextView) findViewById(R.id.view_friend_request);
 
         add_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,16 @@ public class FriendsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        request_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FriendsActivity.this, FriendRequestActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
     public static void friendCurrentUser(String username) {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);

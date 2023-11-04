@@ -157,14 +157,18 @@ public class SignUpActivity extends AppCompatActivity {
                 new_email = email_tv.getText().toString();
                 new_password = password_tv.getText().toString();
 
-
                 String error_message = "";
+
+                //System.out.println("Code is " + random_code + " You got " + code_tv.getText().toString());
 
                 if (new_email.equals("") || new_password.equals("")) {
                     error_message = "One or more fields are empty";
                     valid = false;
                 } else if (!new_email.equals(valid_email)) {
                     error_message = "Unverified email";
+                    valid = false;
+                } else if (!random_code.equals(code_tv.getText().toString())) {
+                    error_message = "Incorrect verification code";
                     valid = false;
                 }
                 new_password = LoginActivity.hashPassword(new_password);
