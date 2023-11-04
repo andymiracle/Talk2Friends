@@ -136,16 +136,24 @@ public class ProfileCreationActivity extends AppCompatActivity {
         TextView error_tv = (TextView) findViewById(R.id.error);
 
         Boolean validInteger = true;
+        Boolean positiveInteger = true;
+
         TextView invalidAge = (TextView) findViewById(R.id.invalid_age);
 
+        int ageInteger = 0;
         try {
-            int ageInteger = Integer.parseInt(age);
+            ageInteger = Integer.parseInt(age);
         } catch(NumberFormatException e) {
-            invalidAge.setText("age should be an integer");
+            invalidAge.setText("age should be an integer no greater than 2147483647");
             validInteger = false;
         }
 
-        if(validInteger) {
+        if(ageInteger < 0) {
+            positiveInteger = false;
+            invalidAge.setText("age should not be negative");
+        }
+
+        if(validInteger && positiveInteger) {
             invalidAge.setText("");
         }
 
@@ -161,7 +169,7 @@ public class ProfileCreationActivity extends AppCompatActivity {
             return;
         }
 
-        if(!validInteger) {
+        if(!validInteger || !positiveInteger) {
             return;
         }
 

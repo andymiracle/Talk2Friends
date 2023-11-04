@@ -263,19 +263,26 @@ public class EditProfileActivity extends AppCompatActivity {
         TextView error_tv = (TextView) findViewById(R.id.error);
 
         Boolean validInteger = true;
+        Boolean positiveInteger = true;
+
         TextView invalidAge = (TextView) findViewById(R.id.invalid_age);
 
+        int ageInteger = 0;
         try {
-            int ageInteger = Integer.parseInt(age);
+            ageInteger = Integer.parseInt(age);
         } catch(NumberFormatException e) {
-            invalidAge.setText("age should be an integer");
+            invalidAge.setText("age should be an integer no greater than 2147483647");
             validInteger = false;
         }
 
-        if(validInteger) {
-            invalidAge.setText("");
+        if(ageInteger < 0) {
+            positiveInteger = false;
+            invalidAge.setText("age should not be negative");
         }
 
+        if(validInteger && positiveInteger) {
+            invalidAge.setText("");
+        }
 
         if (name.equals("") || age.equals("") || affiliation.equals("") || interest1.equals("") || interest2.equals("") || interest3.equals("") || interest4.equals("") || interest5.equals("") || interest6.equals("") || interest7.equals("") || interest8.equals("") || interest9.equals("") || interest10.equals("")) {
             valid = false;
@@ -286,7 +293,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (valid) {
 
-            if(validInteger) {
+            if(validInteger && positiveInteger) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
 
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
