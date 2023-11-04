@@ -5,9 +5,11 @@ To run application, go to "Run" and do "Run 'app'".
 2. User account credentials (username/password):
 
 Username: gtdo
+
 Password: gabrieldo
 
 Username: bwiencko
+
 Password: 123
 
 3. Any specific problems:
