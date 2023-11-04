@@ -65,26 +65,58 @@ public class AdapterForViewing extends RecyclerView.Adapter<AdapterForViewing.My
             public void onClick(View view) {
                 //System.out.println("I want to remove " + name + " from the friend list");
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(current_user);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User u = snapshot.getValue(User.class);
-                        ArrayList<String> friends = u.getFriends();
+                        User currentUser = null;
+                        User targetUser = null;
+                        ArrayList<String> currentFriends = new ArrayList<>();
+                        ArrayList<String> targetFriends = new ArrayList<>();
 
-                        int index = 0;
-                        for (int i = 0; i < friends.size(); ++i) {
-                            if (friends.get(i).equals(name)) {
-                                //System.out.println("You sure you want to delete " + name + " from " + current_user + "'s friends list?");
-                                index = i;
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            User u = snap.getValue(User.class);
+                            if (u.getUsername().equals(name)) {
+                                targetUser = u;
+                            }
+                            else if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                                currentUser = u;
                             }
                         }
 
-                        friends.remove(index);
+                        // Should never be reached
+                        if (targetUser == null || currentUser == null) {
+                            return;
+                        }
 
-                        u.setFriends(friends);
-                        DatabaseUtil.saveUser(u);
+                        if (currentUser.getFriends() != null) {
+                            currentFriends = currentUser.getFriends();
+                        }
+                        if (targetUser.getFriends() != null) {
+                            targetFriends = targetUser.getFriends();
+                        }
+
+                        for (int i = 0; i < currentFriends.size(); i++) {
+                            if (currentFriends.get(i).equals(name)) {
+                                currentFriends.remove(i);
+                                break;
+                            }
+                        }
+
+                        for (int i = 0; i < targetFriends.size(); i++) {
+                            if (targetFriends.get(i).equals(Singleton.getInstance().getUsername())) {
+                                targetFriends.remove(i);
+                                break;
+                            }
+                        }
+
+                        currentUser.setFriends(currentFriends);
+                        targetUser.setFriends(targetFriends);
+
+                        DatabaseUtil.saveUser(currentUser);
+                        DatabaseUtil.saveUser(targetUser);
+
                         Toast toast = Toast.makeText(context, "Removed from the friends list", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();

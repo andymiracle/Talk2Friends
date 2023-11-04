@@ -36,8 +36,6 @@ public class JoinMeetingActivity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings");
 
-        //System.out.println("Yoo-hoo");
-
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

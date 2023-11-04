@@ -66,6 +66,61 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
     }
+    public static void friendUser(String friend) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class); //current user
+                ArrayList<String> friends = u.getFriends(); //get current user's friends
+                if (friends == null) {
+                    //System.out.println("Congrats for having a new friend! " + u.getUsername());
+                    friends = new ArrayList<>();
+                }
+
+                Boolean isNotFriend = true;
+                for (int i = 0; i < friends.size(); i++) {
+                    if (friends.get(i).equals(friend)) {
+                        isNotFriend = false;
+                    }
+                }
+                if (isNotFriend) {
+                    //System.out.println(friend + " is gonna be " + u.getUsername() + "'s new friend Ooh hoh");
+                    friends.add(friend); //add friend in current user's friend list
+                }
+
+                ArrayList<String> incomingRequests = u.getIncomingRequests(); //get current user's incoming request
+
+                if (incomingRequests == null) {
+                    incomingRequests = new ArrayList<>();
+                }
+
+                for (int i = 0; i < incomingRequests.size(); i++) {
+                    //System.out.println("I'm comparing " + friend + " with " + incomingRequests.get(i));
+                    if (incomingRequests.get(i).equals(friend)) {
+                        //System.out.println("Remove it plz");
+                        incomingRequests.remove(i);
+                        break;
+                    }
+                }
+
+                u.setFriends(friends);
+                u.setIncomingRequests(incomingRequests);
+                DatabaseUtil.saveUser(u);
+
+                        /*
+                        for (int i = 0; i < u.getFriends().size(); ++i) {
+                            System.out.println("You have " + u.getFriends().get(i) + " as friend!");
+                        }
+                         */
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println(error.getMessage());
+            }
+        });
+    }
 
     public static void friendCurrentUser(String username) {
 

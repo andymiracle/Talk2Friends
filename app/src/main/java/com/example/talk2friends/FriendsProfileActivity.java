@@ -71,40 +71,78 @@ public class FriendsProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
 
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User u = snapshot.getValue(User.class);
-                        ArrayList<String> incoming = u.getIncomingRequests();
-                        if (incoming == null) {
-                            incoming = new ArrayList<>();
+                        //ArrayList<String> friendsList = new ArrayList<>();
+                        ArrayList<String> targetIncoming = new ArrayList<>();
+                        ArrayList<String> currentIncoming = new ArrayList<>();
+                        User currentUser = null;
+                        User targetUser = null;
+
+                        for (DataSnapshot snap : snapshot.getChildren()) {
+                            User u = snap.getValue(User.class);
+
+                            if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                                currentUser = u;
+                            } else if (u.getUsername().equals(username)) {
+                                targetUser = u;
+                            }
                         }
 
-                        Boolean duplicate = false;
-                        for (int i = 0; i < incoming.size(); ++i) {
-                            if (incoming.get(i).equals(Singleton.getInstance().getUsername())) {
-                                duplicate = true;
+                        // Should never be reached
+                        if (targetUser == null || currentUser == null) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Error processing your request", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                            return;
+                        }
+
+                        if (currentUser.getIncomingRequests() != null) {
+                            currentIncoming = currentUser.getIncomingRequests();
+                        }
+
+                        if (targetUser.getIncomingRequests() != null) {
+                            targetIncoming = targetUser.getIncomingRequests();
+                        }
+
+                        Boolean isDuplicateRequest = false;
+                        for (int i = 0; i < targetIncoming.size(); ++i) {
+                            if (targetIncoming.get(i).equals(Singleton.getInstance().getUsername())) {
+                                isDuplicateRequest = true;
                                 break;
                             }
                         }
+                        ArrayList<String> friendsList = new ArrayList<>();
+                        if (currentUser.getFriends() != null) {
+                            friendsList = currentUser.getFriends();
+                        }
 
-                        if (duplicate) {
+                        if (isDuplicateRequest) {
                             Toast toast = Toast.makeText(getApplicationContext(), "Request already sent!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();
-                        } else {
-                            incoming.add(Singleton.getInstance().getUsername());
-                            u.setIncomingRequests(incoming);
+                        }
+                        else if (friendsList.contains(username)) {
+                            Toast toast = Toast.makeText(getApplicationContext(), "Already added as a friend", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                        }
+                        else if (currentIncoming.contains(username)) {
+                            FriendsActivity.friendUser(username);
+                            FriendsActivity.friendCurrentUser(username);
 
-                            System.out.println("The user " + u.getUsername() + " received invitations from ");
-                            for (int i = 0; i < u.getIncomingRequests().size(); ++i) {
-                                System.out.println("The user " +u.getIncomingRequests().get(i));
-                            }
+                            Toast toast = Toast.makeText(getApplicationContext(), targetUser.getUsername() + " has already sent a friend request. You are now friends!", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                            toast.show();
+                        }
+                        else {
+                            targetIncoming.add(Singleton.getInstance().getUsername());
+                            targetUser.setIncomingRequests(targetIncoming);
+                            DatabaseUtil.saveUser(targetUser);
 
-                            DatabaseUtil.saveUser(u);
                             Toast toast = Toast.makeText(getApplicationContext(), "Request successfully sent!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                             toast.show();

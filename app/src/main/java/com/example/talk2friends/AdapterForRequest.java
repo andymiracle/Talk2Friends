@@ -55,122 +55,14 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
             @Override
             public void onClick(View view) {
                 //System.out.println("Accept me!");
-                friendUser(name);
-                friendCurrentUser(name);
+                FriendsActivity.friendUser(name);
+                FriendsActivity.friendCurrentUser(name);
                 Toast toast = Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                 toast.show();
             }
 
-            public void friendUser(String friend) {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User u = snapshot.getValue(User.class); //current user
-                        ArrayList<String> friends = u.getFriends(); //get current user's friends
-                        if (friends == null) {
-                            //System.out.println("Congrats for having a new friend! " + u.getUsername());
-                            friends = new ArrayList<>();
-                        }
 
-                        Boolean isNotFriend = true;
-                        for (int i = 0; i < friends.size(); i++) {
-                            if (friends.get(i).equals(friend)) {
-                                isNotFriend = false;
-                            }
-                        }
-                        if (isNotFriend) {
-                            //System.out.println(friend + " is gonna be " + u.getUsername() + "'s new friend Ooh hoh");
-                            friends.add(friend); //add friend in current user's friend list
-                        }
-
-                        ArrayList<String> incomingRequests = u.getIncomingRequests(); //get current user's incoming request
-
-                        if (incomingRequests == null) {
-                            incomingRequests = new ArrayList<>();
-                        }
-
-                        for (int i = 0; i < incomingRequests.size(); i++) {
-                            //System.out.println("I'm comparing " + friend + " with " + incomingRequests.get(i));
-                            if (incomingRequests.get(i).equals(friend)) {
-                                //System.out.println("Remove it plz");
-                                incomingRequests.remove(i);
-                                break;
-                            }
-                        }
-
-                        u.setFriends(friends);
-                        u.setIncomingRequests(incomingRequests);
-                        DatabaseUtil.saveUser(u);
-
-                        /*
-                        for (int i = 0; i < u.getFriends().size(); ++i) {
-                            System.out.println("You have " + u.getFriends().get(i) + " as friend!");
-                        }
-                         */
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        System.out.println(error.getMessage());
-                    }
-                });
-            }
-
-            // there are 2 versions of this function (1 is static and the other is one here, both code is identical)
-            public void friendCurrentUser(String username) {
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User u = snapshot.getValue(User.class);
-                        ArrayList<String> friends = u.getFriends();
-                        if (friends == null) {
-                            friends = new ArrayList<>();
-                            //System.out.println("Congrats for having new friend! " + username);
-                        }
-
-                        Boolean isNotFriend = true;
-                        for (int i = 0; i < friends.size(); i++) {
-                            if (friends.get(i).equals(Singleton.getInstance().getUsername())) {
-                                isNotFriend = false;
-                            }
-                        }
-                        if (isNotFriend) {
-                            friends.add(Singleton.getInstance().getUsername());
-                            //System.out.println(Singleton.getInstance().getUsername() + " is gonna be new friend Ooh hoh");
-                        }
-
-                        ArrayList<String> incomingRequests = u.getIncomingRequests();
-                        if (incomingRequests == null) {
-                            incomingRequests = new ArrayList<>();
-                        }
-                        for (int i = 0; i < incomingRequests.size(); i++) {
-                            if (incomingRequests.get(i).equals(Singleton.getInstance().getUsername())) {
-                                incomingRequests.remove(i);
-                                break;
-                            }
-                        }
-
-                        u.setFriends(friends);
-                        u.setIncomingRequests(incomingRequests);
-                        DatabaseUtil.saveUser(u);
-
-                        /*
-                        for (int i = 0; i < u.getFriends().size(); ++i) {
-                            System.out.println(username + " has " + u.getFriends().get(i) + " as friend!");
-                        }
-                         */
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                        System.out.println(error.getMessage());
-                    }
-                });
-
-            }
         });
 
         holder.reject_bt.setOnClickListener(new View.OnClickListener() {

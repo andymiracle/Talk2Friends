@@ -170,23 +170,40 @@ public class AddFriendsActivity extends AppCompatActivity {
                                 toast.show();
                             } else {
                                 incoming = target_user.getIncomingRequests(); //target user's incoming friend requests
+                                ArrayList<String> currentIncoming = current_user.getIncomingRequests();
 
                                 if (incoming == null) {
                                     incoming = new ArrayList<>();
                                 }
+                                if (currentIncoming == null) {
+                                    currentIncoming = new ArrayList<>();
+                                }
+
 
                                 if (friendsList.contains(username)) {
                                     Toast toast = Toast.makeText(getApplicationContext(), "Already added as a friend", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
-                                } else if (incoming.contains(current_user.getUsername())) {
+                                }
+                                else if (incoming.contains(current_user.getUsername())) {
                                     Toast toast = Toast.makeText(getApplicationContext(), "Request already sent", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
-                                } else {
+                                }
+                                else if (currentIncoming.contains(target_user.getUsername())) {
+
+                                    FriendsActivity.friendUser(target_user.getUsername());
+                                    FriendsActivity.friendCurrentUser(target_user.getUsername());
+
+                                    Toast toast = Toast.makeText(getApplicationContext(), target_user.getUsername() + " has already sent a friend request. You are now friends!", Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
+                                }
+                                else {
                                     incoming.add(Singleton.getInstance().getUsername());
                                     target_user.setIncomingRequests(incoming);
                                     DatabaseUtil.saveUser(target_user);
+
                                     Toast toast = Toast.makeText(getApplicationContext(), "Request successfully sent!", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
