@@ -2,11 +2,13 @@ package com.example.talk2friends;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,10 +23,12 @@ import java.util.ArrayList;
 
 public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.MyViewHolder> {
     private ArrayList<String> request;
+    private Context context;
     private String username;
 
-    public AdapterForRequest(ArrayList<String> request, String username) {
+    public AdapterForRequest(ArrayList<String> request, Context context, String username) {
         this.request = request;
+        this.context = context;
         this.username = username;
     }
 
@@ -46,9 +50,12 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
         holder.accept_bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Accept me!");
+                //System.out.println("Accept me!");
                 friendUser(name);
                 friendCurrentUser(name);
+                Toast toast = Toast.makeText(context, "Accepted", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                toast.show();
             }
 
             public void friendUser(String friend) {
@@ -59,7 +66,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         User u = snapshot.getValue(User.class); //current user
                         ArrayList<String> friends = u.getFriends(); //get current user's friends
                         if (friends == null) {
-                            System.out.println("Congrats for having a new friend! " + u.getUsername());
+                            //System.out.println("Congrats for having a new friend! " + u.getUsername());
                             friends = new ArrayList<>();
                         }
 
@@ -70,7 +77,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                             }
                         }
                         if (isNotFriend) {
-                            System.out.println(friend + " is gonna be " + u.getUsername() + "'s new friend Ooh hoh");
+                            //System.out.println(friend + " is gonna be " + u.getUsername() + "'s new friend Ooh hoh");
                             friends.add(friend); //add friend in current user's friend list
                         }
 
@@ -81,7 +88,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         }
 
                         for (int i = 0; i < incomingRequests.size(); i++) {
-                            System.out.println("I'm comparing " + friend + " with " + incomingRequests.get(i));
+                            //System.out.println("I'm comparing " + friend + " with " + incomingRequests.get(i));
                             if (incomingRequests.get(i).equals(friend)) {
                                 //System.out.println("Remove it plz");
                                 incomingRequests.remove(i);
@@ -92,9 +99,12 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         u.setFriends(friends);
                         u.setIncomingRequests(incomingRequests);
                         DatabaseUtil.saveUser(u);
+
+                        /*
                         for (int i = 0; i < u.getFriends().size(); ++i) {
                             System.out.println("You have " + u.getFriends().get(i) + " as friend!");
                         }
+                         */
                     }
 
                     @Override
@@ -113,7 +123,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         ArrayList<String> friends = u.getFriends();
                         if (friends == null) {
                             friends = new ArrayList<>();
-                            System.out.println("Congrats for having new friend! " + username);
+                            //System.out.println("Congrats for having new friend! " + username);
                         }
 
                         Boolean isNotFriend = true;
@@ -124,7 +134,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         }
                         if (isNotFriend) {
                             friends.add(Singleton.getInstance().getUsername());
-                            System.out.println(Singleton.getInstance().getUsername() + " is gonna be new friend Ooh hoh");
+                            //System.out.println(Singleton.getInstance().getUsername() + " is gonna be new friend Ooh hoh");
                         }
 
                         ArrayList<String> incomingRequests = u.getIncomingRequests();
@@ -141,9 +151,12 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         u.setFriends(friends);
                         u.setIncomingRequests(incomingRequests);
                         DatabaseUtil.saveUser(u);
+
+                        /*
                         for (int i = 0; i < u.getFriends().size(); ++i) {
                             System.out.println(username + " has " + u.getFriends().get(i) + " as friend!");
                         }
+                         */
                     }
 
                     @Override
@@ -169,19 +182,24 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                         int index = 0;
                         for (int i = 0; i < incoming.size(); ++i) {
                             if (incoming.get(i).equals(name)) {
-                                System.out.println("You sure you want to delete " + name + " from " + username + "'s friend request collection?");
+                                //System.out.println("You sure you want to delete " + name + " from " + username + "'s friend request collection?");
                                 index = i;
                             }
                         }
 
                         incoming.remove(index);
 
+                        /*
                         for (int i = 0; i < incoming.size(); ++i) {
                             System.out.println("You have " + incoming.get(i));
                         }
+                         */
 
                         u.setIncomingRequests(incoming);
                         DatabaseUtil.saveUser(u);
+                        Toast toast = Toast.makeText(context, "Rejected", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                     }
 
                     @Override
@@ -190,7 +208,7 @@ public class AdapterForRequest extends RecyclerView.Adapter<AdapterForRequest.My
                     }
                 });
 
-                System.out.println("You are gonna reject me?");
+                //System.out.println("You are gonna reject me?");
             }
         });
     }

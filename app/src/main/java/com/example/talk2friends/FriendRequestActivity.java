@@ -42,7 +42,7 @@ public class FriendRequestActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println("Triggered");
+                //System.out.println("Triggered");
                 ArrayList<String> incomingRequests = new ArrayList<>();
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     User u = snap.getValue(User.class);
@@ -60,7 +60,7 @@ public class FriendRequestActivity extends AppCompatActivity {
                             }
                              */
 
-                            AdapterForRequest adapter = new AdapterForRequest(incomingRequests, Singleton.getInstance().getUsername());
+                            AdapterForRequest adapter = new AdapterForRequest(incomingRequests, FriendRequestActivity.this, Singleton.getInstance().getUsername());
 
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -71,7 +71,7 @@ public class FriendRequestActivity extends AppCompatActivity {
                             recyclerView.setAdapter(adapter);
                         } else {
                             System.out.println("You have no friends..?");
-                            AdapterForRequest adapter = new AdapterForRequest(incomingRequests, Singleton.getInstance().getUsername());
+                            AdapterForRequest adapter = new AdapterForRequest(incomingRequests, FriendRequestActivity.this, Singleton.getInstance().getUsername());
 
                             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 

@@ -26,15 +26,15 @@
         android:textSize="10sp"
 
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/reject"
+        app:layout_constraintEnd_toStartOf="@+id/remove"
 
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/reject"
+        android:id="@+id/remove"
         android:layout_width="80dp"
         android:layout_height="34dp"
-        android:text="Reject"
+        android:text="Remove"
 
         android:textSize="10sp"
         tools:layout_editor_absoluteX="190dp"

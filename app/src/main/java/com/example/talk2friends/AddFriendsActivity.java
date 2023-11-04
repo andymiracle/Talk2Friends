@@ -46,7 +46,40 @@ public class AddFriendsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ArrayList<User> userList = new ArrayList<>();
+                ArrayList<String> friendsList = new ArrayList<>();
+                User current_user = new User();
 
+                //andy's testing code
+                for (DataSnapshot snap: snapshot.getChildren()) {
+                    User u = snap.getValue(User.class);
+                    if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                        current_user = u;
+                        break;
+                    }
+                }
+
+                friendsList = current_user.getFriends();
+                if (friendsList == null) {
+                    friendsList = new ArrayList<>();
+                }
+
+                for (DataSnapshot snap: snapshot.getChildren()) {
+                    User u = snap.getValue(User.class);
+
+                    if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                        Singleton.getInstance().setInterests(u.getInterests());
+                    }
+                    else {
+                        if (!friendsList.contains(u.getUsername())) {
+                            userList.add(u);
+                            //System.out.println("Hah");
+                        } else {
+                            //System.out.println("Get out!");
+                        }
+                    }
+                }
+
+                /* Original code
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     User u = snap.getValue(User.class);
 
@@ -58,6 +91,8 @@ public class AddFriendsActivity extends AppCompatActivity {
                     }
 
                 }
+
+                 */
 
                 /*
                 System.out.println("BEFORE");

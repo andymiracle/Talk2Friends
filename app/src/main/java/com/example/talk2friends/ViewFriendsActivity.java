@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class ViewFriendsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -38,19 +39,45 @@ public class ViewFriendsActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User currentUser = new User();
+                ArrayList<String> friendsList = new ArrayList<>();
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    User user = snap.getValue(User.class);
-                    if (user.getUsername().equals(Singleton.getInstance().getUsername())) {
-                        currentUser = user;
-                        break;
+                    User u = snap.getValue(User.class);
+
+                    HashMap<String, String> userToDisplay = new HashMap<>();
+                    userToDisplay.put(u.getUsername(), u.getDisplayName());
+
+                    if (u.getUsername().equals(Singleton.getInstance().getUsername())) {
+                        if (u.getFriends() != null) {
+                            friendsList = u.getFriends();
+
+                            /*
+                            for (int i = 0; i < incomingRequests.size(); ++i) {
+                                System.out.println("Incoming request still has " + incomingRequests.get(i));
+                            }
+                             */
+
+                            AdapterForViewing adapter = new AdapterForViewing(friendsList, ViewFriendsActivity.this, u.getUsername());
+
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                            recyclerView.setLayoutManager(layoutManager);
+
+                            recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                            recyclerView.setAdapter(adapter);
+                        } else {
+                            System.out.println("You have no friends..?");
+                            AdapterForViewing adapter = new AdapterForViewing(friendsList, ViewFriendsActivity.this, u.getUsername());
+
+                            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+
+                            recyclerView.setLayoutManager(layoutManager);
+
+                            recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+                            recyclerView.setAdapter(adapter);
+                        }
                     }
-                }
-
-                ArrayList<String> friends = currentUser.getFriends();
-
-                for (int i = 0; i < friends.size(); ++i) {
-                    System.out.println(Singleton.getInstance().getUsername() + " has " + friends.get(i) + " as a friend");
                 }
 
                 /*
