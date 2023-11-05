@@ -46,6 +46,14 @@ public class CreateMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
 
+        TextView home_button = (TextView) findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CreateMeetingActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
+        });
 
         conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
         // need to limit to max 16 characters

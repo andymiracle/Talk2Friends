@@ -34,6 +34,15 @@ public class JoinMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_meeting);
 
+        TextView home_button = (TextView) findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(JoinMeetingActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {

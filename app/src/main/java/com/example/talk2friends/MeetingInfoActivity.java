@@ -27,6 +27,15 @@ public class MeetingInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_info);
 
+        TextView home_button = (TextView) findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MeetingInfoActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
+        });
+
         TextView meetingNameView = (TextView) findViewById(R.id.meeting_name_text);
         TextView conversationTopicView = (TextView) findViewById(R.id.conversation_topic_text);
         TextView timeView = (TextView) findViewById(R.id.time_text);
