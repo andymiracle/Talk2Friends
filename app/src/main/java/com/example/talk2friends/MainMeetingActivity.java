@@ -27,6 +27,15 @@ public class MainMeetingActivity extends AppCompatActivity {
 
         v = (TextView) findViewById(R.id.my_created_meetings);
         v.setOnClickListener(this::toMyCreatedMeeting);
+
+        TextView home_button = (TextView) findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainMeetingActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void toMyJoinedMeetings(View view) {
@@ -48,4 +57,5 @@ public class MainMeetingActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MyCreatedMeetingActivity.class);
         startActivity(intent);
     }
+
 }

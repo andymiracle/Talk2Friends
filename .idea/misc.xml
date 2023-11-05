@@ -3,7 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_create_meeting.xml" value="0.1838905775075988" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_friends.xml" value="0.1838905775075988" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_join_meeting.xml" value="0.1838905775075988" />
         <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_main_meeting.xml" value="0.1838905775075988" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_mainpage.xml" value="0.1" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_meeting_info.xml" value="0.1838905775075988" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_mycreatedmeeting.xml" value="0.1838905775075988" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_mymeetingdetail.xml" value="0.1838905775075988" />
+        <entry key="..\:/Users/dogab/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_your_meeting.xml" value="0.1838905775075988" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_addfriends.xml" value="0.22" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_create_meeting.xml" value="0.11231884057971014" />
         <entry key="..\:/Users/xcf84/AndroidStudioProjects/Talk2Friends/app/src/main/res/layout/activity_createdmeeting.xml" value="0.1" />
