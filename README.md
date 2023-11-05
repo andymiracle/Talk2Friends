@@ -12,6 +12,10 @@ Username: bwiencko
 
 Password: 123
 
+Username: hyunmink
+
+Password: 
+
 3. Any specific problems:
 
 If the application has errors while running, such as duplicate resources, go to "Build" and do "Clean project".
