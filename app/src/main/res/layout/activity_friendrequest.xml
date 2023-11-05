@@ -32,4 +32,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.654" />
 
+    <TextView
+        android:id="@+id/home_button"
+        android:layout_width="59dp"
+        android:layout_height="48dp"
+        android:width="64dp"
+        android:height="64dp"
+        android:text="@string/home"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/recycler_view2"
+
+        app:layout_constraintEnd_toStartOf="@+id/request"
+        app:layout_constraintHorizontal_bias="0.468"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.738" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

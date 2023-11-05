@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 public class ProfileActivity extends AppCompatActivity {
 
     @Override
@@ -27,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView ageView = (TextView)findViewById(R.id.age_text);
         TextView affiliationView = (TextView)findViewById(R.id.affiliation_text);
         TextView interestsView = (TextView)findViewById(R.id.interests_text);
+        TextView home_button = (TextView) findViewById(R.id.home_button);
 
         ((TextView)findViewById(R.id.profile)).setText(Singleton.getInstance().getUsername() + "'s Profile");
 
@@ -61,6 +64,14 @@ public class ProfileActivity extends AppCompatActivity {
                 System.out.println(error.getMessage());
             }
 
+        });
+
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ProfileActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
         });
     }
 

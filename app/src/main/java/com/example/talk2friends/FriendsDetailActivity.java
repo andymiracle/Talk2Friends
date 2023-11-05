@@ -64,5 +64,14 @@ public class FriendsDetailActivity extends AppCompatActivity {
 
 
         });
+
+        TextView home_button = (TextView) findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FriendsDetailActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

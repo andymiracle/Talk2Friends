@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +50,7 @@ public class EditProfileActivity extends AppCompatActivity {
     Spinner interest8Spinner;
     Spinner interest9Spinner;
     Spinner interest10Spinner;
+    TextView home_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -226,6 +229,15 @@ public class EditProfileActivity extends AppCompatActivity {
                 System.out.println(error.getMessage());
             }
 
+        });
+
+        home_button = (TextView) findViewById(R.id.home_button);
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(EditProfileActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
