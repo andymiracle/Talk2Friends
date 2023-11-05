@@ -60,8 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Accepts empty username for debugging purposes. DELETE IN FINAL RELEASE
                 if (username.equals("")) {
-                    username = "Default";
-                    password = hashPassword("Default");
+                    //username = "Default";
+                    //password = hashPassword("Default");
                 }
 
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                             DatabaseUtil.saveUser(u);
                         }*/
 
-                        if (u != null && u.getPassword().equals(password)) {
+                        if (u != null && u.getPassword().equals(password) && !password.equals("")) {
                             u.printClass();
                             Singleton.getInstance().setUsername(username);
                             Singleton.getInstance().setPassword(password);
