@@ -14,7 +14,7 @@ Password: 123
 
 Username: hyunmink
 
-Password: 
+Password: 12345
 
 3. Any specific problems:
 
