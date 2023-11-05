@@ -55,7 +55,7 @@
         android:textSize="32sp"
         app:layout_constraintBottom_toTopOf="@+id/recycler_view"
 
-        app:layout_constraintEnd_toStartOf="@+id/search"
+        app:layout_constraintEnd_toStartOf="@+id/your_meeting"
         app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

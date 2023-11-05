@@ -53,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.05" />
 
     <Button
         android:id="@+id/manage_meetings"
@@ -62,10 +62,10 @@
         android:text="Manage Meetings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.452"
+        app:layout_constraintHorizontal_bias="0.457"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friends"
-        app:layout_constraintVertical_bias="0.074" />
+        app:layout_constraintVertical_bias="0.061" />
 
     <TextView
         android:id="@+id/home_button"
