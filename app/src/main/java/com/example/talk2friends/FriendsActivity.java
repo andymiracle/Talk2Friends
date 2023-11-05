@@ -23,6 +23,7 @@ public class FriendsActivity extends AppCompatActivity {
     TextView invite_tv;
     TextView view_tv;
     TextView request_tv;
+    TextView home_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,7 @@ public class FriendsActivity extends AppCompatActivity {
         invite_tv = (TextView) findViewById(R.id.invite_friends);
         view_tv = (TextView) findViewById(R.id.view_friends);
         request_tv = (TextView) findViewById(R.id.view_friend_request);
+        home_button = (TextView) findViewById(R.id.home_button);
 
         add_tv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +67,17 @@ public class FriendsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        home_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FriendsActivity.this, MainPageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
     public static void friendUser(String friend) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());

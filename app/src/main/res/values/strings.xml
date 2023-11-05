@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Talk2Friends</string>
     <string name="send_code">Send Code</string>
+    <string name="home">\u2302</string>
 </resources>

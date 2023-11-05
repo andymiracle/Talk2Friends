@@ -53,7 +53,6 @@ public class YourMeetingActivity extends AppCompatActivity {
 
                 recyclerView.setAdapter(adapter);
 
-
                 for (int i = 0; i < meetingList.size(); i++) {
                     System.out.println(meetingList.get(i).getName());
                 }
