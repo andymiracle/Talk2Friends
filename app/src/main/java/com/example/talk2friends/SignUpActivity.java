@@ -57,6 +57,9 @@ public class SignUpActivity extends AppCompatActivity {
                 int index = recipient_email.indexOf('@');
                 String check = recipient_email.substring(index + 1, recipient_email.length());
                 String username = "";
+
+                Boolean dotInUsername = false;
+
                 if (index == -1) {
                     valid = false;
                 } else {
@@ -64,6 +67,12 @@ public class SignUpActivity extends AppCompatActivity {
 
                     if (!check.equals("usc.edu")) {
                         valid = false;
+                    }
+
+                    //check whether user contains '.'
+                    if (username.contains(".")) {
+                        valid = false;
+                        dotInUsername = true;
                     }
                 }
 
@@ -139,7 +148,12 @@ public class SignUpActivity extends AppCompatActivity {
                     });
 
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT);
+                    Toast toast;
+                    if (dotInUsername) { //if the user name has a dot inside, set a toast message of warning
+                        toast = Toast.makeText(getApplicationContext(), "Username can't have . inside", Toast.LENGTH_SHORT);
+                    } else {
+                        toast = Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT);
+                    }
                     toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                     toast.show();
                 }

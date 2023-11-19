@@ -64,6 +64,13 @@ public class LoginActivity extends AppCompatActivity {
                     //password = hashPassword("Default");
                 }
 
+                if (username.contains(".")) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Email cannot contain '.'", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                    toast.show();
+                    return;
+                }
+
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
 
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {

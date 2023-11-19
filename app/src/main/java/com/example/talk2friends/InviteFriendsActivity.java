@@ -58,75 +58,33 @@ public class InviteFriendsActivity extends AppCompatActivity {
                     valid = false;
                 } else {
                     username = recipient_email.substring(0, index);
-
-                    if (!check.equals("usc.edu") && !check.equals("gmail.com")) {
-                        valid = false;
-                    }
                 }
 
                 if (valid) {
-                    System.out.println("Username is " + username);
-
-                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
-
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            User u = snapshot.getValue(User.class);
-                            if (u == null) {
-                                try {
-                                    Properties properties = System.getProperties();
-                                    properties.put("mail.smtp.host", host);
-                                    properties.put("mail.smtp.port", "465");
-                                    properties.put("mail.smtp.ssl.enable", "true");
-                                    properties.put("mail.smtp.auth", "true");
-
-                                    javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
-                                        @Override
-                                        protected PasswordAuthentication getPasswordAuthentication() {
-                                            return new PasswordAuthentication(sender_email, sender_password);
-                                        }
-                                    });
-
-                                    MimeMessage mimeMessage = new MimeMessage(session);
-                                    mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_email));
-
-                                    mimeMessage.setSubject("Invite from Talk2Friends");
-
-                                    mimeMessage.setText(Singleton.getInstance().getUsername() + " is inviting you to join Talk2Friends! Join with this link to automatically become friends with them: "
-                                            + "\nhttp://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername());
-
-                                    Thread thread = new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                Transport.send(mimeMessage);
-                                            } catch (MessagingException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-                                    thread.start();
-                                } catch (AddressException e) {
-                                    e.printStackTrace();
-                                } catch (MessagingException e) {
-                                    e.printStackTrace();
+                    //System.out.println("Username is " + username);
+                    if (username.contains(".")) {
+                        sendEmail();
+                    } else {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                User u = snapshot.getValue(User.class);
+                                if (u == null) {
+                                    sendEmail();
+                                } else {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "User name already taken!", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
                                 }
-                                Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
-                            } else {
-                                Toast toast = Toast.makeText(getApplicationContext(), "User name already taken!", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            System.out.println(error.getMessage());
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                System.out.println(error.getMessage());
+                            }
+                        });
+                    }
 
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT);
@@ -147,5 +105,49 @@ public class InviteFriendsActivity extends AppCompatActivity {
 
 
         // The email should contain this link: "http://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername()
+    }
+
+    public void sendEmail() {
+        try {
+            Properties properties = System.getProperties();
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(sender_email, sender_password);
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_email));
+
+            mimeMessage.setSubject("Invite from Talk2Friends");
+
+            mimeMessage.setText(Singleton.getInstance().getUsername() + " is inviting you to join Talk2Friends! Join with this link to automatically become friends with them: "
+                    + "\nhttp://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername());
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+        Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
     }
 }
