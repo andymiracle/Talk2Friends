@@ -72,7 +72,7 @@ public class MeetingInstrumentedTest {
     private static final String LOCATION = "SAL";
     private static final String MEETING_NAME = "Tester's Meet";
 
-    private static final String EARLY_TIME = "12/12/2024 12:12 am";
+    private static final String EARLY_TIME = "01/01/0001 12:01 am";
 
 
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
@@ -220,9 +220,13 @@ public class MeetingInstrumentedTest {
         LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.meeting_info1)).perform(click());
         LoginInstrumentedTest.smallSleep();
+        onView(withId(R.id.join_button)).perform(click());
+        LoginInstrumentedTest.smallSleep();
 
 
+        deleteMeeting();
 
+        LoginInstrumentedTest.smallSleep();
 
     }
 
