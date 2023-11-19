@@ -63,6 +63,7 @@ public class MeetingInfoActivity extends AppCompatActivity {
                     //leave the activity
                     Intent intent = new Intent(MeetingInfoActivity.this, JoinMeetingActivity.class);
                     startActivity(intent);
+                    return;
                 }
 
                 meetingNameView.setText(m.getName());

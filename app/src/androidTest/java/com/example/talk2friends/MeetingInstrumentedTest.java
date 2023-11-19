@@ -2,6 +2,7 @@ package com.example.talk2friends;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,7 +79,12 @@ public class MeetingInstrumentedTest {
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 
-    //@Test
+    @After
+    public void databaseCleanup() {
+        deleteTesterMeetings();
+    }
+
+    @Test
     public void testViewMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add(LoginInstrumentedTest.USERNAME);
@@ -106,12 +112,10 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.time_text)).check(matches(withText(TIME)));
         onView(withId(R.id.location_text)).check(matches(withText(LOCATION)));
 
-        deleteMeeting();
-
     }
 
 
-    //@Test
+    @Test
     public void testCreateMeeting() {
 
         LoginInstrumentedTest.login();
@@ -144,11 +148,10 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.location_text)).check(matches(withText(LOCATION)));
         //onView(withId(R.id.participants_text)).check(matches(withText("")));
 
-        deleteMeeting();
         LoginInstrumentedTest.smallSleep();
 
     }
-    //@Test
+    @Test
     public void testLeaveMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add(LoginInstrumentedTest.USERNAME);
@@ -174,11 +177,9 @@ public class MeetingInstrumentedTest {
 
         }
 
-        deleteMeeting();
-
     }
 
-    //@Test
+    @Test
     public void testDeleteMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add(LoginInstrumentedTest.USERNAME);
@@ -204,8 +205,6 @@ public class MeetingInstrumentedTest {
 
         }
 
-        deleteMeeting();
-
     }
 
     @Test
@@ -223,15 +222,10 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.join_button)).perform(click());
         LoginInstrumentedTest.smallSleep();
 
-
-        deleteMeeting();
-
-        LoginInstrumentedTest.smallSleep();
-
     }
 
 
-    public static void deleteMeeting() {
+    public static void deleteTesterMeetings() {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("meetings");
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
