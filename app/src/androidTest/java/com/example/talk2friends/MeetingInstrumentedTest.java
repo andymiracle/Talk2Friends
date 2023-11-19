@@ -174,7 +174,7 @@ public class MeetingInstrumentedTest {
                     .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
             fail("Leaving meeting has failed.");
         } catch (Exception e) {
-
+            return;
         }
 
     }
@@ -202,10 +202,11 @@ public class MeetingInstrumentedTest {
                     .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
             fail("Meeting not properly removed.");
         } catch (Exception e) {
-
+            return;
         }
 
     }
+
 
     @Test
     public void testJoinMeeting() {
@@ -221,7 +222,7 @@ public class MeetingInstrumentedTest {
         LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.join_button)).perform(click());
         LoginInstrumentedTest.smallSleep();
-
+        return;
     }
 
 

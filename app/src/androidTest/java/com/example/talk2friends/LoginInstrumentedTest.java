@@ -88,7 +88,7 @@ public class LoginInstrumentedTest {
 
     public static void smallSleep() {
         try {
-            Thread.sleep(500);
+            Thread.sleep(700);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
