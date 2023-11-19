@@ -1,6 +1,7 @@
 package com.example.talk2friends;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Meeting {
     private String name;
@@ -21,15 +22,16 @@ public class Meeting {
         this.attendees = new ArrayList<String>();
     }
 
-    public Meeting(String name, String meetingID, String time, String location, String topic, String creator, ArrayList<String> attendees) {
+    public Meeting(String name, String time, String location, String topic, String creator, ArrayList<String> attendees) {
         this.name = name;
-        this.meetingID = meetingID;
+        this.meetingID = UUID.randomUUID().toString();
         this.time = time;
         this.location = location;
         this.topic = topic;
         this.creator = creator;
         this.attendees = attendees;
     }
+
 
     public String getName() {
         return this.name;

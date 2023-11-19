@@ -57,6 +57,12 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        System.out.println(Singleton.getInstance().getUsername());
+        System.out.println(Singleton.getInstance().getUsername());
+        System.out.println(Singleton.getInstance().getUsername());
+        System.out.println(Singleton.getInstance().getUsername());
+        System.out.println(Singleton.getInstance().getUsername());
+
         nameView = (TextView) findViewById(R.id.name_text);
         ageView = (TextView) findViewById(R.id.age_text);
         affiliationSpinner = (Spinner) findViewById(R.id.affiliation_spinner);
@@ -251,8 +257,8 @@ public class EditProfileActivity extends AppCompatActivity {
 
         interest1 = interest1Spinner.getSelectedItem().toString();
         interestMap.put(((TextView) findViewById(R.id.interest1)).getText().toString(), interest1.equals("yes"));
-        System.out.println(((TextView) findViewById(R.id.interest1)).getText().toString() + " Equals " + interest1);
-        System.out.println(interestMap.get("Anime"));
+        //System.out.println(((TextView) findViewById(R.id.interest1)).getText().toString() + " Equals " + interest1);
+        //System.out.println(interestMap.get("Anime"));
         interest2 = interest2Spinner.getSelectedItem().toString();
         interestMap.put(((TextView) findViewById(R.id.interest2)).getText().toString(), interest2.equals("yes"));
         interest3 = interest3Spinner.getSelectedItem().toString();
@@ -308,14 +314,17 @@ public class EditProfileActivity extends AppCompatActivity {
             if(validInteger && positiveInteger) {
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
 
+                //System.out.println("Saving to " + Singleton.getInstance().getUsername());
+
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User u = snapshot.getValue(User.class);
+                        u.printClass();
 
                         User u2 = new User();
 
-                        u2.setUsername(u.getUsername());
+                        u2.setUsername(Singleton.getInstance().getUsername());
                         u2.setDisplayName(name);
                         u2.setPassword(u.getPassword());
                         u2.setAge(Integer.parseInt(age));
@@ -323,6 +332,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         u2.setInterests(interestMap);
                         u2.setFriends(u.getFriends());
                         u2.setIncomingRequests(u.getIncomingRequests());
+
+                        u2.printClass();
 
                         DatabaseUtil.saveUser(u2);
 
