@@ -111,7 +111,9 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         // BW - Testing
-        DatabaseUtil util = new DatabaseUtil();
+        //DatabaseUtil util = new DatabaseUtil();
+        //User tester = new User ("tester", "testerName", hashPassword("1234"), 20, "Native", new HashMap<>(), new ArrayList<>());
+        //DatabaseUtil.saveUser(tester);
         //User temp = new User("bwiencko", "benji", "123", 22, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
         //User temp1 = new User("Garbo", "DefaultName", "Garbo", 20, "Native", new HashMap<String, Boolean>(), new ArrayList<String>());
         //temp.printClass();
