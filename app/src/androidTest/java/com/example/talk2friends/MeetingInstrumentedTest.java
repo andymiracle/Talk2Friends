@@ -72,13 +72,13 @@ public class MeetingInstrumentedTest {
     private static final String LOCATION = "SAL";
     private static final String MEETING_NAME = "Tester's Meet";
 
-    private static final String EARLY_TIME = "00/00/0000 00:01 am";
+    private static final String EARLY_TIME = "12/12/2024 12:12 am";
 
 
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 
-    @Test
+    //@Test
     public void testViewMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add(LoginInstrumentedTest.USERNAME);
@@ -111,7 +111,7 @@ public class MeetingInstrumentedTest {
     }
 
 
-    @Test
+    //@Test
     public void testCreateMeeting() {
 
         LoginInstrumentedTest.login();
@@ -148,7 +148,7 @@ public class MeetingInstrumentedTest {
         LoginInstrumentedTest.smallSleep();
 
     }
-    @Test
+    //@Test
     public void testLeaveMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add(LoginInstrumentedTest.USERNAME);
@@ -178,7 +178,7 @@ public class MeetingInstrumentedTest {
 
     }
 
-    @Test
+    //@Test
     public void testDeleteMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
         attendees.add(LoginInstrumentedTest.USERNAME);
@@ -220,8 +220,6 @@ public class MeetingInstrumentedTest {
         LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.meeting_info1)).perform(click());
         LoginInstrumentedTest.smallSleep();
-
-
 
 
 

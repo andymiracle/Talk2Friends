@@ -143,41 +143,6 @@ public class ProfileInstrumentedTest {
         onView(withId(R.id.interests_text)).check(matches(withText("Anime, Traveling")));
 
 
-        /*
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User u = snapshot.getValue(User.class);
-
-                Assert.assertEquals(u.getUsername(), LoginInstrumentedTest.USERNAME);
-                Assert.assertEquals(u.getDisplayName(), DISPLAY_NAME);
-                Assert.assertEquals(u.getAffiliation(), AFFILIATION);
-                Assert.assertEquals(u.getAge(), AGE);
-                HashMap<String, Boolean> interestMap = new HashMap<>();
-                interestMap.put("Anime", true);
-                interestMap.put("Traveling", true);
-                interestMap.put("Art", false);
-                interestMap.put("Music", false);
-                interestMap.put("Hiking", false);
-                interestMap.put("Dancing", false);
-                interestMap.put("Cooking", false);
-                interestMap.put("Sports", false);
-                interestMap.put("Video Games", false);
-                interestMap.put("Animals", false);
-                Assert.assertEquals(u.getInterests(), interestMap);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("NO DATA");
-            }
-
-
-        });
-         */
-
 
     }
 }
