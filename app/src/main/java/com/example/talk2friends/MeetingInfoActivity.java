@@ -57,6 +57,14 @@ public class MeetingInfoActivity extends AppCompatActivity {
                 // If it is, you need to close the listener and leave the activity
                 // ALSO YOU NEED TO CHECK ALL PERSISTENT EVENT LISTENERS AND CLOSE THEM ACCORDINGLY
 
+                if (m == null) {
+                    //close the listener
+                    ref.removeEventListener(this);
+                    //leave the activity
+                    Intent intent = new Intent(MeetingInfoActivity.this, JoinMeetingActivity.class);
+                    startActivity(intent);
+                }
+
                 meetingNameView.setText(m.getName());
                 conversationTopicView.setText(m.getTopic());
                 timeView.setText(m.getTime());
