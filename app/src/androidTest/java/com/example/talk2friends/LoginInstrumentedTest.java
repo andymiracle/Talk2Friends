@@ -29,7 +29,7 @@ import androidx.test.espresso.NoMatchingViewException;
 public class LoginInstrumentedTest {
 
     public static final String USERNAME = "tester";
-    public static final String STRING_USERNAME = "tester@usc.edu";
+    public static final String EMAIL = "tester@usc.edu";
     private static final String STRING_PASSWORD = "1234";
     private static final String STRING_WRONG_PASSWORD = "0000";
     private static final String STRING_MAIN_ACTIVITY_DISPLAY_TEXT = "Welcome tester!";
@@ -43,7 +43,7 @@ public class LoginInstrumentedTest {
     @Test
     public void testValidLogin() {
         onView(withId(R.id.username))
-                .perform(typeText(STRING_USERNAME), closeSoftKeyboard());
+                .perform(typeText(EMAIL), closeSoftKeyboard());
 
         onView(withId(R.id.password))
                 .perform(typeText(STRING_PASSWORD), closeSoftKeyboard());
@@ -58,7 +58,7 @@ public class LoginInstrumentedTest {
     @Test
     public void testInvalidLogin() {
         onView(withId(R.id.username))
-                .perform(typeText(STRING_USERNAME), closeSoftKeyboard());
+                .perform(typeText(EMAIL), closeSoftKeyboard());
 
         onView(withId(R.id.password))
                 .perform(typeText(STRING_WRONG_PASSWORD), closeSoftKeyboard());
@@ -78,7 +78,7 @@ public class LoginInstrumentedTest {
 
     public static void login() {
         onView(withId(R.id.username))
-                .perform(typeText(STRING_USERNAME), closeSoftKeyboard());
+                .perform(typeText(EMAIL), closeSoftKeyboard());
         onView(withId(R.id.password))
                 .perform(typeText(STRING_PASSWORD), closeSoftKeyboard());
         onView(withId(R.id.login)).perform(click());
