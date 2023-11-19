@@ -84,6 +84,7 @@ public class MeetingInstrumentedTest {
     @After
     public void databaseCleanup() {
         deleteTesterMeetings();
+        LoginInstrumentedTest.bigSleep();
     }
 
     @Test
@@ -99,14 +100,14 @@ public class MeetingInstrumentedTest {
         LoginInstrumentedTest.login();
 
         onView(withId(R.id.manage_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.my_created_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.details)));
 
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
 
         onView(withId(R.id.meeting_name_text)).check(matches(withText(MEETING_NAME)));
@@ -122,9 +123,9 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.create_meeting)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.conversation_topic_text))
                 .perform(replaceText(CONVERSATION_TOPIC), closeSoftKeyboard());
@@ -136,13 +137,13 @@ public class MeetingInstrumentedTest {
                 .perform(replaceText(MEETING_NAME), closeSoftKeyboard());
 
         onView(withId(R.id.create)).perform(click());
-        LoginInstrumentedTest.bigSleep();
+        //LoginInstrumentedTest.bigSleep();
         onView(withId(R.id.my_created_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.details)));
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.meeting_name_text)).check(matches(withText(MEETING_NAME)));
         onView(withId(R.id.conversation_topic_text)).check(matches(withText(CONVERSATION_TOPIC)));
@@ -162,9 +163,9 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.my_joined_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.leave)));
@@ -190,14 +191,14 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.my_created_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.remove)));
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
 
         try {
             onView(withId(R.id.recycler_view))
@@ -217,15 +218,15 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.join_meeting)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.meeting_info1)).perform(click());
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.join_button)).perform(click());
 
         Espresso.pressBack();
-        LoginInstrumentedTest.smallSleep();
+        //LoginInstrumentedTest.smallSleep();
         return;
     }
 
