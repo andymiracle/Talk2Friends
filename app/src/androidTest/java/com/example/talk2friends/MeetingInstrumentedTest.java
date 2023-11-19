@@ -11,6 +11,7 @@ import androidx.annotation.DisplayContext;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.test.espresso.Espresso;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
@@ -22,11 +23,12 @@ import androidx.test.filters.LargeTest;
 
 
 import static androidx.test.espresso.Espresso.onView;
-
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.espresso.matcher.ViewMatchers.withChild;
@@ -221,6 +223,8 @@ public class MeetingInstrumentedTest {
         onView(withId(R.id.meeting_info1)).perform(click());
         LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.join_button)).perform(click());
+
+        Espresso.pressBack();
         LoginInstrumentedTest.smallSleep();
         return;
     }
