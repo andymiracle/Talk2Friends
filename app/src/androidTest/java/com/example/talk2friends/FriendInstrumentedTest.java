@@ -103,7 +103,7 @@ public class FriendInstrumentedTest {
     }
 
     @Test
-    public void testSendRequest() {
+    public void testSendFriendRequest() {
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users").child(LoginInstrumentedTest.USERNAME).child("incomingRequests");
         ref1.removeValue();
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users").child(USERNAME2).child("incomingRequests");
@@ -139,7 +139,7 @@ public class FriendInstrumentedTest {
     }
 
     @Test
-    public void testSendInvalidRequest() {
+    public void testSendInvalidFriendRequest() {
 
         LoginInstrumentedTest.login();
 
@@ -170,7 +170,7 @@ public class FriendInstrumentedTest {
     }
 
     @Test
-    public void testAcceptRequest() {
+    public void testAcceptFriendRequest() {
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users").child(LoginInstrumentedTest.USERNAME).child("incomingRequests");
         ref1.removeValue();
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users").child(USERNAME2).child("incomingRequests");
@@ -212,7 +212,7 @@ public class FriendInstrumentedTest {
     }
 
     @Test
-    public void testDoubleRequests() {
+    public void testDoubleFriendRequests() {
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users").child(LoginInstrumentedTest.USERNAME).child("incomingRequests");
         ref1.removeValue();
         DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users").child(USERNAME2).child("incomingRequests");
@@ -255,7 +255,7 @@ public class FriendInstrumentedTest {
 
 
     @Test
-    public void sendInviteToApp() {
+    public void testSendInviteToApp() {
         LoginInstrumentedTest.login();
 
         onView(withId(R.id.friends)).perform(click());
