@@ -63,7 +63,10 @@ public class InviteFriendsActivity extends AppCompatActivity {
                 if (valid) {
                     //System.out.println("Username is " + username);
                     if (username.contains(".")) {
-                        sendEmail();
+                        sendEmail(host, sender_email, sender_password, recipient_email);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                        toast.show();
                     } else {
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(username);
                         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -71,7 +74,10 @@ public class InviteFriendsActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User u = snapshot.getValue(User.class);
                                 if (u == null) {
-                                    sendEmail();
+                                    sendEmail(host, sender_email, sender_password, recipient_email);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                    toast.show();
                                 } else {
                                     Toast toast = Toast.makeText(getApplicationContext(), "User name already taken!", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -107,7 +113,8 @@ public class InviteFriendsActivity extends AppCompatActivity {
         // The email should contain this link: "http://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername()
     }
 
-    public void sendEmail() {
+    public static Boolean sendEmail(String host, String sender_email, String sender_password, String recipient_email) {
+        Boolean isSentEmail = false;
         try {
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", host);
@@ -141,13 +148,19 @@ public class InviteFriendsActivity extends AppCompatActivity {
                 }
             });
             thread.start();
+            isSentEmail = true;
+            return isSentEmail;
         } catch (AddressException e) {
-            e.printStackTrace();
+            System.out.println("Address Exception happened!");
+            isSentEmail = false;
+            return isSentEmail;
+            //e.printStackTrace();
         } catch (MessagingException e) {
+            System.out.println("Messaging Exception happened!");
+            isSentEmail = false;
             e.printStackTrace();
         }
-        Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
+
+        return isSentEmail;
     }
 }

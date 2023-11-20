@@ -86,54 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             User u = snapshot.getValue(User.class);
                             if (u == null) {
-                                try {
-                                    random_code = "";
-                                    Properties properties = System.getProperties();
-                                    properties.put("mail.smtp.host", host);
-                                    properties.put("mail.smtp.port", "465");
-                                    properties.put("mail.smtp.ssl.enable", "true");
-                                    properties.put("mail.smtp.auth", "true");
-
-                                    javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
-                                        @Override
-                                        protected PasswordAuthentication getPasswordAuthentication() {
-                                            return new PasswordAuthentication(sender_email, sender_password);
-                                        }
-                                    });
-
-                                    MimeMessage mimeMessage = new MimeMessage(session);
-                                    mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_email));
-
-                                    mimeMessage.setSubject("Talk2Friends Verification Code");
-
-                                    Random rand = new Random();
-                                    for (int i = 0; i < code_length; ++i) {
-                                        int rand_num = rand.nextInt(10);
-                                        random_code += Integer.toString(rand_num);
-                                    }
-
-                                    mimeMessage.setText("Below is the verification code.\n" + random_code);
-
-                                    Thread thread = new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                Transport.send(mimeMessage);
-                                            } catch (MessagingException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-                                    thread.start();
-                                } catch (AddressException e) {
-                                    e.printStackTrace();
-                                } catch (MessagingException e) {
-                                    e.printStackTrace();
-                                }
-                                valid_email = email_tv.getText().toString();
-                                Toast toast = Toast.makeText(getApplicationContext(), "Code successfully sent!", Toast.LENGTH_SHORT);
-                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-                                toast.show();
+                                sendEmail();
                             } else {
                                 Toast toast = Toast.makeText(getApplicationContext(), "User name already taken!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -223,4 +176,57 @@ public class SignUpActivity extends AppCompatActivity {
         System.out.println("Button clicked");
     }
     */
+
+    public void sendEmail() {
+        try {
+            random_code = "";
+            Properties properties = System.getProperties();
+            properties.put("mail.smtp.host", host);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
+
+            javax.mail.Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(sender_email, sender_password);
+                }
+            });
+
+            MimeMessage mimeMessage = new MimeMessage(session);
+            mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient_email));
+
+            mimeMessage.setSubject("Talk2Friends Verification Code");
+
+            Random rand = new Random();
+            for (int i = 0; i < code_length; ++i) {
+                int rand_num = rand.nextInt(10);
+                random_code += Integer.toString(rand_num);
+            }
+
+            mimeMessage.setText("Below is the verification code.\n" + random_code);
+
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Transport.send(mimeMessage);
+                    } catch (MessagingException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            thread.start();
+        } catch (AddressException e) {
+            System.out.println("Address Exception happened!");
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            System.out.println("Messaging Exception happened!");
+            e.printStackTrace();
+        }
+        valid_email = email_tv.getText().toString();
+        Toast toast = Toast.makeText(getApplicationContext(), "Code successfully sent!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+        toast.show();
+    }
 }
