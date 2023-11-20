@@ -286,14 +286,18 @@ public class EditProfileActivity extends AppCompatActivity {
         TextView invalidAge = (TextView) findViewById(R.id.invalid_age);
 
         int ageInteger = 0;
-        try {
-            ageInteger = Integer.parseInt(age);
-        } catch(NumberFormatException e) {
+
+        if(!(validIntegerChecker(ageInteger, age)))
+        {
             invalidAge.setText("age should be an integer no greater than 2147483647");
             validInteger = false;
         }
+        else
+        {
+            ageInteger = Integer.parseInt(age);
+        }
 
-        if(ageInteger < 0) {
+        if(negativeIntegerChecker(ageInteger)) {
             positiveInteger = false;
             invalidAge.setText("age should not be negative");
         }
@@ -302,7 +306,7 @@ public class EditProfileActivity extends AppCompatActivity {
             invalidAge.setText("");
         }
 
-        if (name.equals("") || age.equals("") || affiliation.equals("") || interest1.equals("") || interest2.equals("") || interest3.equals("") || interest4.equals("") || interest5.equals("") || interest6.equals("") || interest7.equals("") || interest8.equals("") || interest9.equals("") || interest10.equals("")) {
+        if (atLeastOneFieldEmpty(name, age, affiliation, interest1, interest2, interest3, interest4, interest5, interest6, interest7, interest8, interest9, interest10)) {
             valid = false;
         }
         else {
@@ -355,5 +359,34 @@ public class EditProfileActivity extends AppCompatActivity {
             error_tv.setText("One or more fields are empty");
         }
 
+    }
+
+    public static Boolean validIntegerChecker(int ageInteger, String number) {
+
+        try {
+            ageInteger = Integer.parseInt(number);
+        } catch(NumberFormatException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public static Boolean negativeIntegerChecker(int number) {
+        if(number < 0) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static Boolean atLeastOneFieldEmpty(String n, String ag, String af, String i1, String i2, String i3, String i4, String i5, String i6, String i7, String i8, String i9, String i10)
+    {
+        if (n.equals("") || ag.equals("") || af.equals("") || i1.equals("") || i2.equals("") || i3.equals("") || i4.equals("") || i5.equals("") || i6.equals("") || i7.equals("") || i8.equals("") || i9.equals("") || i10.equals(""))
+        {
+            return true;
+        }
+
+        return false;
     }
 }

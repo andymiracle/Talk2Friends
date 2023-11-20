@@ -79,7 +79,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
         Boolean textRightSize = true;
 
-        if(meetingName.length()>16)
+        if(longMeetingName(meetingName))
         {
             meetingNameSize_tv.setText("Meeting name should be no more than 16 characters");
             textRightSize = false;
@@ -91,7 +91,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
         TextView error_tv = (TextView) findViewById(R.id.error);
 
-        if (conversationTopic.equals("") || time.equals("") || location.equals("") || meetingName.equals("")) {
+        if (atLeastOneFieldEmpty(conversationTopic, time, location, meetingName)) {
             valid = false;
         }
         else {
@@ -103,25 +103,15 @@ public class CreateMeetingActivity extends AppCompatActivity {
         TextView time_tv = (TextView) findViewById(R.id.incorrect_time_format);
 
         if(!time.equals("")) {
-            DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-            dateFormat.setLenient(false);
-            try {
-                Date date = dateFormat.parse(time);
-                if (date.before(new Date())) {
-                    // new Date() is unreliable, commenting out below until a more reliable check is found
-                    //isDateAfterToday = false;
-                }
-            } catch (ParseException e) {
+            if(!(validDateFormat(time)))
+            {
                 time_tv.setText("Incorrect time format");
                 validTimeFormat = false;
             }
         }
 
-        if(validTimeFormat && isDateAfterToday) {
+        if(validTimeFormat) {
             time_tv.setText("");
-        }
-        else if (!isDateAfterToday) {
-            time_tv.setText("Time cannot be before today");
         }
 
         if (valid) {
@@ -183,5 +173,41 @@ public class CreateMeetingActivity extends AppCompatActivity {
             error_tv.setText("One or more fields are empty");
         }
 
+    }
+
+    public static Boolean longMeetingName(String m)
+    {
+        if(m.length()>16)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static Boolean validDateFormat(String t)
+    {
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        dateFormat.setLenient(false);
+        try {
+            Date date = dateFormat.parse(t);
+
+        } catch (ParseException e) {
+
+            return false;
+        }
+
+        return true;
+    }
+
+    public static Boolean atLeastOneFieldEmpty(String c, String t, String l, String m)
+    {
+        if(c.equals("") || t.equals("") || l.equals("") || m.equals(""))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
