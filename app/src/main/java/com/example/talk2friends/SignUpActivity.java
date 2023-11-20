@@ -24,12 +24,13 @@ import com.google.firebase.database.ValueEventListener;
 
 
 public class SignUpActivity extends AppCompatActivity {
-    String sender_email = "talk2friendssender@gmail.com";
-    String sender_password = "vcrpuobwoeguntnf";
-    String recipient_email = "";
-    String host = "smtp.gmail.com";
-
-    String valid_email = "";
+    private static final String sender_email = "talk2friendssender@gmail.com";
+    private static final String sender_password = "vcrpuobwoeguntnf";
+    private static String recipient_email = "";
+    private static final String host = "smtp.gmail.com";
+    private static final int code_length = 6;
+    private static String random_code = "INVALID";
+    private static String valid_email = "";
 
     TextView email_tv;
     TextView password_tv;
@@ -38,9 +39,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     String new_email = "";
     String new_password = "";
-    String random_code = "INVALID";
-
-    int code_length = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +84,11 @@ public class SignUpActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             User u = snapshot.getValue(User.class);
                             if (u == null) {
-                                sendEmail();
+                                sendEmail(recipient_email);
+                                valid_email = email_tv.getText().toString();
+                                Toast toast = Toast.makeText(getApplicationContext(), "Code successfully sent!", Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
+                                toast.show();
                             } else {
                                 Toast toast = Toast.makeText(getApplicationContext(), "User name already taken!", Toast.LENGTH_SHORT);
                                 toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
@@ -177,9 +179,10 @@ public class SignUpActivity extends AppCompatActivity {
     }
     */
 
-    public void sendEmail() {
+    public static Boolean sendEmail(String recipient_email) {
+        Boolean isSentEmail = false;
         try {
-            random_code = "";
+            random_code = getRandomCode();
             Properties properties = System.getProperties();
             properties.put("mail.smtp.host", host);
             properties.put("mail.smtp.port", "465");
@@ -198,12 +201,6 @@ public class SignUpActivity extends AppCompatActivity {
 
             mimeMessage.setSubject("Talk2Friends Verification Code");
 
-            Random rand = new Random();
-            for (int i = 0; i < code_length; ++i) {
-                int rand_num = rand.nextInt(10);
-                random_code += Integer.toString(rand_num);
-            }
-
             mimeMessage.setText("Below is the verification code.\n" + random_code);
 
             Thread thread = new Thread(new Runnable() {
@@ -217,16 +214,28 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             });
             thread.start();
+            isSentEmail = true;
+            return isSentEmail;
         } catch (AddressException e) {
             System.out.println("Address Exception happened!");
-            e.printStackTrace();
+            isSentEmail = false;
+            return isSentEmail;
+            //e.printStackTrace();
         } catch (MessagingException e) {
             System.out.println("Messaging Exception happened!");
             e.printStackTrace();
         }
-        valid_email = email_tv.getText().toString();
-        Toast toast = Toast.makeText(getApplicationContext(), "Code successfully sent!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
-        toast.show();
+
+        return isSentEmail;
+    }
+
+    public static String getRandomCode() {
+        String code = "";
+        Random rand = new Random();
+        for (int i = 0; i < code_length; ++i) {
+            int rand_num = rand.nextInt(10);
+            code += Integer.toString(rand_num);
+        }
+        return code;
     }
 }

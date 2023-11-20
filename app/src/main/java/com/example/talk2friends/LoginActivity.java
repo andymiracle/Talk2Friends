@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FriendsProfileActivity.class);
         startActivity(intent);
          */
+        //FirebaseDatabase.getInstance().getReference("users").child("hyunmink").removeValue();
 
 
         username_tv = (TextView) findViewById(R.id.username);

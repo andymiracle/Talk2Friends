@@ -32,10 +32,10 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class InviteFriendsActivity extends AppCompatActivity {
-    String sender_email = "talk2friendssender@gmail.com";
-    String sender_password = "vcrpuobwoeguntnf";
-    String recipient_email = "";
-    String host = "smtp.gmail.com";
+    private static final String sender_email = "talk2friendssender@gmail.com";
+    private static final String sender_password = "vcrpuobwoeguntnf";
+    private static String recipient_email = "";
+    private static final String host = "smtp.gmail.com";
 
     TextView email_tv;
 
@@ -63,7 +63,7 @@ public class InviteFriendsActivity extends AppCompatActivity {
                 if (valid) {
                     //System.out.println("Username is " + username);
                     if (username.contains(".")) {
-                        sendEmail(host, sender_email, sender_password, recipient_email);
+                        sendEmail(recipient_email);
                         Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                         toast.show();
@@ -74,7 +74,7 @@ public class InviteFriendsActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 User u = snapshot.getValue(User.class);
                                 if (u == null) {
-                                    sendEmail(host, sender_email, sender_password, recipient_email);
+                                    sendEmail(recipient_email);
                                     Toast toast = Toast.makeText(getApplicationContext(), "Invitation successfully sent!", Toast.LENGTH_SHORT);
                                     toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
                                     toast.show();
@@ -113,7 +113,7 @@ public class InviteFriendsActivity extends AppCompatActivity {
         // The email should contain this link: "http://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername()
     }
 
-    public static Boolean sendEmail(String host, String sender_email, String sender_password, String recipient_email) {
+    public static Boolean sendEmail(String recipient_email) {
         Boolean isSentEmail = false;
         try {
             Properties properties = System.getProperties();
