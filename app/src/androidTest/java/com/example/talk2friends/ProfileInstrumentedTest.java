@@ -38,10 +38,10 @@ import java.util.ArrayList;
 @LargeTest
 public class ProfileInstrumentedTest {
 
-    private static final String DISPLAY_NAME = "TestingName";
-    private static final int AGE = 20;
-    private static final String AFFILIATION = "Native";
-    private static final String PASSWORD_HASH = "03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4";
+    public static final String DISPLAY_NAME = "John Test";
+    public static final int AGE = 20;
+    public static final String AFFILIATION = "Native";
+    public static final String PASSWORD_HASH = "03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4";
 
 
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
@@ -68,17 +68,15 @@ public class ProfileInstrumentedTest {
         User u = new User(LoginInstrumentedTest.USERNAME, DISPLAY_NAME, PASSWORD_HASH, AGE, AFFILIATION, interestMap, new ArrayList<>());
         DatabaseUtil.saveUser(u);
 
-        LoginInstrumentedTest.smallSleep();
+        LoginInstrumentedTest.bigSleep();
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.profile)).perform(click());
-        LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.name_text)).check(matches(withText(DISPLAY_NAME)));
         onView(withId(R.id.age_text)).check(matches(withText(Integer.toString(AGE))));
         onView(withId(R.id.affiliation_text)).check(matches(withText(AFFILIATION)));
         onView(withId(R.id.interests_text)).check(matches(withText("Anime, Traveling")));
-
 
 
     }
@@ -96,9 +94,7 @@ public class ProfileInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.profile)).perform(click());
-        LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.edit)).perform(click());
-        LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.name_text))
                 .perform(replaceText(DISPLAY_NAME), closeSoftKeyboard());
@@ -143,6 +139,7 @@ public class ProfileInstrumentedTest {
         onView(withId(R.id.interests_text)).check(matches(withText("Anime, Traveling")));
 
 
-
     }
+
+
 }

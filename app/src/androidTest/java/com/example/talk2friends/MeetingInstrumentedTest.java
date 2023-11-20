@@ -73,7 +73,7 @@ public class MeetingInstrumentedTest {
     private static final String CONVERSATION_TOPIC = "Misc.";
     private static final String TIME = "12/12/2024 12:12 am";
     private static final String LOCATION = "SAL";
-    private static final String MEETING_NAME = "Tester's Meet";
+    private static final String MEETING_NAME = "JTest's Meet";
 
     private static final String EARLY_TIME = "01/01/0001 12:01 am";
 

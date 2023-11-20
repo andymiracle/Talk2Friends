@@ -28,15 +28,12 @@ import androidx.test.espresso.NoMatchingViewException;
 @LargeTest
 public class LoginInstrumentedTest {
 
-    public static final String USERNAME = "tester";
-    public static final String EMAIL = "tester@usc.edu";
+    public static final String USERNAME = "jtest";
+    public static final String EMAIL = "jtest@usc.edu";
     private static final String STRING_PASSWORD = "1234";
     private static final String STRING_WRONG_PASSWORD = "0000";
-    private static final String STRING_MAIN_ACTIVITY_DISPLAY_TEXT = "Welcome tester!";
+    private static final String STRING_MAIN_ACTIVITY_DISPLAY_TEXT = "Welcome jtest!";
 
-    /**
-     *
-     */
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 
@@ -50,7 +47,7 @@ public class LoginInstrumentedTest {
 
         onView(withId(R.id.login)).perform(click());
 
-        smallSleep();
+        bigSleep();
 
         onView(withId(R.id.home_page)).check(matches(withText(STRING_MAIN_ACTIVITY_DISPLAY_TEXT)));
     }
@@ -65,7 +62,7 @@ public class LoginInstrumentedTest {
 
         onView(withId(R.id.login)).perform(click());
 
-        smallSleep();
+        bigSleep();
 
         try {
             onView(withId(R.id.password)).check(matches(withText(STRING_WRONG_PASSWORD)));;

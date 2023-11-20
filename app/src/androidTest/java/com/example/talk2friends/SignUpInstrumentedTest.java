@@ -28,23 +28,40 @@ import androidx.test.espresso.NoMatchingViewException;
 @LargeTest
 public class SignUpInstrumentedTest {
 
+    private static final String FAKE_EMAIL = "tester3@usc.edu";
+    private static final String FAKE_PASSWORD = "12345";
+    private static final String FAKE_CODE = "123456";
+
+
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 
     @Test
-    public void testValidEmailCode() {
+    public void testInvalidEmailCode() {
 
         onView(withId(R.id.sign_up)).perform(click());
-        LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.email))
-                .perform(typeText(LoginInstrumentedTest.EMAIL), closeSoftKeyboard());
+                .perform(typeText(FAKE_EMAIL), closeSoftKeyboard());
 
         onView(withId(R.id.send_code)).perform(click());
 
+        onView(withId(R.id.password))
+                .perform(typeText(FAKE_PASSWORD), closeSoftKeyboard());
 
+        onView(withId(R.id.code))
+                .perform(typeText(FAKE_CODE), closeSoftKeyboard());
 
+        onView(withId(R.id.sign_up)).perform(click());
 
+        LoginInstrumentedTest.bigSleep();
+
+        try {
+            onView(withId(R.id.sign_up)).perform(click());
+
+        } catch (Exception e) {
+            fail("Sign up successful without proper verification code.");
+        }
 
     }
 }
