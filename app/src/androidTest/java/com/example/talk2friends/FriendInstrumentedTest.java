@@ -85,14 +85,6 @@ public class FriendInstrumentedTest {
     public static final String INVALID_USER5 = "...";
 
 
-
-
-
-
-
-
-
-
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 

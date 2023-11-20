@@ -49,9 +49,6 @@ public class ProfileInstrumentedTest {
     private static final String INVALID_AGE_MESSAGE = "age should be an integer no greater than 2147483647";
 
 
-
-
-
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 

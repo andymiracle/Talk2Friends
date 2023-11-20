@@ -84,11 +84,6 @@ public class MeetingInstrumentedTest {
     private static final String EMPTY_FIELD_ERROR = "One or more fields are empty";
 
 
-
-
-
-
-
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 

@@ -33,11 +33,6 @@ public class SignUpInstrumentedTest {
     private static final String FAKE_CODE = "123456";
 
 
-
-
-
-
-
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 
