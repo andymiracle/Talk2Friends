@@ -20,11 +20,17 @@ public class DatabaseUtil {
     }
 
     public static void saveUser(User u) {
+        if (u == null || u.getUsername().equals("")) {
+            return;
+        }
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference();
         userRef.child("users").child(u.getUsername()).setValue(u);
     }
 
     public static void saveMeeting(Meeting m) {
+        if (m == null || m.getMeetingID().equals("")) {
+            return;
+        }
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference();
         userRef.child("meetings").child(m.getMeetingID()).setValue(m);
     }
