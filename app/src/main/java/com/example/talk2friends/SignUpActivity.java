@@ -128,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                 //System.out.println("Code is " + random_code + " You got " + code_tv.getText().toString());
 
-                if (new_email.equals("") || new_password.equals("")) {
+                if (atLeastOneFieldEmpty(new_email, new_password)) {
                     error_message = "One or more fields are empty";
                     valid = false;
                 } else if (!new_email.equals(valid_email)) {
@@ -229,4 +229,15 @@ public class SignUpActivity extends AppCompatActivity {
         toast.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL, 0, 0);
         toast.show();
     }
+
+    public static Boolean atLeastOneFieldEmpty(String e, String p)
+    {
+        if(e.equals("") || p.equals(""))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
 }
