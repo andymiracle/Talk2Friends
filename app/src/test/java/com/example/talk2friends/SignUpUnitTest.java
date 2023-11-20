@@ -23,6 +23,11 @@ public class SignUpUnitTest {
         new_password = "password";
 
         assertEquals(SignUpActivity.atLeastOneFieldEmpty(new_email, new_password), true);
+
+        new_email = "";
+        new_password = "";
+
+        assertEquals(SignUpActivity.atLeastOneFieldEmpty(new_email, new_password), true);
     }
 
 }
