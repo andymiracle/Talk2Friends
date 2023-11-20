@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-public class EmailUnitTest {
+public class EmailUnitTests {
     String sender_email = "talk2friendssender@gmail.com";
     String sender_password = "vcrpuobwoeguntnf";
     String host = "smtp.gmail.com";
@@ -14,7 +14,7 @@ public class EmailUnitTest {
     ArrayList<Boolean> isEmailSentList;
 
     @Test
-    public void validSignUpEmailTesting() {
+    public void validSignUpEmailTest() {
         String address1 = "tester1@usc.edu";
         String address2 = "tester2@usc.edu";
         String address3 = "tester3@usc.edu";
@@ -30,7 +30,7 @@ public class EmailUnitTest {
     }
 
     @Test
-    public void invalidSignUpEmailTesting() {
+    public void invalidSignUpEmailTest() {
         String address1 = "a**/asd2@";
         String address2 = "bob@@usc.edu";
         String address3 = ".....@gmail.com";
@@ -46,7 +46,7 @@ public class EmailUnitTest {
     }
 
     @Test
-    public void validInvitationEmailTesting() {
+    public void validInvitationEmailTest() {
         String address1 = "tester1@usc.edu";
         String address2 = "tester2@usc.edu";
         String address3 = "tester3@gmail.com";
@@ -62,7 +62,7 @@ public class EmailUnitTest {
     }
 
     @Test
-    public void invalidInvitationEmailTesting() {
+    public void invalidInvitationEmailTest() {
         String address1 = "a**/asd2@";
         String address2 = "bob@@usc.edu";
         String address3 = ".....@gmail.com";

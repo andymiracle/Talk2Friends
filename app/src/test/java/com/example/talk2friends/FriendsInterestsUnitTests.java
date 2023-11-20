@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-public class SortInterestsUnit {
+public class FriendsInterestsUnitTests {
     ArrayList<User> testingList;
     ArrayList<User> correctSortedList;
     ArrayList<Integer> correctScoreList;

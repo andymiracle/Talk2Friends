@@ -86,6 +86,9 @@ public class MeetingInstrumentedTest {
 
 
 
+
+
+
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 

@@ -34,6 +34,13 @@ public class LoginInstrumentedTest {
     private static final String STRING_WRONG_PASSWORD = "0000";
     private static final String STRING_MAIN_ACTIVITY_DISPLAY_TEXT = "Welcome jtest!";
 
+
+
+
+
+
+
+
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
 
