@@ -78,6 +78,19 @@ public class FriendInstrumentedTest {
     public static final String INVITEE_EMAIL5 = "@";
     public static final String INVITEE_EMAIL6 = "invite@gmail.com.com.com";
 
+    public static final String INVALID_USER1 = "invalid_user";
+    public static final String INVALID_USER2 = "bwiencko@usc.edu";
+    public static final String INVALID_USER3 = " ";
+    public static final String INVALID_USER4 = "1";
+    public static final String INVALID_USER5 = "...";
+
+
+
+
+
+
+
+
 
 
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
@@ -122,6 +135,37 @@ public class FriendInstrumentedTest {
 
         onView(withId(R.id.recycler_view2))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+
+    }
+
+    @Test
+    public void testSendInvalidRequest() {
+
+        LoginInstrumentedTest.login();
+
+        onView(withId(R.id.friends)).perform(click());
+        onView(withId(R.id.add_friends)).perform(click());
+
+        onView(withId(R.id.username))
+                .perform(replaceText(INVALID_USER1), closeSoftKeyboard());
+        onView(withId(R.id.request)).perform(click());
+
+        onView(withId(R.id.username))
+                .perform(replaceText(INVALID_USER2), closeSoftKeyboard());
+        onView(withId(R.id.request)).perform(click());
+
+        onView(withId(R.id.username))
+                .perform(replaceText(INVALID_USER3), closeSoftKeyboard());
+        onView(withId(R.id.request)).perform(click());
+
+        onView(withId(R.id.username))
+                .perform(replaceText(INVALID_USER4), closeSoftKeyboard());
+        onView(withId(R.id.request)).perform(click());
+
+        onView(withId(R.id.username))
+                .perform(replaceText(INVALID_USER5), closeSoftKeyboard());
+        onView(withId(R.id.request)).perform(click());
+
 
     }
 
@@ -303,6 +347,7 @@ public class FriendInstrumentedTest {
 
     @Test
     public void testEditProfile_FriendPerspective() {
+        friendBothTesters();
         LoginInstrumentedTest.login();
 
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(LoginInstrumentedTest.USERNAME);
@@ -347,28 +392,16 @@ public class FriendInstrumentedTest {
         onData(allOf(is(instanceOf(String.class)), is("no"))).perform(click());
 
         onView(withId(R.id.submit)).perform(click());
-        LoginInstrumentedTest.bigSleep();
-
         Espresso.pressBack();
-        LoginInstrumentedTest.bigSleep();
-
         Espresso.pressBack();
-        LoginInstrumentedTest.bigSleep();
         Espresso.pressBack();
-        LoginInstrumentedTest.bigSleep();
         Espresso.pressBack();
-
-
-
 
 
         onView(withId(R.id.username))
                 .perform(replaceText(USERNAME2), closeSoftKeyboard());
-        LoginInstrumentedTest.bigSleep();
         onView(withId(R.id.password))
                 .perform(replaceText(PASSWORD2), closeSoftKeyboard());
-        LoginInstrumentedTest.bigSleep();
-
 
         onView(withId(R.id.login)).perform(click());
         onView(withId(R.id.friends)).perform(click());

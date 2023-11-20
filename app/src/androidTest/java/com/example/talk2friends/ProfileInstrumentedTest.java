@@ -43,6 +43,10 @@ public class ProfileInstrumentedTest {
     public static final String AFFILIATION = "Native";
     public static final String PASSWORD_HASH = "03AC674216F3E15C761EE1A5E255F067953623C8B388B4459E13F978D7C846F4";
 
+    private static final String INVALID_NAME = "";
+    private static final int INVALID_AGE1 = -20;
+    private static final String INVALID_AGE2 = "ee100eee00";
+    private static final String INVALID_AGE_MESSAGE = "age should be an integer no greater than 2147483647";
 
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
             = new ActivityScenarioRule<>(LoginActivity.class);
@@ -77,6 +81,7 @@ public class ProfileInstrumentedTest {
         onView(withId(R.id.age_text)).check(matches(withText(Integer.toString(AGE))));
         onView(withId(R.id.affiliation_text)).check(matches(withText(AFFILIATION)));
         onView(withId(R.id.interests_text)).check(matches(withText("Anime, Traveling")));
+
 
 
     }
@@ -138,6 +143,32 @@ public class ProfileInstrumentedTest {
         onView(withId(R.id.affiliation_text)).check(matches(withText(AFFILIATION)));
         onView(withId(R.id.interests_text)).check(matches(withText("Anime, Traveling")));
 
+
+    }
+
+    @Test
+    public void testInvalidEditProfile() {
+        LoginInstrumentedTest.login();
+        onView(withId(R.id.profile)).perform(click());
+        onView(withId(R.id.edit)).perform(click());
+
+        onView(withId(R.id.name_text))
+                .perform(replaceText(INVALID_NAME), closeSoftKeyboard());
+        onView(withId(R.id.age_text))
+                .perform(replaceText(Integer.toString(AGE)), closeSoftKeyboard());
+        onView(withId(R.id.submit)).perform(click());
+
+        onView(withId(R.id.name_text))
+                .perform(replaceText(DISPLAY_NAME), closeSoftKeyboard());
+        onView(withId(R.id.age_text))
+                .perform(replaceText(Integer.toString(INVALID_AGE1)), closeSoftKeyboard());
+        onView(withId(R.id.submit)).perform(click());
+
+        onView(withId(R.id.age_text))
+                .perform(replaceText(INVALID_AGE2), closeSoftKeyboard());
+        onView(withId(R.id.submit)).perform(click());
+
+        onView(withId(R.id.invalid_age)).check(matches(withText(INVALID_AGE_MESSAGE)));
 
     }
 

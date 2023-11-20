@@ -76,6 +76,14 @@ public class MeetingInstrumentedTest {
     private static final String MEETING_NAME = "JTest's Meet";
 
     private static final String EARLY_TIME = "01/01/0001 12:01 am";
+    private static final String INVALID_TIME1 = "12:12 am";
+    private static final String INVALID_TIME2 = "12/12/2024 00 am";
+    private static final String INVALID_TIME3 = "";
+
+    private static final String INVALID_TIME_ERROR = "Incorrect time format";
+    private static final String EMPTY_FIELD_ERROR = "One or more fields are empty";
+
+
 
 
     @Rule public ActivityScenarioRule<LoginActivity> activityScenarioRule
@@ -94,20 +102,16 @@ public class MeetingInstrumentedTest {
         Meeting m = new Meeting(MEETING_NAME, TIME, LOCATION, CONVERSATION_TOPIC, LoginInstrumentedTest.USERNAME, attendees);
 
         DatabaseUtil.saveMeeting(m);
-        //(String name, String meetingID, String time, String location, String topic, String creator, ArrayList<String> attendees) {
-
 
         LoginInstrumentedTest.login();
 
         onView(withId(R.id.manage_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.my_created_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.details)));
 
-        //LoginInstrumentedTest.smallSleep();
+        LoginInstrumentedTest.bigSleep();
 
 
         onView(withId(R.id.meeting_name_text)).check(matches(withText(MEETING_NAME)));
@@ -123,9 +127,7 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.create_meeting)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.conversation_topic_text))
                 .perform(replaceText(CONVERSATION_TOPIC), closeSoftKeyboard());
@@ -137,23 +139,52 @@ public class MeetingInstrumentedTest {
                 .perform(replaceText(MEETING_NAME), closeSoftKeyboard());
 
         onView(withId(R.id.create)).perform(click());
-        //LoginInstrumentedTest.bigSleep();
         onView(withId(R.id.my_created_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.details)));
-        //LoginInstrumentedTest.smallSleep();
+
+        LoginInstrumentedTest.bigSleep();
+
 
         onView(withId(R.id.meeting_name_text)).check(matches(withText(MEETING_NAME)));
         onView(withId(R.id.conversation_topic_text)).check(matches(withText(CONVERSATION_TOPIC)));
         onView(withId(R.id.time_text)).check(matches(withText(TIME)));
         onView(withId(R.id.location_text)).check(matches(withText(LOCATION)));
-        //onView(withId(R.id.participants_text)).check(matches(withText("")));
 
-        LoginInstrumentedTest.smallSleep();
 
     }
+
+    @Test
+    public void testCreateInvalidTimeMeeting() {
+        LoginInstrumentedTest.login();
+        onView(withId(R.id.manage_meetings)).perform(click());
+        onView(withId(R.id.create_meeting)).perform(click());
+
+        onView(withId(R.id.conversation_topic_text))
+                .perform(replaceText(CONVERSATION_TOPIC), closeSoftKeyboard());
+        onView(withId(R.id.time_text))
+                .perform(replaceText(INVALID_TIME1), closeSoftKeyboard());
+        onView(withId(R.id.location_text))
+                .perform(replaceText(LOCATION), closeSoftKeyboard());
+        onView(withId(R.id.meeting_name_text))
+                .perform(replaceText(MEETING_NAME), closeSoftKeyboard());
+
+        onView(withId(R.id.create)).perform(click());
+        onView(withId(R.id.incorrect_time_format)).check(matches(withText(INVALID_TIME_ERROR)));
+
+        onView(withId(R.id.time_text))
+                .perform(replaceText(INVALID_TIME2), closeSoftKeyboard());
+        onView(withId(R.id.create)).perform(click());
+        onView(withId(R.id.incorrect_time_format)).check(matches(withText(INVALID_TIME_ERROR)));
+
+        onView(withId(R.id.time_text))
+                .perform(replaceText(INVALID_TIME3), closeSoftKeyboard());
+        onView(withId(R.id.create)).perform(click());
+        onView(withId(R.id.error)).check(matches(withText(EMPTY_FIELD_ERROR)));
+
+    }
+
     @Test
     public void testLeaveMeeting() {
         ArrayList<String> attendees = new ArrayList<>();
@@ -163,9 +194,7 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.my_joined_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.leave)));
@@ -191,14 +220,13 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.my_created_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
 
         onView(withId(R.id.recycler_view))
                 .perform(RecyclerViewActions.actionOnItemAtPosition(0, ClickAction.clickItemButton(R.id.remove)));
-        //LoginInstrumentedTest.smallSleep();
+
+        LoginInstrumentedTest.smallSleep();
 
         try {
             onView(withId(R.id.recycler_view))
@@ -218,16 +246,11 @@ public class MeetingInstrumentedTest {
 
         LoginInstrumentedTest.login();
         onView(withId(R.id.manage_meetings)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.join_meeting)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.meeting_info1)).perform(click());
-        //LoginInstrumentedTest.smallSleep();
         onView(withId(R.id.join_button)).perform(click());
 
         Espresso.pressBack();
-        //LoginInstrumentedTest.smallSleep();
-        return;
     }
 
 
