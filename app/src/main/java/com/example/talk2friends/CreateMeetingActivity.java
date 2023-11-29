@@ -2,6 +2,7 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +66,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
         TextView v = (TextView) findViewById(R.id.create); // create
         v.setOnClickListener(this::onClickCreate);
 
+        TextView notifyBell = (TextView) findViewById(R.id.notification_bell);
+        CardView notifyCircle = (CardView) findViewById(R.id.notification_circle);
+        FriendRequestActivity.setNotification(CreateMeetingActivity.this, notifyBell, notifyCircle);
     }
 
     public void onClickCreate(View view) {

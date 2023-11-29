@@ -2,10 +2,12 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -91,6 +93,35 @@ public class FriendRequestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FriendRequestActivity.this, MainPageActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    public static void setNotification(Context context, TextView notifyBell, CardView notifyCircle) {
+        notifyBell.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, FriendRequestActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.getValue(User.class);
+                if (u.getIncomingRequests() != null) {
+                    notifyCircle.setVisibility(View.VISIBLE);
+                } else {
+                    notifyCircle.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

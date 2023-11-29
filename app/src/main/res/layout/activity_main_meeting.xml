@@ -95,4 +95,28 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.994" />
 
+    <TextView
+        android:id="@+id/notification_bell"
+        android:layout_width="59dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="20dp"
+        android:width="64dp"
+        android:height="64dp"
+        android:text="@string/bell"
+        android:textAlignment="center"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/notification_circle"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        app:cardBackgroundColor="#FF0000"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/notification_bell"
+        app:layout_constraintTop_toTopOf="@+id/notification_bell"
+        android:visibility="invisible"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

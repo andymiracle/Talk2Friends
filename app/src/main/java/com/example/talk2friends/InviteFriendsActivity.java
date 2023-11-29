@@ -2,6 +2,7 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -109,7 +110,9 @@ public class InviteFriendsActivity extends AppCompatActivity {
             }
         });
 
-
+        TextView notifyBell = (TextView) findViewById(R.id.notification_bell);
+        CardView notifyCircle = (CardView) findViewById(R.id.notification_circle);
+        FriendRequestActivity.setNotification(InviteFriendsActivity.this, notifyBell, notifyCircle);
         // The email should contain this link: "http://www.talk2friends.com/signup/" + Singleton.getInstance().getUsername()
     }
 

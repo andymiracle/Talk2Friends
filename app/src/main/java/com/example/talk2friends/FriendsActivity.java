@@ -2,6 +2,7 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -77,7 +78,9 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
 
-
+        TextView notifyBell = (TextView) findViewById(R.id.notification_bell);
+        CardView notifyCircle = (CardView) findViewById(R.id.notification_circle);
+        FriendRequestActivity.setNotification(FriendsActivity.this, notifyBell, notifyCircle);
     }
     public static void friendUser(String friend) {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users").child(Singleton.getInstance().getUsername());

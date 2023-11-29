@@ -2,6 +2,7 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -78,5 +79,9 @@ public class MyCreatedMeetingActivity extends AppCompatActivity {
 
 
         });
+
+        TextView notifyBell = (TextView) findViewById(R.id.notification_bell);
+        CardView notifyCircle = (CardView) findViewById(R.id.notification_circle);
+        FriendRequestActivity.setNotification(MyCreatedMeetingActivity.this, notifyBell, notifyCircle);
     }
 }

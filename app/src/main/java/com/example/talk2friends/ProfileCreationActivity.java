@@ -2,6 +2,7 @@ package com.example.talk2friends;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -102,6 +103,10 @@ public class ProfileCreationActivity extends AppCompatActivity {
 
         TextView v = (TextView) findViewById(R.id.submit); // submit
         v.setOnClickListener(this::onClickSubmit);
+
+        TextView notifyBell = (TextView) findViewById(R.id.notification_bell);
+        CardView notifyCircle = (CardView) findViewById(R.id.notification_circle);
+        FriendRequestActivity.setNotification(ProfileCreationActivity.this, notifyBell, notifyCircle);
     }
 
     public void onClickSubmit(View view){
