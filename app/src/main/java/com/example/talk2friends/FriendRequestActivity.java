@@ -70,21 +70,16 @@ public class FriendRequestActivity extends AppCompatActivity {
 
                 recyclerView.setAdapter(adapter);
 
-
-
                 // userToDisplay maps username to display name
                 // incomingRequests holds all pending incoming friend requests
                 // Display requests (up to 10?)
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 System.out.println(error.getMessage());
             }
-
-
+            
         });
 
         TextView home_button = (TextView) findViewById(R.id.home_button);
