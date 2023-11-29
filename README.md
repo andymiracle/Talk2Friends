@@ -21,5 +21,4 @@ Password: 123456
 If the application has errors while running, such as duplicate resources, go to "Build" and do "Clean project".
 
 Improved capabilities:
-
 For Project 2.5, we implemented a new feature for notifications for friend requests. It involves a notification bell icon that has a red circle appear on it when the current user has incoming friend requests and it stays red when the current user still still has friend requests. Also, clicking on the notification bell icon directs them to the friends request page.
