@@ -22,4 +22,4 @@ If the application has errors while running, such as duplicate resources, go to 
 
 Improved capabilities:
 
-For Project 2.5, we implemented a new feature for notifications for friend requests. It involves a notification bell icon on every page upon login that has a red circle appear next to it when the current user has incoming friend requests and it stays red when the current user still has friend requests. Also, clicking on the notification bell icon directs them to the friends request page.
+For Project 2.5, we implemented a new feature for notifications for friend requests. It involves a notification bell icon on every page upon login that has a red circle appear next to it when the current user has incoming friend requests and it stays red when the current user still has friend requests. Also, clicking on the notification bell icon directs them to the friends request page. When a user has accepted or declined all pending requests, the red circle is no longer visible.
