@@ -28,6 +28,7 @@ import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -411,6 +412,39 @@ public class FriendInstrumentedTest {
 
 
     }
+
+    @Test
+    public void testNotificationIcon() {
+        DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users").child(LoginInstrumentedTest.USERNAME).child("incomingRequests");
+        ref1.removeValue();
+        DatabaseReference ref2 = FirebaseDatabase.getInstance().getReference("users").child(USERNAME2).child("incomingRequests");
+        ref2.removeValue();
+        LoginInstrumentedTest.login();
+
+        onView(withId(R.id.friends)).perform(click());
+        onView(withId(R.id.add_friends)).perform(click());
+
+        onView(withId(R.id.username))
+                .perform(typeText(USERNAME2), closeSoftKeyboard());
+        onView(withId(R.id.request)).perform(click());
+
+        Espresso.pressBack();
+        Espresso.pressBack();
+        Espresso.pressBack();
+
+        onView(withId(R.id.username))
+                .perform(replaceText(USERNAME2), closeSoftKeyboard());
+        onView(withId(R.id.password))
+                .perform(replaceText(PASSWORD2), closeSoftKeyboard());
+
+        onView(withId(R.id.login)).perform(click());
+        onView(withId(R.id.notification_circle)).check(matches(isDisplayed()));
+        onView(withId(R.id.notification_circle)).perform(click());
+        onView(withId(R.id.request)).perform(click());
+
+
+    }
+
 
     public static void rectifyFriendsDatabase() {
         DatabaseReference ref1 = FirebaseDatabase.getInstance().getReference("users").child(LoginInstrumentedTest.USERNAME);
